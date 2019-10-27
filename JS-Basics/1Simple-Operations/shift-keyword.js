@@ -5,5 +5,5 @@ var age = Number(input.shift());
 console.log(name + " " + age);
 }
 
-print(["Misho", 50]);
+print(["Misho", 50]); // Misho 50
 
