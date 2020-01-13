@@ -11,3 +11,7 @@ function solve(firstName, lastName, age){
 }
 
 solve('Ivan', 'Mihailov', 20);
+
+// firstName : Ivan
+// lastName : Mihailov
+// age : 20
