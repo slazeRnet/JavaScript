@@ -13,7 +13,8 @@
         let myBody = document.getElementsByTagName('body')[0];
         let p = document.createElement('p');
         p.textContent = 'Lorem ipsum';
-        myBody.appendChild(p);
+        myBody.appendChild(p); // adds the elemnt on the bottom
+        myBody.prepend(p); // adds the element on the top
     </script>
 </body>
 </html>
