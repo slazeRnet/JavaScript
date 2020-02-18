@@ -1,0 +1,7 @@
+(?=\d+ dollars(?! cents))\d+ \w+
+
+100 dollars //<=== true
+100
+1 dollars// <==== true
+ dollars
+1 cents
