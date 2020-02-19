@@ -1,0 +1,2 @@
+  button.addEventListener('click', clickMeHandler, true); // (default) bubbling event handling
+    button.addEventListener('click', clickMeHandler, false); // capture event handling 
