@@ -1,4 +1,4 @@
-let User = require('../class.js');
+let user = require('./class.js').User;
 let expect = require('chai').expect;
 let should = require('chai').should;
 let assert = require('chai').assert;
@@ -10,10 +10,9 @@ describe("Parser", () => {
 
     })
     describe("constructor", () => {
-        it('should initialise correctly', () =>{
+        it('should initialise correctly', (done) =>{
             let user2 = new User('admin', '123', 'admin@web.com' );
-            assert.equal(JSON.stringify(user2.newPost('topic', 'content')),
-             JSON.stringify({ topic: 'topic', content: 'content' }));
+            assert.equal(user2.newPost('topic', 'content'), {topic:'topic', content:'content'});
         });
     });
 });
