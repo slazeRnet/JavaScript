@@ -83,16 +83,16 @@ class PizzUni {
     }
 }
 module.exports = PizzUni; // This piece of code exports the PizzUni Class, so it could be accessed in other files.
-// let pizza = new PizzUni();
-// console.log(pizza.registerUser('User1'));
-// console.log(pizza.registerUser('User2'));
-// console.log(pizza.makeAnOrder('User1', 'Italian Style', 'Fanta'));
-// console.log(pizza.makeAnOrder('User1', 'Italian Style', 'Fanta'));
-// console.log(pizza.completeOrder());
-// console.log(pizza.doesTheUserExist('User2'));
-// console.log(pizza.doesTheUserExist('User1'));
-// console.log(pizza.doesTheUserExist('Non'));
-// console.log(pizza.detailsAboutMyOrder(0));
-// console.log(pizza.detailsAboutMyOrder(1));
+let pizza = new PizzUni();
+console.log(pizza.registerUser('User1'));
+console.log(pizza.registerUser('User2'));
+console.log(pizza.makeAnOrder('User1', 'Italian Style', 'Fanta'));
+console.log(pizza.makeAnOrder('User1', 'Italian Style', 'Fanta'));
+console.log(pizza.completeOrder());
+console.log(pizza.doesTheUserExist('User2'));
+console.log(pizza.doesTheUserExist('User1'));
+console.log(pizza.doesTheUserExist('Non'));
+console.log(pizza.detailsAboutMyOrder(0));
+console.log(pizza.detailsAboutMyOrder(1));
 
-// console.log(pizza.registeredUsers);
+console.log(pizza.registeredUsers);
