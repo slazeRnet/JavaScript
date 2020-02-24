@@ -56,6 +56,7 @@ module.exports = Parser;
 
 
 let parser = new Parser('[ {"Nancy":"architect"},{"John":"developer"},{"Kate": "HR"} ]');
+console.log( JSON.stringify(parser.data));
 console.log(parser.addEntries("Steven:tech-support Edd:administrator"));
 console.log(parser.data);
 console.log(parser.removeEntry("Kate"));
@@ -64,7 +65,19 @@ console.log("_".repeat(50));
 console.log();
 console.log(parser.print());
 console.log( parser.removeEntry("Nancy"));
-console.log( JSON.stringify(parser.data));
+
+let text = '[{"Nancy":"architect"},{"John":"developer"},{"Kate":"HR"}]';
+let text2 = '[{"Nancy":"architect"},{"John":"developer"},{"Kate":"HR"}]';
+
+let char = text.substr(20, 6);
+let char2 = text2.substr(20, 6);
+console.log(char);
+console.log(char2);
+
+
+console.log(text === text2);
+
+
 
 //let test = new Parser('[ {"Nancy":"architect"},{"John":"developer"},{"Kate": "HR"} ]');
 

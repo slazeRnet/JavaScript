@@ -26,5 +26,7 @@ module.exports = User;
 
 exports.printMail = () => { return this.mail };
 let user2 = new User('admin', '123', 'admin@web.com' );
+let getName = 'Halo';
+exports.getName = getName;
 
-console.log(user2.username);
+//console.log(user2.username);
