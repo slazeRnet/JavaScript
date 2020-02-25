@@ -3,33 +3,38 @@
 //     constructor(firstName, lastName){
 //         this.firstName = new String(firstName);
 //         this.lastName= new String(lastName);
-//         this.fullName = new String(`${this.firstName} ${this.lastName}`);
+//         this.fullName = (fullName) =>{
+//             if(fullName){
+//                 this.firstName = fullName.split(' ')[0];
+//                 this.lastName = fullName.split(' ')[1];
+    
+//             }
+//             return `${this.firstName} ${this.lastName}`;
+//         }
 //     }
 
-//     // set fullName(fullName){
-//     //     this.firstName = this.fullName.split(' ')[0];
-//     //     this.lastName = this.fullName.split(' ')[1];
-//     // }
 // }
 
-let person1 = {
-    firstName: "Peter",
-    lastName: "Ivanov",
-    fullName: function(){
-        return `${this.firstName} ${this.lastName}`;
-    },
+function Person(firstName, lastName){
+    this.firstName = firstName;
+    this.lastName = lastName;
+    Object.defineProperty(this, 'fullName',{
+        set: function(value){
+            this.firstName = value.split(' ')[0];
+            this.lastName = value.split(' ')[1];
+        },
+        get: function(){
+           return `${this.firstName} ${this.lastName}`;
+        }
+    });
 
-    whatIsThis: function(){ return this}
-
+    return{firstName, lastName, fullName};
 }
 
-person1.firstName = "George";
-console.log(person1.fullName());//George Ivanov
-console.log(person1.firstName);//George Ivanov
-console.log(person1.lastName);//George Ivanov
 
-let person = new Person("Peter", "Ivanov");
+let person = Person("Peter", "Ivanov");
 console.log(person.fullName);//Peter Ivanov
+console.log(Object.getOwnPropertyNames(person)); //[ 'firstName', 'lastName', 'fullName' ]
 person.firstName = "George";
 console.log(person.fullName);//George Ivanov
 person.lastName = "Peterson";
