@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forms</title>
+</head>
+<body>
+<form action=""></form>
+<fieldset>
+    <legend>Cusomer Details</legend>
+    <label for="firstName">First Name </label>
+    <input type="text" name="firstName" id="firstName" placeholder="George">
+    <br>
+    <br>
+   <label for="lastName">Last Name</label>
+   <input type="text" name="lastName" id="lastName" placeholder="Devis">
+   <br>
+   <br>
+    <label for="male">Male </label>
+    <input type="radio" name="gender" id="male" value="male">
+    <label for="female">Female </label>
+    <input type="radio" name="gender" id="female" value="female">
+    <label for="other">Other </label>
+    <input type="radio" name="gender" id="other" value="other">
+    <br>
+    <br>
+    <label for="email">E-mail </label>
+    <input type="email" name="email" id="email">
+    <br>
+    <br>
+    <label for="phone">Phone </label>
+    <input type="text" name="phone" id="phone">
+    <br>
+    <br>
+    <label for="town">Town</label>
+    <select name="town" id="town">
+        <option value="Varna">Varna</option>
+        <option value="Plovdiv">Plovdiv</option>
+        <option value="Burgas">Burgas</option>
+        <option value="Sofia">Sofia</option>
+        <option value="Pleven">Pleven</option>
+    </select>
+    <br>
+    <br>
+    <label for="age">Age</label>
+    <input type="number" id="age" name="age" min="18" max="70">
+    <br>
+    <br>
+    <label for="programming-language-input">Programming language</label>
+    <input list="programming-language" name="programming-language-input" id="programming-language-input"/>
+    <datalist id="programming-language" >
+        <option value="Java">
+        <option value="PHP">
+        <option value="C#">
+        <option value="JavaScript">
+        <option value="Python">
+        <option value="Ruby">
+        <option value="Other">
+    </datalist>
+    <br>
+    <br>
+    <textarea name="message" id="message" cols="20" rows="5" placeholder="More information..."></textarea>
+    <br>
+    <br>
+    <input type="checkbox" name="agree" id="agree" value="checked">
+    <label for="agree">I agree the Terms and Conditions</label>
+    <br>
+    <br>
+    <input type="submit" name="submit" id="submit" value="Send">
+</fieldset>
+</body>
+</html>
