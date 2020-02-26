@@ -30,7 +30,10 @@ function solve(){
          }
          else {
             
-            clickedTdElement.style.backgroundColor = '';
+            if(clickedTdElement){
+               clickedTdElement.style.backgroundColor = '';
+
+            }
             e.target.parentElement.style.backgroundColor  = '#413f5e';
             
             clickedTdElement =  e.target.parentElement;
