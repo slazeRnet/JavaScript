@@ -9,7 +9,7 @@ function getFibonator( ){
         return fib(num - 2) + fib(num - 1);
     }
 
-    let counter = 0;
+    let counter = -1;
     return function inner(){
 
         counter++;
