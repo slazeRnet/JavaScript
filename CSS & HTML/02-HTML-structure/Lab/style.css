@@ -1,0 +1,22 @@
+body{
+    font-size: 18px;
+    padding: 50px 100px;
+    line-height: 1.5;
+    font-family: "PT Sans", Arial, Helvetica, sans-serif;
+}
+
+#font1{
+    font-family: sans-serif;
+}
+
+#font2{
+    font-family: monospace;
+}
+
+#font3{
+    font-family: cursive;
+}
+
+#font4{
+    font-family: fantasy;
+}

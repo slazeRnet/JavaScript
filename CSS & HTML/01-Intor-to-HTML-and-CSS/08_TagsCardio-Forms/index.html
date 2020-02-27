@@ -6,15 +6,15 @@
     <title>Forms</title>
 </head>
 <body>
-<form action=""></form>
+<form method="GET">
 <fieldset>
     <legend>Cusomer Details</legend>
     <label for="firstName">First Name </label>
-    <input type="text" name="firstName" id="firstName" placeholder="George">
+    <input type="text" name="firstName" id="firstName" placeholder="George" autofocus tabindex="1">
     <br>
     <br>
    <label for="lastName">Last Name</label>
-   <input type="text" name="lastName" id="lastName" placeholder="Devis">
+   <input type="text" name="lastName" id="lastName" placeholder="Devis" tabindex="2">
    <br>
    <br>
     <label for="male">Male </label>
@@ -63,11 +63,12 @@
     <textarea name="message" id="message" cols="20" rows="5" placeholder="More information..."></textarea>
     <br>
     <br>
-    <input type="checkbox" name="agree" id="agree" value="checked">
+    <input type="checkbox" name="agree" id="agree" value="checked" tabindex="3">
     <label for="agree">I agree the Terms and Conditions</label>
     <br>
     <br>
     <input type="submit" name="submit" id="submit" value="Send">
 </fieldset>
+</form>
 </body>
 </html>
