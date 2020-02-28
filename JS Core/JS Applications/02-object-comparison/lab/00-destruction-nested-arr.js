@@ -27,8 +27,8 @@ console.log(div); //0.8333333333333334
 
 
 //OBJECT DESTRUCTION EXAMPLE 2 FUNCTIN THAT ACCEPTS OBJ AS PARAM
-let sampleFunc = ({name}) => {
-    console.log(name);
+let sampleFunc = ({name, mail}) => {
+    console.log(name, mail);
     
 };
 
@@ -38,7 +38,7 @@ let sampleObj = {
     date: '01-01-2020'
 }
 
-sampleFunc(sampleObj); // Foo
+sampleFunc(sampleObj); // Foo a@a.com
 // DEFENING OUR OWN VAR FOR OBJECT DESTRUCTION
 
 let sampleObj1 = {
