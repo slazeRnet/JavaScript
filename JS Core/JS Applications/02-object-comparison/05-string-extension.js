@@ -12,16 +12,21 @@ function solve(){
                     newString = this;
 
                     doesItStartWith = false;
-
-                    return newString;
+                    break;
                 }
             }
 
-            if(doesItStartWith){
-                newString = this.splice(0, 0, str);
+            if(!doesItStartWith){
+                //newString = 
+                tempString = Array.from(this).join('');
+                
+                newString = str.concat(tempString);
             }
 
             return newString;
+        },
+        ensureEnd: function(str){
+            
         },
         isEmpty: function(){
             if(this.length < 1){
