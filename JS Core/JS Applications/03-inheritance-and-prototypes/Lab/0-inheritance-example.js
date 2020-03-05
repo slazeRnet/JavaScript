@@ -40,3 +40,28 @@ let myCar = new Car(4, 'C 9012', 'red');
 let isProtoReferingToPrototype = (myCar.__proto__ === Car.prototype);
 
 console.log(isProtoReferingToPrototype); // true
+
+// OVERRIDING METHODS FROM THE PROTOTYPE
+console.log('__________________');
+
+let anotherCar = new Car(4, 'C 9012', 'red');
+
+myCar.startEngine = () =>{
+    return 'i just hacked this method from the instance';
+}
+console.log(myCar.startEngine()); //i just hacked this method from the instance
+
+console.log(anotherCar.startEngine()); //starting the engine...
+
+Car.prototype.startEngine = () =>{
+    return 'i just hacked this method from the prototype';
+}
+console.log(myCar.startEngine()); //i just hacked this method from the instance
+
+console.log(anotherCar.startEngine()); //i just hacked this method from the prototype
+
+console.log(myCar.__proto__.startEngine()); //i just hacked this method from the prototype
+
+
+
+
