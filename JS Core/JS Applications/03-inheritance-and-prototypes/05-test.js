@@ -5,22 +5,7 @@ let Console = require('./05-c-sharp-console.js');
 
 describe('Console', function(){
 let text1 = ['Hello {0}, the date is {1}, {2}', 'Admin', '01/01/1990', '20:30'];
-let sample1;
-beforeEach(() =>{
-//sample1
-});
 
-    it('placeholder testing', function(){
-
-        let result = JSON.stringify([ '{0}', '{1}', '{2}' ]);
-        let actual = JSON.stringify(text1[0].match(Console.placeholder).sort(function (a, b) {
-            a = Number(a.substring(1, a.length - 1));
-            b = Number(b.substring(1, b.length - 1));
-            return a - b;
-          }));
-        assert.deepEqual(actual, result, 'Incorect match');
-
-    });
     it('simple string tesing', function(){
 
         let result = '1234567890';
@@ -90,6 +75,16 @@ beforeEach(() =>{
             let param1 = 'string';
             assert.throws(() => {
                 Console.writeLine(text, param1, param1, param1);
+            }, message);
+
+        });
+        it('throw and error when there are 2 args but no placeholder', function() {
+
+            let message = `Cannot read property 'sort' of null`;
+            let text =  'Hello';
+            let param1 = 'string';
+            assert.throws(() => {
+                Console.writeLine(text, param1);
             }, message);
 
         });
