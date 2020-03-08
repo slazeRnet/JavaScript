@@ -36,10 +36,6 @@ function solve(){
              this.textProp = text;
         }
 
-        // set text(text){
-        //     this.textProp = text;
-        // }
-
         get text(){
             return this.textProp;
         }
