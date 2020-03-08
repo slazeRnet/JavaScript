@@ -1,4 +1,3 @@
-function solve(){
 
     class Console {
 
@@ -46,7 +45,13 @@ function solve(){
           }
         }
       };
-      
-}
+    
 
-module.exports = solve();
+
+module.exports = Console;
+
+let text1 = ['Hello {0}, the date is {1}, {2}', 'Admin', '01/01/1990', '20:30'];
+
+let result1 = text1[0].match(Console.placeholder);
+
+console.log(result1);
