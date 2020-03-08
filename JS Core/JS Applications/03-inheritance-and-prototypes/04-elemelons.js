@@ -10,26 +10,27 @@ function solve() {
 
             this.weight = weight;
             this.melonSort = melonSort;
+            this.element;
         }
 
         toString() {
-            let element;
-            switch (this.constructor.name) {
-                case 'Watermelon':
-                    element = 'Water';
-                    break;
-                case 'Firemelon':
-                    element = 'Fire';
-                    break;
-                case 'Earthmelon':
-                    element = 'Earth';
-                    break;
-                case 'Airmelon':
-                    element = 'Air';
-                    break;
-            }
+            //let element;
+            // switch (this.constructor.name) {
+            //     case 'Watermelon':
+            //         element = 'Water';
+            //         break;
+            //     case 'Firemelon':
+            //         element = 'Fire';
+            //         break;
+            //     case 'Earthmelon':
+            //         element = 'Earth';
+            //         break;
+            //     case 'Airmelon':
+            //         element = 'Air';
+            //         break;
+            // }
 
-            let output = `Element: ${element}\n`;
+            let output = `Element: ${this.element}\n`;
             output += `Sort: ${this.melonSort}\n`;
             output += `Element Index: ${this.elementIndex}`;
 
@@ -49,6 +50,7 @@ function solve() {
         constructor(weight, melonSort) {
 
             super(weight, melonSort);
+            this.element = 'Water';
         }
 
     }
@@ -58,6 +60,8 @@ function solve() {
         constructor(weight, melonSort) {
 
             super(weight, melonSort);
+            this.element = 'Fire';
+
         }
 
     }
@@ -67,6 +71,8 @@ function solve() {
         constructor(weight, melonSort) {
 
             super(weight, melonSort);
+            this.element = 'Earth';
+
         }
     }
 
@@ -75,6 +81,8 @@ function solve() {
         constructor(weight, melonSort) {
 
             super(weight, melonSort);
+            this.element = 'Air';
+
         }
 
 
@@ -85,27 +93,24 @@ function solve() {
         constructor(weight, melonSort) {
 
             super(weight, melonSort);
+            this.element = 'Water';
         }
 
         morph() {
-            let constructor = this.constructor.name;
-            Object.setPrototypeOf(Melolemonmelon.prototype, Firemelon);
-
-            console.log(constructor);
-            console.log(this);
+            let constructor = this.element;
             
             switch (constructor) {
-                case 'Watermelon':
-                    this.constructor = Firemelon;
+                case 'Water':
+                    this.element = 'Fire';
                     break;
-                case 'Firemelon':
-                    this.constructor = Earthmelon;
+                case 'Fire':
+                    this.element = 'Earth';
                     break;
-                case 'Earthmelon':
-                    this.constructor = Airmelon;
+                case 'Earth':
+                    this.element = 'Air';
                     break;
-                case 'Airmelon':
-                    this.constructor = Watermelon;
+                case 'Air':
+                    this.element =' Water';
                     break;
             }
 
@@ -123,12 +128,11 @@ console.log(waterMelon.toString());
 
 let melolemonmelon = new result.Melolemonmelon(60, 'Melonsomething');
 
-console.log(result.Melolemonmelon.prototype);
-console.log(result.Melolemonmelon.__proto__);
-console.log(melolemonmelon.prototype);
-console.log(melolemonmelon.__proto__);
+console.log(melolemonmelon.element);
+
 melolemonmelon.morph()
 
+console.log(melolemonmelon.element);
 // console.log(melolemonmelon.constructor.name);
 
 // melolemonmelon.morph();
