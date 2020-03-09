@@ -14,6 +14,8 @@ function getInfo() {
                 stopName = 'Error';
             }
 
+            console.log(response.json());
+            
             response.json().then(function (data) {
                 console.log(data); // logs 10 objects of users on the console
 
