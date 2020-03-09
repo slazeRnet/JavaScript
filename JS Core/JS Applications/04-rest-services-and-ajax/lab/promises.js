@@ -6,7 +6,6 @@ let posts = [
 
 function getPosts(){
 
-    setTimeout(() =>{
 
         let output = '';
 
@@ -16,14 +15,12 @@ function getPosts(){
         });
 
         document.body.innerHTML = output;
-    }, 1000);
 };
 
 function createPost(post){
 
     return new Promise((resolve, reject) => {
-        setTimeout(() =>{
-
+        
             posts.push(post);
             
             const error = false;
@@ -34,7 +31,6 @@ function createPost(post){
             else{
                 reject('Error: something went wrong!');
             }
-        }, 1000);
     });
     
 };
@@ -52,12 +48,12 @@ createPost(post1)
 
 let promise1 = Promise.resolve('Hello world!');
 let promise2 = 10;
-let promise3 = new Promise((resolve, reject) =>
-setTimeout(resolve, 2000, 'Goodbye')
-);
+// let promise3 = new Promise((resolve, reject) =>
+// setTimeout(resolve, 2000, 'Goodbye')
+// );
 let promise4 = fetch('https://jsonplaceholder.typicode.com/users').then(user => user.json());
 
-Promise.all([promise1, promise2, promise3, promise4]).then(values => console.log(values));
+Promise.all([promise1, promise2, promise4]).then(values => console.log(values));
 
 // async await
 
@@ -68,9 +64,6 @@ async function init(){ //  to use await we ne to declare the function with async
     getPosts(); // after the resolution of createPost we run getPosts()
 }
 
-init();
-
-// Async/ await/ fetch/
 
 async function getUsers(){
 
@@ -78,11 +71,13 @@ async function getUsers(){
 
     const users = await dataRaw.json();
     
-    jQuery.each(users, function(id, username, email) {
-        document.body.innerHTML += $("#" + id).append(document.createTextNode(" - " + username));
+    jQuery.each(users, function(id, user) {
+        document.body.innerHTML += `# ${user.id} |    ${user.username}    |    ${user.email}   |    phone: ${user.phone}<br />`;
       });
     //`<p>${JSON.stringify(users)}<p>`;
     
 }
 
-setTimeout(getUsers , 2000);
+
+getUsers();
+
