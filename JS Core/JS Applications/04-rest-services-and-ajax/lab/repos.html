@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>List Github Repos</title>
+</head>
+<body>
+
+    <button id="load-repos">Load Repos</button>
+    <div id="res"></div>
+
+    <script>
+        console.log('script is working');
+        
+            let button = document.querySelector('#load-repos');
+
+            button.addEventListener('click', () => {
+                console.log('button click');
+                
+                let url = 'https://api.github.com/users/testnakov/repos';
+
+                const httpRequest = new XMLHttpRequest();
+
+                httpRequest.addEventListener('readystatechange', () => {
+                    if(httpRequest.readyState == 4 && httpRequest.status == 200){
+                        document.getElementById('res').textContent =httpRequest.responseText;
+                    };
+                });
+
+                httpRequest.open("GET", url);
+                httpRequest.send();
+            });
+
+
+    </script>
+</body>
+</html>
