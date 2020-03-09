@@ -52,13 +52,13 @@ function result(){
         }
 
         get battery(){
-            return this.battery;
+            return this._battery;
         }
 
-        set battery(battery){
+        set battery(_battery){
 
-            if(typeof(battery) === Battery){
-                this.battery = battery;
+            if(_battery.constructor.name === 'Battery'){
+                this._battery = _battery;
             }
             else{
                 throw new TypeError;
@@ -77,13 +77,13 @@ function result(){
         }
 
         get keyboard(){
-            return this.keyboard;
+            return this._keyboard;
         }
 
-        set keyboard(keyboard){
+        set keyboard(_keyboard){
 
-            if(typeof(keyboard) === Keyboard){
-                this.keyboard = keyboard;
+            if(_keyboard.constructor.name === 'Keyboard'){
+                this._keyboard = _keyboard;
             }
             else{
                 throw new TypeError;
@@ -91,13 +91,13 @@ function result(){
         }
 
         get monitor(){
-            return this.monitor;
+            return this._monitor;
         }
 
-        set monitor(monitor){
+        set monitor(_monitor){
 
-            if(typeof(monitor) === Monitor){
-                this.monitor = monitor;
+            if(_monitor.constructor.name === 'Monitor'){
+                this._monitor = _monitor;
             }
             else{
                 throw new TypeError;
@@ -108,25 +108,45 @@ function result(){
     return {Keyboard, Monitor, Battery, Computer, Laptop, Desktop};
 }
 
-let classes = result();
-let Computer = classes.Computer;
-let Laptop = classes.Laptop;
-let Desktop = classes.Desktop;
-let Monitor = classes.Monitor;
-let Battery = classes.Battery;
-let Keyboard = classes.Keyboard;
+module.exports = result();
+// let classes = result();
+// let Computer = classes.Computer;
+// let Laptop = classes.Laptop;
+// let Desktop = classes.Desktop;
+// let Monitor = classes.Monitor;
+// let Battery = classes.Battery;
+// let Keyboard = classes.Keyboard;
 
-let keyboard = new Keyboard('Logitech',70);
-let monitor = new Monitor('Benq',28,18);
+// let keyboard = new Keyboard('Logitech',70);
+// let monitor = new Monitor('Benq',28,18);
 
-let laptop1 =  new Laptop("Hewlett Packard",2.4,4,0.5,3.12,"Silver","pesho");
-let desktop1 = new Desktop("JAR Computers",3.3,8,1,1,monitor);
-let desktop2 = new Desktop("JAR Computers",3.3,8,1,keyboard,"monitor");
+// //let laptop1 =  new Laptop("Hewlett Packard",2.4,4,0.5,3.12,"Silver","pesho");
+// let desktop1 = new Desktop("JAR Computers",3.3,8,1,1,monitor);
+// let desktop2 = new Desktop("JAR Computers",3.3,8,1,keyboard,"monitor");
 
-console.log(keyboard);
-console.log(monitor);
-console.log('-----------------------');
-console.log(laptop1);
-console.log(desktop1);
-console.log(desktop2);
+// console.log(keyboard);
+// console.log(monitor);
+// console.log('-----------------------');
+// console.log(laptop1);
+// console.log(desktop1);
+// console.log(desktop2);
+//laptop1.battery = 'error'; 
+
+// let classes = result();
+// let Computer = classes.Computer;
+// let Laptop = classes.Laptop;
+// let Desktop = classes.Desktop;
+// let Monitor = classes.Monitor;
+// let Battery = classes.Battery;
+// let Keyboard = classes.Keyboard;
+
+// let battery = new Battery('Energy',3);
+// let laptop = new Laptop("Hewlett Packard",2.4,4,0.5,3.12,"Silver",battery);
+// console.log(laptop.manufacturer)//.to.equal("Hewlett Packard",'Expected manufacturer did not match.');
+// console.log(laptop.processorSpeed)//.to.be.closeTo(2.4,0.01,'Expected processor speed did not match.');
+// console.log(laptop.ram)//.to.equal(4,'Expected RAM did not match.');
+// console.log(laptop.hardDiskSpace)//.to.be.closeTo(0.5,0.05,'Expected hard disk space did not match.');
+// console.log(laptop.weight)//.to.be.closeTo(3.12,0.01,'Expected weight did not match.');
+// console.log(laptop.color)//.to.equal('Silver','Expected color did not match.');
+// console.log(laptop.battery)//.to.equal(battery,'Expected battery did not match.');
 
