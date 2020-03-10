@@ -1,1 +1,3 @@
-The method elem.closest(selector) returns the nearest ancestor that matches the selector. 
+1. The method elem.closest(selector) returns the nearest ancestor that matches the selector. 
+
+2.  attribute data-action

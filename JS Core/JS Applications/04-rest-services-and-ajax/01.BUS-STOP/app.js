@@ -1,26 +1,14 @@
+import fetch from "node-fetch";
+
 function getInfo() {
     let button = document.getElementById('submit');
-    let inputField = document.getElementById('stopId');
-
+    let stopInputValue = document.querySelector('#stopId');
+ 
+    fetch('http://localhost:3000/busInfo')
     button.addEventListener('click', () => {
 
-        let id = inputField.value;
-
-        fetch(`./businfo/${id}`).then(function (response) {
-
-            let stopName;
-
-            if (response.status !== 200) {
-                stopName = 'Error';
-            }
-
-            console.log(response.json());
-            
-            response.json().then(function (data) {
-                console.log(data); // logs 10 objects of users on the console
-
-            });
-        });
+        console.log(busStops);
+        
     });
 
 
