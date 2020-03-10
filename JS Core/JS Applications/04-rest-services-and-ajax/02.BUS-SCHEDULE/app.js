@@ -1,45 +1,96 @@
 function solve() {
-    let connectionRef = document.querySelector('.info');
-    let departActionRef = document.querySelector('#depart');
-    let arriveActionRef = document.querySelector('#arrive');
+    let connectionBox = document.querySelector('#info');
+    let departButton = document.querySelector('#depart');
+    let arriveButton = document.querySelector('#arrive');
 
+    departButton.addEventListener('click', (e) => {
+        e.preventDefault();
+        console.log(e);
+        
+        depart();
+    } );
 
-    function getSheduleById(id){
-        let requestedId = id;
+    arriveButton.addEvenListener('click', (e) => {
+        e.preventDefault();
+        console.log(e);
+        
+        arrive();
+    });
 
-        if(!id){
-            requestedId = 'depot'
-        }
+    function arrive(){
 
-
-        return fetch(`https://softuni1.firebaseio.com/businfo/schedule/${requestedId}.json`)
-    }
-    function depart() {
-
-        if(connectionRef.innerHTML === 'Not connected'){
-            connectionRef.innerHTML = 'Next stop depot';
-            requestedId = 'depot'
-
-            departActionRef.attributes.disabled = true;
-            arriveActionRef.attributes.disabled = false;
-            return;
-        }
-
-
-        getSheduleById()
-        .then(x => x.json())
-        .then(x => console.log(x + 'firebase'))
-        console.log('Depart TODO...');
     }
 
-    function arrive() {
-        console.log('Arrive TODO...');
-    }
+    function depart(){
 
-    return {
-        depart,
-        arrive
-    };
+
+    }
 }
 
-let result = solve();
+var result = solve();
+
+// // let currentStopId = 'depot';
+//     // let currentStopName = '';
+//     // let extStop = '';
+
+//     // function setStateToTraveling(){
+//     //     departButton.attributes.disabled = true;
+//     //     arriveButton.attributes.disabled = false;
+//     // }
+//     // function setStateToIdle(){
+//     //     departButton.attributes.disabled = false;
+//     //     arriveButton.attributes.disabled = true;
+//     // }
+    
+//     function getSheduleById(id){
+//         let requestedId = id;
+
+//         if(!id){
+//             requestedId = 'depot'
+//         }
+
+
+//         return fetch(`https://softuni1.firebaseio.com/businfo/schedule/${requestedId}.json`)
+//     }
+
+//     // function setNextStop(stopName){
+//     //     connectionRef.innerHTML = `Next Stop ${stopName}`;
+//     // }
+
+//     // function setArriving(stopName){
+//     //     connectionRef.innerHTML = `Arriving ${stopName}`;
+//     // }
+
+
+//     function depart() {
+        
+//         getSheduleById()
+//         .then(x => x.json())
+//         .then(x =>
+//             {
+//                 console.log(x);
+                
+//                 nextStop = x.next;
+//                 setNextStop(x.name);
+//                 setNextStop(x.name);
+//             });
+
+
+//             setStateToTraveling();
+//     }
+
+//     function arrive() {
+
+//         console.log('depart');
+        
+//         // currentStopId = nextStop;
+//         // setArriving(currentStopName);
+
+//         // setStateToIdle();
+//     }
+
+//     return {
+//         depart,
+//         arrive
+//     };
+
