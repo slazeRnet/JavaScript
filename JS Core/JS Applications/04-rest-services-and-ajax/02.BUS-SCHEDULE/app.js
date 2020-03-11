@@ -3,31 +3,88 @@ function solve() {
     let departButton = document.querySelector('#depart');
     let arriveButton = document.querySelector('#arrive');
 
-    departButton.addEventListener('click', (e) => {
-        e.preventDefault();
-        console.log(e);
-        
-        depart();
-    } );
+    let currentElemetId = 'depot';
+    let currentStopName = '';
+    let nextStop;
 
-    arriveButton.addEvenListener('click', (e) => {
-        e.preventDefault();
-        console.log(e);
-        
-        arrive();
-    });
+    function getSheduleById(id) {
+        let requestedId = id;
 
-    function arrive(){
+        if (!id) {
+            requestedId = 'depot'
+        }
 
+
+        return fetch(`https://softuni1.firebaseio.com/schedule/${requestedId}.json`);
     }
 
-    function depart(){
+    function arrevingStopNext(id){
+        let requestedId = id;
 
+        fetch(`https://softuni1.firebaseio.com/schedule/${requestedId}.json`)
+        .then(x => x.json())
+        .then(x => {
 
+           return x;
+        });
     }
+
+    function setNextStop(stopName) {
+
+        connectionBox.innerHTML = `Next Stop ${stopName}`;
+        nextStop = stopName;
+    }
+
+    function setArriveButtonToActive(){
+        departButton.setAttribute('disabled', 'true');
+        arriveButton.removeAttribute('disabled');
+        //arriveButton.attributes.disabled = false;
+        console.log(arriveButton.attributes.disabled);
+        
+    }
+
+    function setDepartButtonToActive(){
+        departButton.removeAttribute('disabled');
+
+        arriveButton.setAttribute('disabled', 'true');
+    }
+
+    function setArriving(stopName) {
+        connectionBox.innerHTML = `Arriving ${stopName}`;
+    }
+
+    function depart() {
+        setArriveButtonToActive();
+
+        getSheduleById(nextStop)
+        .then(x => x.json())
+        .then(x => {
+            
+            setNextStop(x.next)
+        })
+
+    
+    }
+
+function arrive() {
+   
+    setDepartButtonToActive();
+    let stopOfArrival = arrevingStopNext(nextStop);
+    console.log(stopOfArrival);
+    
+    setNextStop(stopOfArrival.name);
+
 }
 
-var result = solve();
+
+return {
+    arrive,
+    depart
+}
+
+}
+
+let result = solve();
 
 // // let currentStopId = 'depot';
 //     // let currentStopName = '';
@@ -41,7 +98,7 @@ var result = solve();
 //     //     departButton.attributes.disabled = false;
 //     //     arriveButton.attributes.disabled = true;
 //     // }
-    
+
 //     function getSheduleById(id){
 //         let requestedId = id;
 
@@ -63,15 +120,14 @@ var result = solve();
 
 
 //     function depart() {
-        
+
 //         getSheduleById()
 //         .then(x => x.json())
 //         .then(x =>
 //             {
 //                 console.log(x);
-                
+
 //                 nextStop = x.next;
-//                 setNextStop(x.name);
 //                 setNextStop(x.name);
 //             });
 
@@ -82,7 +138,7 @@ var result = solve();
 //     function arrive() {
 
 //         console.log('depart');
-        
+
 //         // currentStopId = nextStop;
 //         // setArriving(currentStopName);
 
