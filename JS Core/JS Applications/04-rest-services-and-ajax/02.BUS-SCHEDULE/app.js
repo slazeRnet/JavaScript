@@ -4,11 +4,22 @@ function solve() {
     let arriveButton = document.querySelector('#arrive');
 
     let currentStop = 'depot';
-    let nextStopName;
+    let nextStopId;
 
-    function setNextStop(stopName) {
+    function getSheduleById(id) {
+        let requestedId = id;
 
-        nextStopName = stopName;
+        if (!id) {
+            requestedId = 'depot'
+        }
+
+
+        return fetch(`https://softuni1.firebaseio.com/schedule/${requestedId}.json`);
+    }
+    
+    function setCurrentStop(stopName) {
+
+        currentStop = stopName;
     }
 
     function arrevingStopNext(id) {
@@ -16,7 +27,7 @@ function solve() {
 
         fetch(`https://softuni1.firebaseio.com/schedule/${requestedId}.json`)
             .then(x => x.json())
-            .then(x => currentStop = x);
+            .then(x => currentStop = x.name);
 
     }
 
@@ -30,16 +41,6 @@ function solve() {
         connectionBox.innerHTML = `Arriving ${stopName}`;
     }
 
-    function getSheduleById(id) {
-        let requestedId = id;
-
-        if (!id) {
-            requestedId = 'depot'
-        }
-
-
-        return fetch(`https://softuni1.firebaseio.com/schedule/${requestedId}.json`);
-    }
 
   
 
@@ -48,12 +49,12 @@ function solve() {
 
     function depart() {
         setArriveButtonToActive();
-
+        
         getSheduleById(currentStop)
             .then(x => x.json())
             .then(x => {
 
-                setNextStop(x.next);
+                setCurrentStop(x.next);
                 arrevingStopNext(x.next);
             })
             displayNextStop(currentStop)
@@ -64,8 +65,8 @@ function solve() {
     function arrive() {
 
         setDepartButtonToActive();
-        arrevingStopNext(nextStop);
-        console.log(stopOfArrival);
+        arrevingStopNext(currentStop);
+        console.log(currentStop);
 
         setNextStop(stopOfArrival.name);
 
