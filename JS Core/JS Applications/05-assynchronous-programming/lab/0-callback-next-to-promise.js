@@ -1,9 +1,7 @@
 let userLeft = false;
 let userUnsubscribed = true;
 
-let errorCallback = (input) => {return input};
-let callback = (input) => {return input};
-
+//this code could be much readeble if it was implemented with promise
 function isUserInterested(callback, errorCallback){
 
     if(userLeft){
