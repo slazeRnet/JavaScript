@@ -1,4 +1,6 @@
 function display(stopName, status){
+
+    let connectionBox = document.querySelector('#info');
         
     if(status === 'depart'){
 
@@ -6,7 +8,7 @@ function display(stopName, status){
 
     }else{
 
-        connectionBox.innerHTML = `Arriving ${stopName}`;
+        connectionBox.innerHTML = `Arriving at ${stopName}`;
 
     }
 
@@ -27,63 +29,76 @@ class Button{
     }
 }
 
-class BusDataBase{
+class BusShedule{
 
-    static sayHello(){
+    static async depart(requestedStopId){
 
-        console.log('hello');
+        let url = `https://softuni1.firebaseio.com/schedule/${requestedStopId}.json`;
+        let next;
+        await fetch(url)
+        .then(x => x.json())
+        .then(x => {
+
+            console.log(`depart x = ${JSON.stringify(x)}`);
+            console.log(`at url : ${url}`);
+            
+            display(x.name, 'depart');
+           next = x.next;
+        })
         
+        //return next;
+    }
+
+    static async arrive(requestedStopId){
+
+        let url = `https://softuni1.firebaseio.com/schedule/${requestedStopId}.json`;
+        var next;
+        await fetch(url)
+        .then(x => x.json())
+        .then(x => {
+
+            console.log(`arrive x = ${JSON.stringify(x)}`);
+            console.log(`at url : ${url}`);
+
+            display(x.name, 'arrive');
+            next = x.next;
+        });
+        
+        console.log(`next : ${next}`);
+       console.log(next);
+        
+        return next;
     }
 }
 
 function solve() {
 
-    let connectionBox = document.querySelector('#info');
     let departButton = new Button('depart');
     let arriveButton =  new Button('arrive');
 
     let currentStop = 'depot';
-    let nextStopId;
 
-    function getSheduleById(id) {
-        let requestedId = id;
-
-        if (!id) {
-            requestedId = 'depot'
-        }
-
-
-        return fetch(`https://softuni1.firebaseio.com/schedule/${requestedId}.json`);
-    }
-    
-    function setCurrentStop(stopName) {
-
-        currentStop = stopName;
-    }
-
-    function arrevingStopNext(id) {
-        let requestedId = id;
-
-        fetch(`https://softuni1.firebaseio.com/schedule/${requestedId}.json`)
-            .then(x => x.json())
-            .then(x => currentStop = x.name);
-
-    }
-
-
-
-
-    function depart() {
+    async function depart() {
         
         departButton.disable();
         arriveButton.activate();
         
+        await BusShedule.depart(currentStop);
     }   
 
-    function arrive() {
+    async function arrive() {
 
         arriveButton.disable();
         departButton.activate();
+
+        currentStop = await BusShedule.arrive(currentStop)
+        .then(x => {
+            console.log(`String(x) = ${String(x)}`);
+            
+            return String(x)
+        });
+        await console.log(`BusShedule.arrive(currentStop) = ${currentStop}`);
+        
     }
 
     return {
