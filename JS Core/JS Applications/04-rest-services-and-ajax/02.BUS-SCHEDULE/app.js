@@ -1,3 +1,4 @@
+//prints information about the next/ arreving stop
 function display(stopName, status){
 
     let connectionBox = document.querySelector('#info');
@@ -14,6 +15,7 @@ function display(stopName, status){
 
 }
 
+// Depart/ Arrive buttons are instanciated trough this class
 class Button{
 
     constructor(elementId){
@@ -28,25 +30,19 @@ class Button{
            this._button.setAttribute('disabled', 'true');
     }
 }
-
+// API requests are done trough here
 class BusShedule{
 
     static async depart(requestedStopId){
 
         let url = `https://softuni1.firebaseio.com/schedule/${requestedStopId}.json`;
-        let next;
+
         await fetch(url)
         .then(x => x.json())
         .then(x => {
 
-            console.log(`depart x = ${JSON.stringify(x)}`);
-            console.log(`at url : ${url}`);
-            
             display(x.name, 'depart');
-           next = x.next;
         })
-        
-        //return next;
     }
 
     static async arrive(requestedStopId){
@@ -72,12 +68,13 @@ class BusShedule{
 }
 
 function solve() {
-
+    //button instantiation
     let departButton = new Button('depart');
     let arriveButton =  new Button('arrive');
 
+    //the first stop is 'depot'
     let currentStop = 'depot';
-
+    
     async function depart() {
         
         departButton.disable();

@@ -1,95 +1,42 @@
-function attachEvents() {
-    let loadBtnRef = document.querySelector('#btnLoad');
-    let phoneBookRef = document.querySelector('#phonebook');
+//list all phonebooks from the database
+async function listAllPhones(){
+    //phonebooks databse
+    let url = `https://phonebook-38dba.firebaseio.com/phonebook.json`;   
+    let phones = [];
 
-    let newPersonValue = document.querySelector('#person');
-    let phone = document.querySelector('#phone');
-
-    let createButtonRef = document.querySelector('#btnCreate')
-
-    let nextElementId;
-
-    function getAllPhones(){
-
-        return fetch('https://softuni1.firebaseio.com/phonebook.json')
-        .then(x => x.json())
-        .then(res => {
-            let usersToBeListed = res.filter(x => !!x)
+    await fetch(url)
+    .then(p => p.json())
+    .then(p => {
+       
+        for (const phone of Object.entries(p)) {
+            let arr = Object.entries(phone);
+            console.log(arr);
             
-           return Object.entries(x);
-            
-        })
-    }
-
-    loadBtnRef.addEventListener('click', () => {
-
-        loadPhoneBook();
-    })
-
-    createButtonRef.addEventListener('click', () =>{
-
-        let newPerson = {
-                person: newPersonValue.nodeValue,
-                phone: newPhoneValue.nodeValue
+            let {index[0][1], obj[1][1]} = arr; 
+            phones.push({index, obj});
         }
+    }).catch(err => {
+        console.error('----' + err);
+        
+    });
 
-        getAllPhones()
-        .then(currentPhoneSelection => {
-
-            let lastId = currentPhoneCollection[currentPhoneCollection.length - 1]; // <== FIX
-
-            fetch(`https://softuni1.firebaseio.com/phonebook/${nextElementId}.json`, {
-                method: 'PUT',
-                body: JSON.stringify(newPerson)
-            })
-            .then(() => {
-                
-                throw 'Whatever';
-                newPersonValue.innerHTML = '';
-                newPersonValue.innerHTML = '';
-
-                loadPhoneBook();
-            }).catch(err =>{
-                console.log(err);
-                
-            })
-        })
-    })
+   console.log(phones);
+   
     
+}
 
-    function loadPhoneBook() {
-        fetch('https://softuni1.firebaseio.com/phonebook.json')
-            .then(x => x.json())
-            .then(res => {
+function attachEvents() {
+    //buttons Create and Load
+    let loadButton = document.querySelector('#btnLoad');
+    let createButton = document.querySelector('#btnCreate')
+    //phonebook List
+    let phonebookList = document.querySelector('#phonebook');
+    // person and phone values
+    let personValue = document.querySelector('#person').value;
+    let phoneValue = document.querySelector('#phone').value;
 
-                let usersToBeListed = res.filter(x => !!x);
-                nextElementId = usersToBeFisplayed.length + 1;
-                usersToBeFisplayed.forEach(user => {
-
-                    if(!user){
-                        return;
-                    }
-
-                    let tempLi = document.createElement('li');
-
-                    let deleteButton = document.createElement('button');
-
-                    deleteButton.textContent = 'DELETE';
-
-                    tempLi.addEventListener('click', () =>{
-                        fetch(`https://softuni1.firebaseio.com/phonebook/${id}`, {
-                            method: 'DELETE'
-                        })
-                    });
-
-                    tempLi.appendChild(deleteButton);
-
-                    tempLi.innerHTML = `${user.person} ${user.phone}`;
-                    phoneBookRef.appendChild(tempLi);
-                });
-                console.log(res);
-            });
-    }
+    loadButton.addEventListener('click', listAllPhones);
+   
 }   
 
 attachEvents();
