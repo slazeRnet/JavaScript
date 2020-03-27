@@ -48,8 +48,6 @@ async function postMessage(author, content) {
         },
         'body': JSON.stringify({ author, content })
     }).then(responce => {
-        console.log(responce);
-        
         return responce;
     });
 
