@@ -7,11 +7,13 @@ async function listAllPhones() {
     phonebookList.innerHTML = '';
     //phonebooks databse
     let url = `https://phonebook-38dba.firebaseio.com/phonebook.json`;
+    //let url = `https://messanger-10944.firebaseio.com/messenger.json`;
     let phones = [];
 
     await fetch(url)
         .then(p => p.json())
         .then(p => {
+            
             // ip the phonebook db has more than 0 entries iterate them
             if (p) {
 
