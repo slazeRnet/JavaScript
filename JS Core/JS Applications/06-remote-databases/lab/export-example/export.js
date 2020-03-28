@@ -1,0 +1,1 @@
+export const importedValue = `htttp://someaddress.com`;
