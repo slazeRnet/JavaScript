@@ -1,7 +1,7 @@
 # TEMPLATING
-1. [Mustache](#MUSTACHE)
-1. [React](#MUSTACHE)
-1. [Vue](#MUSTACHE)
+1. [Mustache](##MUSTACHE)
+1. [React](##React)
+1. [Vue](##Vue.js)
 ## MUSTACHE
 
 
