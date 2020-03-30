@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
     <script src="../../../node_modules/handlebars/dist/handlebars.js"></script>
     <script type="text/x-handlebars-template" id="name-template">
@@ -19,20 +21,42 @@
             {{/each}}
         </ul>
     </script>
-   
+    <form id="input-form">
+        <input type="text" name="print" id="print">
+        <button id="print-submit">URL Prefix</button>
+    </form>
+    <script type="text/x-handlebars-template" id="input-template">
+        {{#if input}}
+            <p>http://{{input}}</p>
+            {{else}}
+            <p>invalid</p>
+            {{/if}}
+        </script>
     <script>
         var template = Handlebars.compile(document.getElementById('name-template').innerHTML);
-        let html = template({name:"Ivan", familyName:"Petrov"});
+        let html = template({ name: "Ivan", familyName: "Petrov" });
         document.body.innerHTML += html; //<!--Hello my name is Ivan Petrov-->
 
         let friends = [
-            {name:"zizzy42", email:"me@domain.com"},
-            {name:"haskel", email:"someth342@domain.com"},
-            {name:"pascal534", email:"user2342@domain.com"},
-            {name:"maria.ivanova", email:"mariika@domain.com"}
+            { name: "zizzy42", email: "me@domain.com" },
+            { name: "haskel", email: "someth342@domain.com" },
+            { name: "pascal534", email: "user2342@domain.com" },
+            { name: "maria.ivanova", email: "mariika@domain.com" }
         ];
         let friendsTemplate = Handlebars.compile(document.getElementById('friends-template').innerHTML);
-        document.body.innerHTML += friendsTemplate({friends});
+        document.body.innerHTML += friendsTemplate({ friends });
+        // if example
+        let inputTemplate = Handlebars.compile(document.getElementById('input-template').innerHTML);
+        let print = document.getElementById('print-submit');
+        print.addEventListener('click', async (e) => {
+            e.preventDefault();
+            let url = { input: e.target.parentElement[0].value };
+            let html = await inputTemplate(url);
+            console.log(await e.target.parentElement[0].value);
+
+            e.target.parentElement.innerHTML += html;
+        })
     </script>
 </body>
+
 </html>
