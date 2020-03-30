@@ -6,6 +6,33 @@
     <title>Document</title>
 </head>
 <body>
-    
+    <script src="../../../node_modules/handlebars/dist/handlebars.js"></script>
+    <script type="text/x-handlebars-template" id="name-template">
+        <p>Hello my name is {{name}} {{familyName}}</p>
+    </script>
+    <p><i>Here is a For-each example: </i></p>
+    <script type="text/x-handlebars-template" id="friends-template">
+        <p>Friends</p>
+        <ul id="friends">
+            {{#each friends}}
+            <li>{{name}}: {{email}}</li>
+            {{/each}}
+        </ul>
+    </script>
+   
+    <script>
+        var template = Handlebars.compile(document.getElementById('name-template').innerHTML);
+        let html = template({name:"Ivan", familyName:"Petrov"});
+        document.body.innerHTML += html; //<!--Hello my name is Ivan Petrov-->
+
+        let friends = [
+            {name:"zizzy42", email:"me@domain.com"},
+            {name:"haskel", email:"someth342@domain.com"},
+            {name:"pascal534", email:"user2342@domain.com"},
+            {name:"maria.ivanova", email:"mariika@domain.com"}
+        ];
+        let friendsTemplate = Handlebars.compile(document.getElementById('friends-template').innerHTML);
+        document.body.innerHTML += friendsTemplate({friends});
+    </script>
 </body>
 </html>
