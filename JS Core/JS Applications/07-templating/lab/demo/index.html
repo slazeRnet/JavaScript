@@ -37,10 +37,10 @@
         let html = template({ name: "Ivan", familyName: "Petrov" });
         document.body.innerHTML += html; //<!--Hello my name is Ivan Petrov-->
 
-        let friends = [
+       let friends = [
             { name: "zizzy42", email: "me@domain.com" },
             { name: "haskel", email: "someth342@domain.com" },
-            { name: "pascal534", email: "user2342@domain.com" },
+            { name:  "pascal534", email: "user2342@domain.com" },
             { name: "maria.ivanova", email: "mariika@domain.com" }
         ];
         let friendsTemplate = Handlebars.compile(document.getElementById('friends-template').innerHTML);
