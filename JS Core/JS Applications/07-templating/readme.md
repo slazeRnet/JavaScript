@@ -99,8 +99,10 @@ let friends = [
     </script>
 ```
 - result
-input|result
-google.com|http://google.com
+
+input | result
+--- | ---
+google.com | http://google.com
  | invalid
 ___
 
