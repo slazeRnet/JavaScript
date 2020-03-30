@@ -103,7 +103,7 @@ let friends = [
 input | result
 --- | ---
 google.com | http://google.com
- | invalid
+| | invalid
 ___
 
 ***
