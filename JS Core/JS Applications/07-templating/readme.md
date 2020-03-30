@@ -41,7 +41,7 @@ For detailed example run [index.html](./lab/demo/index.html) in live server
 </script>
 ```
 ___
-1. Collections
+2. Collections
 - Template
 ```html
 <p><i>Here is a For-each example: </i></p>
@@ -67,7 +67,14 @@ let friends = [
         document.body.innerHTML += friendsTemplate({ friends });
 </script>
 ```
-1. Conditions
+3. Conditions
+- form
+```html
+    <form id="input-form">
+        <input type="text" name="print" id="print">
+        <button id="print-submit">URL Prefix</button>
+    </form>
+```
 - template:
 ```html
 <script type="text/x-handlebars-template" id="input-template">
@@ -91,6 +98,10 @@ let friends = [
         })
     </script>
 ```
+- result
+input|result
+google.com|http://google.com
+ | invalid
 ___
 
 ***
