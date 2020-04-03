@@ -78,6 +78,7 @@ var app = Sammy('#main', function() {
 
 *the code needs to run in IIFE function*
 
+
 ```js
 (() => {
   // start the application
