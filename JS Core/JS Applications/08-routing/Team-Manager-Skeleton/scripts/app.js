@@ -1,3 +1,5 @@
+import {createFormEntity} from './form-helper.js';
+
 async function homeViewHandler() {
         this.partials = {
             header: await this.load('./templates/common/header.hbs'),
@@ -32,6 +34,14 @@ async function registerPageViewHandler() {
     }
     this.partial('./templates/register/registerPage.hbs');
     
+    let formRef = document.getElementById('register-form');
+
+    let form = createFormEntity(form, ['username', 'password', 'repeatPassword']);
+    formRef.addEventListener('submit', (e) =>{
+        e.preventDefault();
+        console.log(form.getValue());
+        
+    })
 }
 // initialize the application
 var app = Sammy('#main', function() {
@@ -44,6 +54,7 @@ var app = Sammy('#main', function() {
     this.get('#/about', aboutViewHandler);
     this.get('#/login', loginPageViewHandler);
     this.get('#/register', registerPageViewHandler);
+    this.post('#/register', () => false);
   });
 
 (() => {

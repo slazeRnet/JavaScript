@@ -101,6 +101,15 @@ is equivalent to
         ...
       });
  ```
+ - all pages that make a request (*for example POST*) need to be explicitly defined in the Sammy app if they are not defined the following Error will be printed on the console:
+
+ > Not Found: post #/register
+ 
+A POST request that has been handled already ( for ex. with DOM) can be instanciated with callback function that returns false:
+ ```js
+this.get('#/register', registerPageViewHandler);
+this.post('#/register', () => false);
+ ```
 ## 6. Use Helper function for DOM manipulations
  - [form-helper.js](./Team-Manager-Skeleton/scripts/form-helper.js)
  - do not repeat code but use modules for cleaner code and reaability
