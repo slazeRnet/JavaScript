@@ -21,17 +21,18 @@ npm install sammy bootstrap handlebars
 ```
 *addin scrip reference:*
 ```html
- <script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="../node_modules/handlebars/dist/handlebars.min.js"></script>
+    <script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script src="../node_modules/handlebars/dist/handlebars.min.js"></script>
     <script src="../node_modules/sammy/lib/min/sammy-0.7.6.min.js"></script>
+    <script src="../node_modules/sammy/lib/min/plugins/sammy.handlebars-0.7.6.min.js"></script>
 ```
 ## 1. Set up Firebase
-1. create a web app
+- create a web app
 add the following CDN reference:
 ```html
 <script src="https://www.gstatic.com/firebasejs/7.13.2/firebase-app.js"></script>
 ```
-1. store the firebaseConfig var in a script for later authentication
+- store the firebaseConfig var in a script for later authentication
 ```html
 <script>
       // Your web app's Firebase configuration
@@ -60,7 +61,7 @@ add jQuery reference so that Bootstrap and Sammyjs can run
 			  crossorigin="anonymous"></script>
     <script>
 ```
-## 1. Initialise the Sammy library
+## 1.Initialise the Sammy library
 
 Router functionality is done by SammyJS:
 ```js
