@@ -86,3 +86,21 @@ var app = Sammy('#main', function() {
   app.run('#/');
 })();
 ```
+## 5. SammyJs makes request for loading content
+ - GET Promise request for loading a page :
+ ```js
+/ route(verb, path, callback)
+      route('get', '#/', function() { 
+        ...
+      });
+ ```
+is equivalent to
+  ```js
+// verb(path, callback)
+      get('#/', function() { 
+        ...
+      });
+ ```
+## 6. Use Helper function for DOM manipulations
+ - [form-helper.js](./Team-Manager-Skeleton/scripts/form-helper.js)
+ - do not repeat code but use modules for cleaner code and reaability
