@@ -104,7 +104,7 @@ is equivalent to
  - all pages that make a request (*for example POST*) need to be explicitly defined in the Sammy app if they are not defined the following Error will be printed on the console:
 
  > Not Found: post #/register
- 
+
 A POST request that has been handled already ( for ex. with DOM) can be instanciated with callback function that returns false:
  ```js
 this.get('#/register', registerPageViewHandler);
@@ -113,3 +113,55 @@ this.post('#/register', () => false);
 ## 6. Use Helper function for DOM manipulations
  - [form-helper.js](./Team-Manager-Skeleton/scripts/form-helper.js)
  - do not repeat code but use modules for cleaner code and reaability
+
+ ## 7. User Registration and Session Storage
+
+Use the firebase auth library to create a user and retrieve its token. Set the Session to the returned token
+so the new user can log in automatically: 
+```js
+firebase.auth().createUserWithEmailAndPassword(formValues.username, formValues.password)
+       .then(() => {
+          firebase.auth().currentUser.getIdToken()
+          .then( token => {
+              sessionStorage.setItem('token', token);
+          })
+           
+       });
+```
+
+- set item in the Session storage
+```js
+sessionStorage.setItem('username', user.email)
+```
+
+- clear session storage
+```js
+sessionStorage.clear();
+```
+- get item from session storage
+```js
+sessionStorage.getItem('username');
+```
+
+## 8. Use call()
+**function.call()** - *after the function is resolved the values are provided to the this scope*
+
+```js
+async function applyCommon(){
+    this.partials = {
+        header: await this.load('./templates/common/header.hbs'),
+        footer: await this.load('./templates/common/footer.hbs')
+    }
+
+    this.username = sessionStorage.getItem('username');
+    this.loggedIn = !!sessionStorage.getItem('token');
+}
+async function homeViewHandler() {
+        await applyCommon.call(this);
+
+        this.partial('./templates/home/home.hbs')
+}
+/**
+* @function homeViewHandler() now has username and loggedIn provided
+*/
+```
