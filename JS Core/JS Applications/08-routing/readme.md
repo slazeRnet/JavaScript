@@ -15,7 +15,7 @@ package name:
 ```terminal
 manager
 ```
-## 1. Install Bootstrap, SammyJs and Handlebars locally
+## 2. Install Bootstrap, SammyJs and Handlebars locally
 ```terminal
 npm install sammy bootstrap handlebars
 ```
@@ -26,7 +26,7 @@ npm install sammy bootstrap handlebars
     <script src="../node_modules/sammy/lib/min/sammy-0.7.6.min.js"></script>
     <script src="../node_modules/sammy/lib/min/plugins/sammy.handlebars-0.7.6.min.js"></script>
 ```
-## 1. Set up Firebase
+## 3. Set up Firebase
 - create a web app
 add the following CDN reference:
 ```html
@@ -61,7 +61,7 @@ add jQuery reference so that Bootstrap and Sammyjs can run
 			  crossorigin="anonymous"></script>
     <script>
 ```
-## 1.Initialise the Sammy library
+## 4.Initialise the Sammy library
 
 Router functionality is done by SammyJS:
 ```js
