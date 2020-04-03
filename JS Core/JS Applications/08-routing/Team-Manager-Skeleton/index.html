@@ -7,8 +7,29 @@
     <link rel="stylesheet" type="text/css" href="css/team.css">
     <link rel="stylesheet" type="text/css" href="css/details.css">
     <link rel="stylesheet" type="text/css" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <script
+			  src="https://code.jquery.com/jquery-3.4.1.min.js"
+			  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+			  crossorigin="anonymous"></script>
     <script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="../node_modules/handlebars/dist/handlebars.min.js"></script>
+    <script src="../node_modules/sammy/lib/min/sammy-0.7.6.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.13.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.13.2/firebase-auth.js"></script>
+    <script>
+      // Your web app's Firebase configuration
+      var firebaseConfig = {
+        apiKey: "AIzaSyBYV6pA2-CuLaVSTLsp_RWoECsP58NME8A",
+        authDomain: "routing-67ec1.firebaseapp.com",
+        databaseURL: "https://routing-67ec1.firebaseio.com",
+        projectId: "routing-67ec1",
+        storageBucket: "routing-67ec1.appspot.com",
+        messagingSenderId: "282860991880",
+        appId: "1:282860991880:web:844f8f7ef7a7e2d150b63d"
+      };
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+    </script>
     <script type="module" src="scripts/app.js"></script>
     <title>Team Managers App</title>
   </head>
