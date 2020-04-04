@@ -165,3 +165,13 @@ async function homeViewHandler() {
 * @function homeViewHandler() now has username and loggedIn provided
 */
 ```
+
+## 9. Firebase request library
+- use the this [script](./Team-Manager-Skeleton/scripts/firebase-request.js)
+
+import it in the main app:
+```js
+import {fireBaseRequestFactory} from './firebase-request.js';
+
+```
+
