@@ -61,6 +61,15 @@ add jQuery reference so that Bootstrap and Sammyjs can run
 			  crossorigin="anonymous"></script>
     <script>
 ```
+*the app needs to be done with authentication so set up one:*
+```json
+{
+  "rules": {
+    ".read": "auth !== null",
+    ".write": "auth !== null"
+  }
+}
+```
 ## 4.Initialise the Sammy library
 
 Router functionality is done by SammyJS:
@@ -110,8 +119,9 @@ A POST request that has been handled already ( for ex. with DOM) can be instanci
 this.get('#/register', registerPageViewHandler);
 this.post('#/register', () => false);
  ```
-## 6. Use Helper function for DOM manipulations
+## 6. Use Helper functions for DOM manipulations and AJAX requests
  - [form-helper.js](./Team-Manager-Skeleton/scripts/form-helper.js)
+ - [firebase-request.js](./Team-Manager-Skeleton/scripts/firebase-request.js)
  - do not repeat code but use modules for cleaner code and reaability
 
  ## 7. User Registration and Session Storage
