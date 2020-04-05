@@ -72,7 +72,10 @@ add jQuery reference so that Bootstrap and Sammyjs can run
 ```
 ## 4.Initialise the Sammy library
 
-Router functionality is done by SammyJS:
+Router functionality is done by SammyJS
+the first param (in this case):
+> '#main'
+is the id of the html element to be appended:
 ```js
 var app = Sammy('#main', function() {
     // include a plugin
