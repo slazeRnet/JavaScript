@@ -1,0 +1,15 @@
+<!-- NOT LOGGED IN-->
+ {{> header}}
+
+  {{#if token}}
+      {{!--logged in with treks --}}
+        {{#if treksCount}}
+          {{> treksList}}
+        {{!--no trekks --}}
+        {{else}}
+          {{> noTreks}}
+         {{/if}}
+  {{else}}
+    {{> homePage}}
+  {{/if}}
+ {{> footer}}

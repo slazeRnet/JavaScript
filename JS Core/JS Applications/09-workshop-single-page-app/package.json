@@ -1,0 +1,17 @@
+{
+  "name": "trekking",
+  "version": "1.0.0",
+  "description": "*it needs to be done with authentication:*\r ```json\r {\r   \"rules\": {\r     \".read\": \"auth !== null\",\r     \".write\": \"auth !== null\"\r   }\r }\r ```",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bootstrap": "^4.4.1",
+    "handlebars": "^4.7.6",
+    "jquery": "^3.4.1",
+    "sammy": "^0.7.6"
+  }
+}

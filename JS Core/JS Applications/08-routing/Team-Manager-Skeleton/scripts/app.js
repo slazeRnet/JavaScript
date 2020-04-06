@@ -49,7 +49,7 @@ async function loginPageViewHandler() {
                         console.error(err);
                     });
 
-            })
+                })
     })
 }
 

@@ -1,0 +1,64 @@
+JS Applications 05/04/2020
+
+1. How does router work? - A.
+A. both
+B. allows the application state to be serialized into the url
+C.Loads the appropriate content when the app changes
+
+2.In "classes" this refers to: B.
+A. window object
+B. newly created instnce
+C.glocal object
+
+3.The following is INCORRECT! prototype is: A
+A. internal property of a function
+
+4. What is the benefit of SPA?
+A. maintain state accross multi[ple pages
+
+5. INCORRECT? non-relational-database ?
+C. allow you to link information accross tables through foreign keys
+
+6. CORRECT ?
+B. await is used for a single promise
+
+7.Which of the following is incorrect about Push based routing? - C
+A. You can't use hashtags at all
+B. You can surface real server side data
+C. it helps with analitics
+
+8. JS multitreaded
+a. False
+
+9.NOT type of inheritance ? - Multilevel (sinlgle, simple)
+
+11. Templates are pure functions ? - false
+
+12. The object this refers to changes evrytime the execution context is changed ? true
+B. this doesnt refet to object
+c.false 
+
+13. Object compostion ?
+combining objects into more complexed ones
+
+14. Promises have states? 2
+
+15. Which is not a benefi of using templating ? Security
+
+16. INCORRECT? HTTp is ?
+a. request response based
+b. text based server protocol for the internet
+c. JSON based server protocol for the internet
+
+
+17 INCORRECT? explicit binding is ? a
+a. creates a state associated with a binding in a manner invisible to the client
+b. occurs when call() apply() bind() are used for func'
+c. function call to use a paricular obj for this binding
+
+20. _proto_ is ? 
+a. points to the function prototype whenever the object is created by constructor
+b.both are false
+c. 
+
+result 14/ 20
