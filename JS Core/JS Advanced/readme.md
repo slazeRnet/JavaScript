@@ -1,1 +1,11 @@
-# 1. [./01-Syntax-Functions-and-Statements](./01-Syntax-Functions-and-Statements/)
+# 1. [01-Syntax-Functions-and-Statements](./01-Syntax-Functions-and-Statements/)
+
+# 1. [02-Arrays](./02-Arrays/)
+# 1. [03-Objects](./03-Objects/)
+# 1. [04-Functions](./04-Functions/)
+# 1. [05-DOM](./05-DOM/)
+# 1. [06-DOM-MANIPULATIONS](./06-DOM-MANIPULATIONS/)
+# 1. [07-CLASSES](./07-CLASSES/)
+# 1. [08-UNIT-TESTING](./08-UNIT-TESTING/)
+# 1. [09-RegExp](./09-RegExp/)
+# 1. [10-EXAMS](./10-EXAMS/)
