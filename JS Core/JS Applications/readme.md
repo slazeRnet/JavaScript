@@ -54,6 +54,152 @@ console.log(solve() === global) // true
 
 ```
 
+## 5. Function invocation in Strict Mode 
+
++ Strict Mode
+```js
+function solve() {
+  "use strict";
+  console.log(this);
+}
+solve(); // undefined
+```
+
++ No Strict Mode
+```js
+function solve() {
+  console.log(this);
+}solve(); 
+// Object [global]
+
+```
+
+## 6. "This" Keyword in the Browser
+
+```js
+let b = "b";
+console.log(this.b); //undefined
+
+var a = "a";
+console.log(this.a); //a
+
+function foo() {
+  console.log("Simple function call");
+  console.log(this === window);  // true
+}foo();
+```
+
+## 7. "This" in a Method invocation
+
++ This is the object that owns the method
+```js
+let person = {
+  firstName: "Peter",
+  lastName: "Ivanov",
+  fullName: function(){
+    return this.firstName + " " + this.lastName
+  },
+  whatIsThis: function(){ return this }
+}console.log(person.fullName());  // Peter Ivanov
+console.log(person.whatIsThis()); // person
+```
+
+## 8."This" Refers to the Parent Object
+```js
+function foo() {
+  console.log(this === global);
+}
+let user = {
+  count: 10,
+  foo: foo,
+  bar: function () { console.log(this === global); }
+}
+user.foo()  // false
+let func = user.bar;
+func() // true
+user.bar()  // false
+```
+
+## 9. "This" with Inner Functions
+
++ this variable is accessible only by the function itself
+```js
+function outer() {
+  console.log(this); // Object {name: "Peter"}
+  function inner() {
+    console.log(this); // global
+  }
+  inner();
+}
+const obj = { name: 'Peter', func: outer }
+obj.func();
+```
+
+## 10. "This" with Arrow Functions
+```js
++ this retains the value of the enclosing lexical context
+function outer() {
+  const inner = () => console.log(this);
+  inner();
+}
+const obj = {
+  name: 'Peter',
+  func: outer
+};
+obj.func(); // Object {name: "Peter"}
+
+```
+
+## 11. "This" in Constructor invocation
+
++ The value of this refers to the newly created instance
+```js
+function Person(fn, ln) {
+    this.first_name = fn;
+    this.last_name = ln;
+}
+Person.prototype.displayName = function () {
+      console.log(`Name: ${this.first_name} ${this.last_name}`);
+};
+let person = new Person("John", "Doe");
+person.displayName();  // John Doe
+
+```
+
+**"This" in Constructor invocation :**
+```js
+class Person {
+  constructor(fn, ln) {
+    this.first_name = fn;
+    this.last_name = ln;
+    this.displayName = function () {
+      console.log(`Name: ${this.first_name} ${this.last_name}`);
+    } } };
+let person = new Person("John", "Doe");
+person.displayName();  // John Doe
+```
+
+## 12. In Events
+
+- In event handlers, this is set to the element the event fired from
+```js
+element.addEventListener("click", function(e) {
+  console.log(this === e.currentTarget); // Always true
+});
+```
+## 13. "This" in Functions 
+
++ **Explicit Function Binding (*call, apply, bind*)**
+    - Occurs when call(), apply(), or bind() are used on a function
+    - Forces a function call to use a particular object for this binding
+```js
+function greet() {
+  console.log(this.name);
+}
+let person = { name:'Alex' };
+greet.call(person, arg1, arg2, arg3, ...); // Alex
+```
+
 
 
 
