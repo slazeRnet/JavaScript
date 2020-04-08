@@ -1,16 +1,16 @@
 # JS Applications module course
 # CONTENT:
-## 1. [this](#1.this)
-## 2. [Object Comparison](#2.Object-Comparison)
-## 3. [Inheritance and Prototypes](#3.Inheritance-and-Prototypes)
-## 4. [Restful services and AJAX](#4.Restful-services-and-AJAX)
-## 5. [Assynchronous Programming](#5.Assynchronous-Programming)
-## 6. [Remote Databases](#6.Remote-Databases)
-## 7. [Templating](#7.Templating)
-## 8. [Routing](#8.Routing)
-## 9. [Workshop - Single Page App](#9.Workshop---Single-Page-App)
-## 10. [Design Patterns](#10.Design-Patterns)
-## 11. [Webpack](#11.Webpack)
+## 1. [this](#1this)
+## 2. [Object Comparison](#2Object-Comparison)
+## 3. [Inheritance and Prototypes](#3Inheritance-and-Prototypes)
+## 4. [Restful services and AJAX](#4Restful-services-and-AJAX)
+## 5. [Assynchronous Programming](#5Assynchronous-Programming)
+## 6. [Remote Databases](#6Remote-Databases)
+## 7. [Templating](#7Templating)
+## 8. [Routing](#8Routing)
+## 9. [Workshop - Single Page App](#9Workshop---Single-Page-App)
+## 10. [Design Patterns](#10Design-Patterns)
+## 11. [Webpack](#11Webpack)
 
 ---
 # 1.this
