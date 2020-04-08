@@ -8,7 +8,8 @@ describe("Array", function(){
     });
 });
     // run this test by typing in the terminal:
-    //mocha ./unit-testing.js
+    //
+    
 
 
 
