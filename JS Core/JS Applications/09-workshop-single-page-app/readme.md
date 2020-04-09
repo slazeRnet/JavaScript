@@ -23,6 +23,7 @@ The character encoding of the plain text document was not declared
 
 Occurs due to the fact that some DOM elements/ Requests are not loaded on time and this screws up the rest of the functionality.
 - Fix:
-Use async/ await for all Promises. 
+- Use async/ await for all Promises. 
+- Can be caused be Syntax error in the code. So refine the code carefully
 
 </details>
