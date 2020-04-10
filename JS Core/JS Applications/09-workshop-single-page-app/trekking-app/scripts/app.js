@@ -9,15 +9,20 @@ async function applyCommon() {
         footer: await this.load('./templates/common/footer.hbs')
     }
     //sessionStorage.setItem('token', '1');
-    let treks = 0;
     this.token = !!sessionStorage.getItem('token');
     this.loggedIn = !!sessionStorage.getItem('username');
     this.username = sessionStorage.getItem('username');
-    this.treksCount = !!treks;
+    this.treksCount = this.treks;
+    // Will be true if bootstrap is loaded, false otherwise
+    // var bootstrap_enabled = (typeof $().modal == 'function');
+    // console.log(bootstrap_enabled);
+
 }
 
 async function homeViewHandler() {
 
+    let firebaseTeams = fireBaseRequestFactory(apiKey, 'treks', sessionStorage.getItem('token'));
+    this.treks = firebaseTeams.getAll();
     await applyCommon.call(this);
     this.partials.homePage = await this.load('./templates/home/homePage.hbs');
     this.partials.treksList = await this.load('./templates/treks/treks-list.hbs');
@@ -30,7 +35,7 @@ async function logInViewHandler() {
     await this.partial('./templates/login/login.hbs');
 
     let formRef = await document.querySelector('#login-form');
-    
+
     formRef.addEventListener('submit', (e) => {
         let form = createFormEntity(formRef, ['email', 'password']);
         e.preventDefault();
@@ -70,7 +75,7 @@ async function registerViewHandler() {
     await this.partial('./templates/register/register.hbs');
 
     let formRef = await document.getElementById('register-form');
-    
+
     formRef.addEventListener('submit', () => {
         let formConfig = ['email', 'password', 'rePassword'];
         let form = createFormEntity(formRef, formConfig);
@@ -79,27 +84,30 @@ async function registerViewHandler() {
         if (formData.password.length < 6 || formData.email.length < 3) {
             errorMessagePop();
         }
-        if (formData.password !== formData.rePassword) {
+        else if (formData.password !== formData.rePassword) {
             errorMessagePop();
         }
-        // FIREBASE REQUEST
-        firebase.auth().createUserWithEmailAndPassword(formData.email, formData.password)
-            .then((response) => {
-                console.log(response);
+        else {
+            // FIREBASE REQUEST
+            firebase.auth().createUserWithEmailAndPassword(formData.email, formData.password)
+                .then((response) => {
+                    console.log(response);
 
-                firebase.auth().currentUser.getIdToken()
-                    .then(token => {
-                        sessionStorage.setItem('token', token);
-                        sessionStorage.setItem('username', response.user.email);
-                        console.log(token);
-                    });
+                    firebase.auth().currentUser.getIdToken()
+                        .then(token => {
+                            sessionStorage.setItem('token', token);
+                            sessionStorage.setItem('username', response.user.email);
+                            console.log(token);
+                        });
 
 
-                this.redirect(['#/home']);
-            }).catch(function (error) {
-                console.error('Error while trying to sign in!');
-        
-            });
+                    this.redirect(['#/home']);
+                }).catch(function (error) {
+                    console.error('Error while trying to sign in!');
+
+                });
+
+        }
     })
 }
 
@@ -109,10 +117,37 @@ async function errorMessagePop() {
 
 async function createViewHandler() {
     await applyCommon.call(this);
-    this.partial('./templates/treks/create.hbs');
+    await this.partial('./templates/treks/create.hbs');
 
-    //redirect
-    //this.redirect(['#/home'])
+    let formRef = await document.getElementsByClassName('create-trek')[0];
+
+    formRef.addEventListener('submit', () => {
+        let formConfig = ['location', 'dateTime', 'description', 'imageURL'];
+        let form = createFormEntity(formRef, formConfig);
+        let formData = form.getValue();
+        let trek = {
+            location: formData.location,
+            dateTime: formData.dateTime,
+            description: formData.description,
+            imageURL: formData.imageURL,
+            likes: 0,
+            organizer: sessionStorage.getItem('username')
+        }
+
+        if (formData.location.length < 6 || formData.description.length < 10) {
+            console.error('Cant create trek with incorectly filled fields');
+            console.log(trek);
+            console.log(formData.location);
+            console.log(formData.description);
+
+        }
+        else {
+            // REQUEST
+            const firebaseTeams = fireBaseRequestFactory(apiKey, 'treks', sessionStorage.getItem('token'));
+            firebaseTeams.createEntity(trek)
+            this.redirect(['#/home']);
+        }
+    })
 }
 
 async function detailsViewHandler() {

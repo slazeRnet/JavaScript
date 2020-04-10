@@ -30,10 +30,6 @@ export const fireBaseRequestFactory = (apiKey, collectionName, token) => {
      * @param {{[key:string]: any}} entityBody javascript object
      */
     const createEntity = (entityBody) => {
-        console.log(collectionUrl);
-        console.log(entityBody);
-        console.log(token);
-        
         return fetch(collectionUrl + '.json' + (token ? `?auth=${token}` : ``), {
             method: 'POST',
             body: JSON.stringify(entityBody)

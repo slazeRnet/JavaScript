@@ -187,4 +187,5 @@ import it in the main app:
 import {fireBaseRequestFactory} from './firebase-request.js';
 
 ```
-
+## 10. CSS CODE VALIDATOR
+http://jigsaw.w3.org/css-validator/validator
