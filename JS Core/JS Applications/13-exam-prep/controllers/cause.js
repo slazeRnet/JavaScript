@@ -30,7 +30,10 @@ export default {
             const { causeId } = context.params;
 
             models.cause.get(causeId).then(response => {
-
+                console.log(causeId);
+                
+                console.log(response.exists);
+                
                 const cause = docModifier(response);
                 Object.keys(cause).forEach(key => {
                     context[key] = cause[key];
