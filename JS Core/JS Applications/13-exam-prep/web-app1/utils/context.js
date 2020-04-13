@@ -5,14 +5,14 @@ export default function(context){
               context.isLoggedIn = true;
               context.userId = user.uid;
               context.username = user.email;
-              sessionStorage.setItem('userId', user.uid);
-              sessionStorage.setItem('username',  context.username);
+              localStorage.setItem('userId', user.uid);
+              localStorage.setItem('username',  context.username);
               // ...
             } else {
               // User is signed out.
               context.isLoggedIn = false;
               context.userId = null;
-              sessionStorage.clear();
+              localStorage.clear();
               context.username = null;
             }
           });

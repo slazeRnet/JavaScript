@@ -1,7 +1,6 @@
 import extend from '../utils/context.js'
 import models from './index.js';
-import docModifier from '../utils/doc-modifier.js';
-import {apiKey} from '../utils/apiKey.js';
+import { apiKey } from '../utils/apiKey.js';
 
 export default {
 
@@ -12,7 +11,7 @@ export default {
         })
     },
     getAll(userId) { // Sammy.Object {}
-                return fetch(apiKey + 'causes.json' + (userId ? `?auth=${userId}` : ``))
+        return fetch(apiKey + 'causes.json' + (userId ? `?auth=${userId}` : ``))
     },
     get(id, userId) {
         return fetch(apiKey + 'causes/' + `${id}.json` + (userId ? `?auth=${userId}` : ``))
@@ -22,8 +21,13 @@ export default {
             method: 'DELETE',
         })
     },
+    delete(id, userId) { // Sammy.Object {}
+        return fetch(apiKey + 'causes/' + `${id}.json` + (userId ? `?auth=${userId}` : ``), {
+            method: 'DELETE',
+        })
+    },
     donate(id, data, userId) {
-        return fetch(apiKey + 'causes' + `${id}.json` + (userId ? `?auth=${userId}` : ``), {
+        return fetch(apiKey + 'causes/' + `${id}.json` + (userId ? `?auth=${userId}` : ``), {
             method: 'PATCH',
             body: JSON.stringify(data)
         })

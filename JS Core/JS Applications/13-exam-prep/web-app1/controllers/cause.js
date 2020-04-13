@@ -1,6 +1,5 @@
 import extend from '../utils/context.js';
 import models from '../models/index.js';
-import docModifier from './../utils/doc-modifier.js';
 
 export default {
     get: {
@@ -8,11 +7,13 @@ export default {
             models.cause.getAll().then((response) => {
                 return response.json();
             }).then(causes => {
-                console.log(causes);
                 context.causes = causes;
-                Object.keys(causes).forEach( key =>{
-                    context.causes[key].id = key;
-                })
+                if(causes){
+                    Object.keys(causes).forEach( key =>{
+                        context.causes[key].causeId = key;
+                        
+                    })
+                }
                 extend(context).then(function () {
                     this.partial('../views/cause/dashboard.hbs')
                 })
@@ -33,12 +34,12 @@ export default {
             models.cause.get(causeId).then(response => {
                 return response.json();
             }).then(cause => {
+                cause.canDonate = String(cause.uid) !== String(localStorage.getItem('userId'));
+                cause.causeId = causeId;
+                
                   Object.keys(cause).forEach(key =>{
                       context[key] = cause[key];
                   })
-                    context.canDonate = cause.uId !== localStorage.getItem('userId');
-                    console.log(cause);
-                    console.log(context);
                     
                     extend(context)
                         .then(function () {
@@ -56,9 +57,10 @@ export default {
                 ...context.params,
                 uid: localStorage.getItem('userId'),
                 collectedFunds: 0,
-                donors: []
+                donors: ['']
             };
-
+            console.log(data);
+            
             models.cause.create(data)
                 .then(() => {
                     this.redirect('#/cause/dashboard')
@@ -78,17 +80,21 @@ export default {
     },
     put: {
         donate(context) {
-            const { causeId, donatedAmmount } = context.params;
+            const { causeId, currentDonation } = context.params;
             models.cause.get(causeId).then(response => {
-                const cause = response.json();
-                console.log(cause);
+                return response.json();
+            }).then((cause) =>{
                 
                 cause.donors.push(sessionStorage.getItem('username'));
-                cause.collectedFunds += Number(donatedAmmount);
-
+                cause.collectedFunds += Number(currentDonation);
+                console.log(cause);
                 return models.cause.donate(causeId, cause);
+
             }).then(() => {
-                context.redirect('#/cause/dashboard/');
+               extend(context).then(() => {
+                   context.redirect('#/cause/dashboard');
+
+               })
             })
         }
     }

@@ -101,4 +101,5 @@ service cloud.firestore {
 
 ```
 
-## 8. 
+## 8. Loading module from “http://127.0.0.1:5500/utils/doc-modifier.js” was blocked because of a disallowed MIME type (“text/html”).
+- Occurs when there is required a non existing module in on of your html/js pages.
