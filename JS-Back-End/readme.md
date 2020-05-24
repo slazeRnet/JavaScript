@@ -80,15 +80,187 @@ data - chunk is available for reading
 end - no more data
 error - an exception has occurred
 ```
+- HTTP Request is a readable stream
+
 
 Writeable - can only be written to (process.stdout)
+Functions
+```js
+write() - send chunks to the stream
+end() - close the stream
+```
+Events
+```
+drain - stream can receive more data
+finish - all data has been flushed (buffer is empty)
+error - an exception has occurred
+```
+- HTTP Response is a writeable stream
+
+- The pipe() function allows a readable stream to output directly to a writable stream
+Event listeners are automatically added
+
+
 Duplex - both Readable and Writeable (TCP sockets)
+
+Implements both the Readable and Writeable interfaces
+Example - a TCP socket
+
+
 Transform - the output is computed from the input (zlib, crypto)
+A special kind of duplex stream where the output is a transformed version of the input
+
+- Transforms with Gzip
+```js
+const fs = require('fs');
+const zlib = require('zlib');
+
+let readStream = fs.createReadStream('index.js');
+let writeStream = fs.createWriteStream('index.js.gz');
+
+let gzip = zlib.createGzip();
+
+readStream.pipe(gzip).pipe(writeStream);
+
+```
+
+### 3. Events
+- Require module "events"
+
+```js
+const events = require('events');
+let eventEmitter = new events.EventEmitter();
+
+eventEmitter.on('click', (a, b) => {
+  console.log('A click has been detected!');
+  console.log(a + ' ' + b); // outputs 'Hello world'
+});
+
+eventEmitter.emit('click', 'Hello', 'world');
+
+```
+Events are not asynchronous
 
 
+### 4. FS Module
 
+The fs module gives you access to the file system
+```js
+let fs = require('fs');
+```
+All functions have synchronous and asynchronous variants
+```js
+let data = fs.readFileSync('./package.json', 'utf8');
+console.log(data);
 
+```
+```js
+let data = fs.readFile('./package.json', 'utf8', (err, data) => {  // Handle possible errors  
+  console.log(data); });
+```
 
+- List files in a directory
+```js
+let data = fs.readdirSync('./myDir', 'utf8');
+console.log(data);
 
+```
+- The result is an array of strings, containing all filenames
 
+```js
+let data = fs.readdir('./myDir', 'utf8', (err, data) => {
+  if (err) {
+    console.log(err);
+    return;
+  }
+  console.log(data);
+});
 
+```
+- Create a directory
+
+```js
+fs.mkdirSync('./myDir');
+```
+```js
+fs.mkdir('./myDir', err => {
+  if (err) {
+    console.log(err);
+    return;
+  }
+});
+
+```
+
+- Rename file or directory
+```js
+fs.renameSync('./oldName', './newName');
+```
+
+```js
+fs.rename('./oldName', './newName', err => {
+  if (err) {
+    console.log(err);
+    return;
+  }
+});
+```
+
+- Write a file
+```js
+const fs = require('fs');
+let filePath = './data.txt';
+let data = 'Some text';
+```
+
+```js
+fs.writeFileSync(filePath, data);
+```
+
+```js
+fs.writeFile(filePath, data, err => {
+  if (err) {
+    console.log(err);
+    return;
+  }
+});
+```
+
+- Delete file
+```js
+fs.unlinkSync('./target.txt');
+```
+
+```
+fs.unlink('./target.txt', err => {
+  if (err) {
+    console.log(err);
+    return;
+  }
+});
+```
+
+- Delete directory
+```js
+fs.rmdirSync('./myDir');
+```
+
+```js
+fs.rmdir('./myDir', err => {
+  if (err) {
+    console.log(err);
+    return;
+  }
+});
+```
+Full API docs: https://nodejs.org/api/fs.html
+
+### 5. Debugging
+
+- Debugging in Node.js
+The V8 debug protocol is a JSON based protocol
+- IDEs with a debugger
+Webstorm
+Visual Studio
+Node-inspector (not working with latest version)
+- Watching with Nodemon
