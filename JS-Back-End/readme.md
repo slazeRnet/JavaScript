@@ -27,6 +27,189 @@ console.log(`Server started successfully on port ${PORT}`); //output on the cons
 ### 3. Nodemon npm
 - a  packag that listens for changes on the node server and restarts it
 
+## 1. Introduction to Node.js
+- A runtime environment for JS that runs on the server
+- Advantages
+One language for server and client
+Asynchronous and Event Driven
+Very fast
+Efficient package manager
+No buffering
+
+Node.js projects are usually set up as NPM packages 
+From the terminal, inside the target directory
+Answer questions to initialize project
+A package.json file will be created with initial configuration
+
+```json
+{
+  "name": "demo",
+  "version": "1.0.0",
+  "description": "Node.js demo project",
+  "main": "index.js",
+  "engines": {			// Sets versions of Node.js 
+    "node": ">= 6.0.0",         and other commands
+    "npm": ">= 3.0.0" },
+  "scripts": {		     // Defines a set of node scripts
+    "start": "node index.js" },   
+  "keywords": [],
+  "author": "",
+  "license": "ISC“
+}
+```
+
+
+
+## 2. Event Loop
+## 3. Modules
+Allow larger apps to be split and organized
+Each module has its own context
+It cannot pollute the global scope
+- Node.js includes three types of modules: 
+    - Core Modules
+    Include bare minimum functionalities of Node.js
+Load automatically when Node.js process starts
+Need to be imported in order to be used
+```js
+const module = require('module');
+```
+Commonly used modules are
+http - used to create Node.js server
+url, querystring, path, fs
+
+    - Local Modules
+    Created locally in the Node.js application
+Include different functionalities in separate folders
+Use module.exports to expose a function, object or variable 
+```js 
+module.exports = myModule
+```
+Loaded using the require() function
+```js 
+const myModule = require('./myModule.js');
+```
+### URL Module
+Provides utilities for URL resolution and parsing
+```js
+const url = require('url');
+```
+Parses an address with the parse() function
+Returns an object with info about the url
+```js
+let urlObj = url.parse(req.url);
+```
+- Splits web address into readable parts
+
+Host 'localhost:8080'
+```js
+let host = urlObj.host
+```
+Path '/home'
+```js
+let path = urlObj.pathname
+```
+Search/query '?year=2017&month=february'
+```js
+let query = urlObj.query
+```
+```js
+let search = urlObj.search
+```
+### Query String Module 	
+Provides utilities for parsing and formatting URL query strings
+```js
+const queryString = require('querystring');
+```
+Parses a query string into an object
+```js
+const qs = querystring
+.parse('year=2017&month=february');
+const year = qs.year;       // 2017
+const month = qs.month;    // february
+```
+    - Third Party Modules
+- Installed from Node Package Manager (NPM)
+- Run from the terminal
+```js
+npm install --save express --save-exact
+```
+- To use in your code
+```js
+const express = require('express');
+```
+- To install globally (for use from the terminal)
+```js
+npm install --g mocha
+```
+
+
+
+
+## 4. Request and Response Wrapper
+
+Used to handle incoming http requests
+Properties
+```
+httpVersion - '1.1' or '1.0'
+headers - object for request headers
+method - 'GET', 'POST', etc.
+url - the URL of the request
+```
+Example:
+
+```js
+const http = require('http');
+const url = require('url');
+const port = 1337;
+
+http.createServer((req, res) => {
+  let path = url.parse(req['url']).pathname;
+  if (path === '/') {
+     // TODO: Send 'Welcome to home page!'
+  }
+}).listen(port);
+
+```
+Used to retrieve a response to the client
+Functions
+Create response header
+Send the actual content to the client
+End the response
+
+```js
+const http = require('http');
+const port = 3000;
+
+http.createServer((req, res) => {
+  res.writeHead(200, { // Response Status Code
+    'Content-Type': 'text/plain'
+  }); 
+  res.write('Hello from Node.js'); // UTF-8 Encoding
+  res.end(); // Always End the Response
+}).listen(port);
+```
+
+
+## 5. Node.js Web Server
+All physical servers have hardware
+The hardware is controlled by the operating system
+Web servers are software products that use the operating system to handle web requests
+Web servers serve Web content
+The requests are redirected to other software products (ASP.NET, PHP, etc.), depending on the web server settings
+
+- Creating a simple Node.js web server
+```js
+const http = require('http');
+
+http.createServer((req, res) => {
+  res.write('Hi!');
+  res.end();
+}).listen(1337);
+
+console.log('Node.js server running on port 1337');
+
+```
+
 # 2. Node.js Streams and Utilities
 
 __DEFINITIONS__
