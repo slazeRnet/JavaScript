@@ -1,0 +1,1 @@
+console.log('the program just started :)')
