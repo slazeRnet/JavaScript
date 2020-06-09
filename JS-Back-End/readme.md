@@ -327,7 +327,9 @@ Events are not asynchronous
 
 ### 4. FS Module
 
-The fs module gives you access to the file system
+To read and write files asynchronously with fs we will use fs.readFile and fs.writeFile.
+The fs module gives you access to the file system.
+
 ```js
 let fs = require('fs');
 ```
