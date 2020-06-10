@@ -61,7 +61,7 @@ you can run the json-server at specific port
 json-server --watch db.json --port 5000
 ```
 
-### package.json changes that interfere with the 
+### package.json changes that interfere with the  express library
 
 > :x: Reference error: required is not defined
 or
@@ -76,4 +76,17 @@ this occurs when express is requred like this
 ```
 const express = require('express')
 
+```
+
+### importing module in nodeJS 
+
+> :x: SyntaxError: Cannot use import statement outside a module
+SOLUTION FROM:
+[here](https://stackoverflow.com/questions/56998440/how-to-run-ecmascript-mjs-files-with-nodemon)
+
+modify the package.json file with this falg --experimental-modules 
+```json
+"scripts": {
+        "dev": "nodemon --experimental-modules index.mjs"
+    },
 ```
