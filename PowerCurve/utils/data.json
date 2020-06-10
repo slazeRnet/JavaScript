@@ -1,5 +1,28 @@
 {
-    "byYear": [
-    ["2020", "January"]
-    ]
+    "byYear": {
+        "2020": 
+        {
+            "January" : [],
+            "June" : [
+                {"day": "2", "workout-type": "Upper Body", "tempo": "regular", "exercises":
+                [
+                    {"exercise-name": "Barbell over head press", "sets":
+                        [
+                            [3, 40], [3, 30], [5, 20], [5, 40]
+                        ]
+                    }
+                ]
+                },
+                {"day": "6", "workout-type": "Upper Body", "tempo": "regular", "exercises":
+                    [
+                        {"exercise-name": "Barbell over head press", "sets":
+                            [
+                                [4, 40], [3, 40], [5, 20]
+                            ]
+                        }
+                    ]
+                    }
+            ]
+    }}
+
 }
