@@ -79,7 +79,10 @@ const express = require('express')
 ```
 
 ### importing module in nodeJS 
-
+</br>
+:information_source: NodeJS cannot use import. Download the requireJS and use it require modules
+Doing so will cause this error:
+</br>
 > :x: SyntaxError: Cannot use import statement outside a module
 </br>
 
