@@ -53,3 +53,10 @@ var data = fs.readFile('./utils/data.json', 'utf8', (err, jsonString) => {
        print(fitnessLogs) //Error
         console.log(fitnessLogs);
 ```
+
+### json-server default port
+
+you can run the json-server at specific port
+```
+json-server --watch db.json --port 5000
+```
