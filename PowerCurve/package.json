@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon --experimental-modules ./server.mjs"
+    "start": "nodemon --experimental-modules ./server.js"
   },
   "author": "",
   "license": "ISC",
@@ -15,7 +15,8 @@
     "lite-server": "^2.5.4",
     "pub": "^0.2.0",
     "pug": "^3.0.0",
-    "pug-cli": "^1.0.0-alpha6"
+    "pug-cli": "^1.0.0-alpha6",
+    "requirejs": "^2.3.6"
   },
   "devDependencies": {
     "nodemon": "^2.0.4"
