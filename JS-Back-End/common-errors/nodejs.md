@@ -1,3 +1,17 @@
+## 1. DataTypes Objects and arrays
+
+## get object field using dot notation
+</br>
+> :warning: field value cannot be accessed with dot notation follwed by string variable
+use bracket notation instead:
+
+```js
+let days = {Monday: 1}
+let day = 'Monday'
+console.log('output:', days.day, days[day]); // output: undefined 1
+```
+
+## 2. Server
 ### Getting "exit status 1: 'C:\Program' is not recognized as an internal or external command" when switching versions 
 
 I have installed v1.1.0 in "C:\Program Files\nvm". All good but when I'm trying to switch to a version I have installed I get:
