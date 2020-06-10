@@ -1,44 +1,5 @@
 {
-    "_comment": "the data is grouped by year",
-    "byYear": {
-    "2020": {
-        "January":{
-
-        },
-        "February":{
-            
-        },
-        "March":{
-            
-        },
-        "April":{
-            
-        },
-        "May":{
-            
-        },
-        "June":{
-            
-        },
-        "July":{
-            
-        },
-        "August":{
-            
-        },
-        "September":{
-            
-        },
-        "Octomber":{
-            
-        },
-        "November":{
-            
-        },
-        "December":{
-            
-        }
-    }
-
-    }
+    "byYear": [
+    ["2020", "January"]
+    ]
 }
