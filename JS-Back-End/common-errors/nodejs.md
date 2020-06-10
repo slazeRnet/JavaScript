@@ -81,8 +81,12 @@ const express = require('express')
 ### importing module in nodeJS 
 
 > :x: SyntaxError: Cannot use import statement outside a module
+</br>
+
 SOLUTION FROM:
 [here](https://stackoverflow.com/questions/56998440/how-to-run-ecmascript-mjs-files-with-nodemon)
+</br>
+all modules including the startup file must end with the .mjs extension
 
 modify the package.json file with this falg --experimental-modules 
 ```json
