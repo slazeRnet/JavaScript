@@ -60,3 +60,20 @@ you can run the json-server at specific port
 ```
 json-server --watch db.json --port 5000
 ```
+
+### package.json changes that interfere with the 
+
+> :x: Reference error: required is not defined
+or
+> :x: Type error: express is not a function
+
+the following line in package.json will cause problem to your required express moduled
+```
+  "type": "module"
+```
+this occurs when express is requred like this
+
+```
+const express = require('express')
+
+```
