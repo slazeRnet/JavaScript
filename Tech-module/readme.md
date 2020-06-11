@@ -4,6 +4,13 @@
 ### 2. Associative Arrays
 ### 3. Functions
 ### 4. Objects and classes
+
+### accessing objects string notation vs brecket notation
+```js
+let days = {Monday: 1}
+let day = 'Monday'
+console.log('result: ', days.day, days[day]); // result: undefined 1
+```
 ### 5. Iterators and iterable
 
 ## 1. Arrays lists advanced
