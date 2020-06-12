@@ -1,5 +1,8 @@
+### CONTENT
+### (1. Intro to NodeJS)[#1.-Intro-to-NodeJS]
 
-# 1. Intro to NodeJS (TODO)
+
+# 1. Intro to NodeJS
 ### 1. Creating a NPM package
 run the following command in the cmd:
 ```
@@ -213,7 +216,8 @@ console.log('Node.js server running on port 1337');
 # 2. Node.js Streams and Utilities
 
 __DEFINITIONS__
-### 1. Isomorphic/Universal Routing
+---
+### Isomorphic/Universal Routing
 
 Reusing code with Isomorphic/Universal Routing
 Isomorphic/Universal provides routing for the web app both on the server and the client
@@ -221,7 +225,9 @@ Isomorphic/Universal provides routing for the web app both on the server and the
 Suppose you create a web app in the latest technology i.e. React only to find that the user has to wait for the entire JS to be downloaded and rendered before the user can see anything in the browser window.
 
 React provides Server Side Rendering - SSR which can be used to generate HTML on the server and send the markup down on the initial request for faster page loads and to allow search engines to crawl your pages for SEO purposes.
+---
 
+---
 ## 1. Pub/Sub
 
 ### 1. What is Pub/Sub?
