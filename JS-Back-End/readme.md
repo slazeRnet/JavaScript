@@ -7,6 +7,8 @@
 ### [6. Validation and error handling](#6-validation-and-error-handling-1)
 ### [7. RestAPI](#7-restapi-1)
 ### [8. EXAM preparation](#8-exam-preparation-1)
+### [9. Pug View Engine](#pug-view-engine-1)
+### [10. Common Errors](#10-common-errors-1)
 
 # 1. Intro to NodeJS
 ###1. Creating a NPM package
@@ -488,3 +490,6 @@ the pug library is just like Python it requires a space indend on each line or i
                   li
                     a(href='') #{monthKey}
 ```
+---
+
+### 10. Common Errors
