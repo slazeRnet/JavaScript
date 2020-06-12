@@ -1,5 +1,5 @@
 ### CONTENT
-### (1. Intro to NodeJS)[#1-intro-to-nodeJSjs]
+### (1. Intro to NodeJS)[./#1-intro-to-nodejs]
 
 
 # 1. Intro to NodeJS
