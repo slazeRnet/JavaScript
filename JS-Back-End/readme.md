@@ -1,6 +1,12 @@
 ### CONTENT
 ### [1. Intro to NodeJS](#1-intro-to-nodejs)
-
+### [2. Node.js Streams and Utilities](#2-nodejs-streams-and-utilities)
+### [3. ExpressJS and Templating](#3-expressjs-and-templating)
+### [4. NoSQL and MongoDB](#4-nosql-and-mongodb)
+### [5. Session and Authentication](#5-session-and-authentication)
+### [6. Validation and error handling](#6-validation-and-error-handling)
+### [7. RestAPI](#7-restapi)
+### [8. EXAM preparation](#8-exam-preparation)
 
 # 1. Intro to NodeJS
 ###1. Creating a NPM package
@@ -456,6 +462,15 @@ Visual Studio
 Node-inspector (not working with latest version)
 - Watching with Nodemon
 
+---
+# 3. ExpressJS and Templating
+# 4. NoSQL and MongoDB
+# 5. Session and Authentication
+# 6. Validation and error handling
+# 7. RestAPI
+# 8. EXAM preparation
+
+---
 # Pug View Engine
 the pug library is just like Python it requires a space indend on each line or it will not work
 </br>
