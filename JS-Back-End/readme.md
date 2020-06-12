@@ -1,9 +1,9 @@
 ### CONTENT
-### (1. Intro to NodeJS)[#1.-Intro-to-NodeJS]
+### (1. Intro to NodeJS)[#1-intro-to-nodeJSjs]
 
 
 # 1. Intro to NodeJS
-### 1. Creating a NPM package
+###1. Creating a NPM package
 run the following command in the cmd:
 ```
 npm
