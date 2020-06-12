@@ -48,11 +48,19 @@
         </header>
         <main>
             <div class="records-section">
-                p("Some txt") Some text #{byYear}
+               ul
+        each yearKey in Object.keys(months)
+          - menu = months[yearKey]
+          li
+            a(href='')= yearKey
+              ul
+                each monthKey in menu
+                  li
+                    a(href='') #{monthKey}
+            </div>
             </div>
             <div class="main-section">
-                p("Some txt") Some text
-            </div>
+            
             <div class="add-section">
                 p("Some txt") Some text
             </div>
