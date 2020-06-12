@@ -449,3 +449,21 @@ Webstorm
 Visual Studio
 Node-inspector (not working with latest version)
 - Watching with Nodemon
+
+# Pug View Engine
+the pug library is just like Python it requires a space indend on each line or it will not work
+</br>
+### 1. Nested loops
+:information_source: Use a variable inside the first order loop as a midleware to be passed to the secound order loop:
+</br>
+```js
+ ul
+        each yearKey in Object.keys(months)
+          - menu = months[yearKey]
+          li
+            a(href='')= yearKey
+              ul
+                each monthKey in menu
+                  li
+                    a(href='') #{monthKey}
+```
