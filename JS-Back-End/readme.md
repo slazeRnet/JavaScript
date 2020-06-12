@@ -492,4 +492,4 @@ the pug library is just like Python it requires a space indend on each line or i
 ```
 ---
 
-### 10. Common Errors
+# 10. Common Errors
