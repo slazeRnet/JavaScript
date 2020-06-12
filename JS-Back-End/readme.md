@@ -1,12 +1,12 @@
 ### CONTENT
-### [1. Intro to NodeJS](#1-intro-to-nodejs)
-### [2. Node.js Streams and Utilities](#2-nodejs-streams-and-utilities)
-### [3. ExpressJS and Templating](#3-expressjs-and-templating)
-### [4. NoSQL and MongoDB](#4-nosql-and-mongodb)
-### [5. Session and Authentication](#5-session-and-authentication)
-### [6. Validation and error handling](#6-validation-and-error-handling)
-### [7. RestAPI](#7-restapi)
-### [8. EXAM preparation](#8-exam-preparation)
+### [1. Intro to NodeJS](#1-intro-to-nodejs-1)
+### [2. Node.js Streams and Utilities](#2-nodejs-streams-and-utilities-1)
+### [3. ExpressJS and Templating](#3-expressjs-and-templating-1)
+### [4. NoSQL and MongoDB](#4-nosql-and-mongodb-1)
+### [5. Session and Authentication](#5-session-and-authentication-1)
+### [6. Validation and error handling](#6-validation-and-error-handling-1)
+### [7. RestAPI](#7-restapi-1)
+### [8. EXAM preparation](#8-exam-preparation-1)
 
 # 1. Intro to NodeJS
 ###1. Creating a NPM package
