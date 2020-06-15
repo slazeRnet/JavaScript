@@ -9,7 +9,7 @@
 
 ### 1. default value of argument
 </br>
-:information_source:  If the constructor is called with no argument the value of _this.data_ is set to "There is no data"
+:information_source:  If the constructor is called with no argument the value of *this.data* is set to "There is no data"
 ```js
 constructor(data){
 this.data = data || "There is no data"
