@@ -466,6 +466,263 @@ Node-inspector (not working with latest version)
 
 ---
 # 3. ExpressJS and Templating
+
+- into to express
+```js
+const express = require('express')
+const app = express();
+const port = 3000;
+app.get('/', (req, res) => {
+  res.status(200);
+  res.send('Welcome to Express.js!');
+})
+app.listen(port, () => console.log(`Express running on port: ${port}...`));
+
+```
+## 1.Express Router
+
+### 1.1 Router in express
+Routing has the following syntax
+```js
+app.METHOD(PATH, HANDLER)
+
+```
+Where
+app is an instance of express
+METHOD is an HTTP request method, in lowercase
+PATH is a path on the server
+HANDLER is the function executed when the route is matched
+
+Example of route methods:
+```js
+// GET method route
+app.get('/', (req, res) => {
+  res.send('GET request to the homepage')
+})
+// POST method route
+app.post('/', (req, res) => {
+  res.send('POST request to the homepage')
+})
+// PUT method route
+app.put('/', (req, res) => {
+  res.send('PUT request to the homepage')
+})
+// All methods route
+app.all('/about', (req, res, next) => {
+  console.log('Middleware execution..')
+  next()
+}, (req, res) => {
+  res.send('Show about page.')
+})
+
+```
+
+- paths that contain special charachters:
+```js
+app.get('*',(req, res) => {
+  res.send('Matches everything')
+})
+//Based on string patterns
+
+app.get('/ab*cd', (req, res) => {
+  res.send('abcd, abANYTHINGcd')
+}) 
+//Based on regular expressions
+
+app.get(/.*fly$/, (req, res) => {
+  res.send('butterfly, dragonfly') })
+
+```
+
+- Chainable Routes
+
+```js
+app.route('/home')
+  .get((req, res) => {
+    res.send('GET home page') })
+  .post((req, res) => {
+    res.send('POST home page') })
+  .all((req, res) => {
+    res.send('Everything else')
+  })
+
+```
+
+- Router Responses
+
+res.download - prompt a file to be downloaded
+```js
+app.get('/pdf', (req, res) => {
+  res.download('FULL PATH TO PDF') })
+
+```
+res.end - end the response process
+res.json - send a JSON response
+
+res.download - prompt a file to be downloaded
+res.end - end the response process
+res.json - send a JSON response
+res.redirect - redirect a request (to another page)
+```js
+app.get('/about/old', (req, res) => {
+  res.redirect('/about') })
+
+```
+res.sendFile - send a file as an octet stream
+```js
+app.get('/file/:fileName', (req, res) => {
+  const fileName = req.params.fileName
+  res.sendFile("PATH TO FILE" + fileName) })
+
+```
+res.render - render a view template		
+
+### Modular routes
+
+You can use express.Router for modular route handlers
+Mounted on a route (e.g. '/about')
+Can use middleware, specific only to that router
+```js
+const express = require('express')
+const router = express.Router()
+router.use(/* add middleware */)
+router.get(/* define route handlers */)
+app.use('/about', router)
+
+```
+### 1.2. Middleware
+
+Function that has access to
+The request and response object
+The next middleware in the application's request-response cycle
+Different kinds of middleware exist
+Application, route, error
+```js
+const app = express()
+app.use((req, res, next) => {
+  console.log('Time:', Date.now())
+  next() })
+```
+Middleware can be only for specific path
+```js
+app.use('/user/:userId', (req, res, next) => {
+  const userId = req.params.userId
+  // TODO: Check if user exists in db/session
+  let userExists = true
+  if (!userExists) { res.redirect('/login') } 
+  else { next() } })
+app.get('/user/:userId', (req, res) => {
+  res.send('User home page!') 
+}) 
+
+```
+
+- Third party middleware:
+```js
+app.set('view engine', 'pug');
+app.set('views', __dirname + '/views');
+app.use(cookieParser());
+app.use(session({secret: 'magic unicorns'}));
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(express.static(config.rootPath + '/public'));
+
+```
+### 1.3. Static files
+
+- Serving static files
+```js
+app.use(express.static('public'))
+app.use('/static', express.static('public'))
+app.use('/static', express.static(__dirname + '/public'))
+
+```
+- And all files from the directory will be public
+
+```js
+http://localhost:3000/images/kitten.jpg
+http://localhost:3000/css/style.css
+http://localhost:3000/js/app.js
+http://localhost:3000/images/bg.png
+http://localhost:3000/hello.html
+```
+## 2. Templating
+
+- Allows similar content to be replicated in a web page, without repeating the corresponding markup everywhere
+### 2.1. Templating Concepts
+The static parts of a webpage are stored as templates
+The dynamic content is kept separately (e.g. in a database)
+A view engine combines the two
+Benefits
+Productivity - avoid writing the same markup over and over
+Easier upkeep - only change the code in one place
+Composability - a single element can be used on multiple pages
+</br>
+Whan can they do:
+Display articles in a blog
+Display a gallery of photos
+Visualize user profiles
+Show items in a catalog
+
+### Server view Engine
+Server view engines return ready-to-use HTML to the client (the browser)
+They parse the data to HTML on the server
+Web applications, created with server view engines are not real SPA apps (In most cases)
+Famous View Engines
+Pug, Mustache, Handlebars, EJS, Vash
+
+### 2.2. Templating with Handlebars
+Based on Mustache specification
+Expressions are initialized with ' {{ ' and finish with '}}'
+```html
+<div class="entry"> 
+ <h1>{{title}}</h1> 
+  <div class="body"> 
+   {{body}} 
+  </div> 
+</div>
+
+```
+- Integration with Express
+> npm install express-handlebars
+
+```js
+const app = require('express')()
+const handlebars = require('express-handlebars')
+app.engine('.hbs', handlebars({
+  extname: '.hbs'
+}))
+app.set('view engine', '.hbs')
+
+```
+- The expression inside
+the loop uses each
+entry as context
+```js
+const context = {
+  contacts: [
+    { name: 'Maria Petrova', email: 'mar4eto@abv.bg'},
+    { name: 'Jordan Kirov', email: 'jordk@gmail.com'} ]};
+
+```
+
+```html
+<ul id="contacts">
+  {{#each contacts}}
+    <li>{{name}}: {{email}}</li>
+  {{/each}}
+</ul>
+
+```
+
+By default, any strings that are evaluated will be HTML-escaped
+To prevent this, use the "triple-stash"
+```js
+title: "All about <p> Tags"
+body: "<p>This is a post about &lt;p&gt; tags</p>"
+
+```
+---
 # 4. NoSQL and MongoDB
 # 5. Session and Authentication
 # 6. Validation and error handling
@@ -489,6 +746,27 @@ the pug library is just like Python it requires a space indend on each line or i
                 each monthKey in menu
                   li
                     a(href='') #{monthKey}
+```
+
+# Handlebars View Engine
+
+### Header and Footer Layout
+
+- specifying the layout for each router(Express Router)
+</br>
+
+```js
+app.get('/', (req, res) => {
+  res.render('home', {
+  layout: main
+  }
+})
+```
+</br>
+- setting default layout(Express Router)
+
+```js
+app.set('view options', {layout: 'main'})
 ```
 ---
 
@@ -606,3 +884,7 @@ modify the package.json file with this falg --experimental-modules
         "dev": "nodemon --experimental-modules index.mjs"
     },
 ```
+
+### Browser JSON extension Addon can brake your HTML page
+
+- Browser JSON extension can prevent your html from rendering. This may appear as View Engine error but is not.
