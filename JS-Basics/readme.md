@@ -8,11 +8,10 @@
 # 2. Condition Statements
 
 ### 1. default value of argument
-</br>
-:information_source:   If the constructor is called with no argument the value of 
-*this.data*
-is set to "There is no data"
-</br>
+
+:information_source:  If the constructor is called with no argument the value of *this.data* is set to "There is no data".
+
+
 ```js
 constructor(data){
 this.data = data || "There is no data"
@@ -27,6 +26,7 @@ this.data = data || "There is no data"
  _.defaults(options, {fruit: "strawberry"})
  ```
  </br> or even better:
+
  ```js
  constructor(data = "There is no data"){
 this.data = data
