@@ -72,6 +72,8 @@ A package.json file will be created with initial configuration
 }
 ```
 
+### 1. Run your node scrypt from the console
+> node test.js
 
 
 ## 2. Event Loop
@@ -899,4 +901,14 @@ modify the package.json file with this falg --experimental-modules
 ```js
 const path = require('path') // current directory
 let paht = path.join() // '.'
+```
+shift back and forth in the file system:
+```js
+const path = require('path') // current directory
+const fs = require('fs') // FileSystem
+// __dirname is the current dir. All the next strings are paths, the rest must be a middleware with error thrown
+fs.writeFile(path.join(__dirname, '..', '/scripts/data.josn'), JSON.stringify(data), err => {
+if(err)
+throw err
+}) // '.'
 ```
