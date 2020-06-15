@@ -36,3 +36,4 @@ this.data = data
 This works because the OR operator isn’t restricted to combining Boolean values. All it does is return the first value if it’s truthy and the second value if the first value is falsy.
 # 3. Nested Condition Statements
 # 4. While Loops
+---
