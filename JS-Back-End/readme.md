@@ -9,9 +9,11 @@
 ### [8. EXAM preparation](#8-exam-preparation-1)
 ### [9. Pug View Engine](#pug-view-engine-1)
 ### [10. Common Errors](#10-common-errors-1)
-
+---
+Not from this Module:
+### [11. File System](#11-file-system-1)
 # 1. Intro to NodeJS
-###1. Creating a NPM package
+## 1. Creating a NPM package
 run the following command in the cmd:
 ```
 npm
@@ -19,8 +21,9 @@ npm init //to initialise the package creation
 ```
 
 this will generate a `package.json` file.
-
-### 2. Create a web Server
+### 1. Never do error handling with 'throw' keyword in production
+- this will terminate the entire server. Instead display error message and log it.
+## 2. Create a web Server
 - the nodejs library for running a server is called http
 
 ```js
@@ -888,3 +891,12 @@ modify the package.json file with this falg --experimental-modules
 ### Browser JSON extension Addon can brake your HTML page
 
 - Browser JSON extension can prevent your html from rendering. This may appear as View Engine error but is not.
+
+---
+
+# 11. File System
+### path of the current directory
+```js
+const path = require('path') // current directory
+let paht = path.join() // '.'
+```
