@@ -9,8 +9,14 @@
 
 ### 1. default value of argument
 
+<<<<<<< HEAD
 :information_source:  If the constructor is called with no argument the value of *this.data* is set to "There is no data".
 
+=======
+:information_source:   If the constructor is called with no argument the value of 
+*this.data*
+is set to "There is no data"
+>>>>>>> 5dfe4b48057449482e8410329cbf971080a827ac
 
 ```js
 constructor(data){
