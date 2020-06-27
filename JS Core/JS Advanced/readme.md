@@ -1391,6 +1391,31 @@ Point.prototype.setY = function (y) {
 
 ```
 
+## Examples
+
+### module Class initialisation in NodeJS
+lib.js
+```js
+class Schema{
+    constructor(name){
+        this.name = name
+    }
+}
+
+module.exports = {
+    SampleObj: {
+        Schema
+
+    }
+}
+```
+
+test.js
+``js
+const lib = require('./lib')
+var schema = new lib.SampleObj.Schema('some name')
+console.log(schema);
+```
 
 ---
 # 8. [08-UNIT-TESTING](./08-UNIT-TESTING/)
