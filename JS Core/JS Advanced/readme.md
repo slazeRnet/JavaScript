@@ -948,6 +948,23 @@ console.log(result); // Peter
 
 ```
 
+## Library or dependency in Node JS
+lib.js
+```js
+module.exports = {
+    func(param){
+        console.log(param);
+        
+    }
+}
+```
+index.js
+```js
+const lib = require('./lib')
+var func = lib.func
+
+func('someth') // someth
+```
 
 ## 6. Closure
 
