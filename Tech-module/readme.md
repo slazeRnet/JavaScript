@@ -17,7 +17,7 @@ console.log('result: ', days.day, days[day]); // result: undefined 1
 ## 2. Associative Arrays
 ## 3. Functions
 
-### 3.3. Function Declaration
+### 3.1. Function Declaration
 they are hoiseted
 ```js
 function printText(){
