@@ -729,6 +729,78 @@ body: "<p>This is a post about &lt;p&gt; tags</p>"
 ```
 ---
 # 4. NoSQL and MongoDB
+
+## 1. Relational and NoSQL Databases
+### Relational DB
+- Organize data into one or more tables of columns and rows
+- Unique key identifying each row of data
+- Almost all relational databases use SQL to extract data
+- Relations between tables are done using Foreign Keys (FK)
+- Such databases are Oracle, MySQL, SQL Server, etc..
+
+### Non-relational Database (NoSQL)
+Key-value stores
+```js
+{
+   "_id": ObjectId("59d3fe7ed81452db0933a871"),
+   "email": "peter@gmail.com",
+   "age": 22
+}
+
+```
+SQL query is not used in NoSQL systems
+More scalable and provide superior performance
+Such databases are MongoDB, Cassandra, Redis, etc..
+
+## 2. MongoDB Overview
+### Installation 
+Download from: https://www.mongodb.com/download-center
+When installed, MongoDB needs a driver
+One to use with Node.js, .NET, Java, etc..
+Install MongoDB driver for Node.js
+```
+npm install mongodb -g
+```
+### Configuratin
+Additional configurations are needed
+Go to installation folder and run a command prompt as an administrator
+Type the following command
+```
+"C:\Program Files\MongoDB\Server\4.2\bin\mongod.exe" --dbpath="c:\data\db"
+```
+Additional information at https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/ 
+
+### Working With MongoDB shell client
+Start the shell from another CLI
+Type the command mongo:
+- lists the databases
+```
+ show dbs
+```
+
+- switch to db
+```
+ use mytestdb
+```
+- insert an object
+```
+db.mycollection.insertOne({"name":"George"})
+```
+
+- find an entry
+```
+ db.mycollection.find({"name":" George"})
+```
+Additional information at
+https://docs.mongodb.com/manual/reference/mongo-shell/
+
+### Working with MongoDB GUI
+Choose one of the many
+For example
+Robo 3T- https://robomongo.org/download 
+NoSQLBooster- https://nosqlbooster.com
+
+
 # 5. Session and Authentication
 # 6. Validation and error handling
 # 7. RestAPI
