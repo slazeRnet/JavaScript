@@ -727,6 +727,8 @@ title: "All about <p> Tags"
 body: "<p>This is a post about &lt;p&gt; tags</p>"
 
 ```
+
+:information_source:  controllers are also called handlers
 ---
 # 4. NoSQL and MongoDB
 
