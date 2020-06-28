@@ -1696,6 +1696,16 @@ modify the package.json file with this falg --experimental-modules
 
 - Browser JSON extension can prevent your html from rendering. This may appear as View Engine error but is not.
 
+### npm packages fail to install
+
+- can be caused by erronous spefication of the "main" & "scripts: {"start"}" field in package.json.
+For example if the starting point is index.js the file needs to be present
+
+### Node.js Debig terminal starts evry time i execute  acommand from the terminal
+- delete all terminal from the delete(bin) button near the drop down menu on the right and leave only 
+```
+1: powershell
+```
 ---
 
 # 11. File System
