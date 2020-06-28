@@ -982,7 +982,42 @@ const f = (function () {
 })();// fo each call returns: 1, 2, 3, 4,  5,...
 
 ```
+Is there any reason to define module.exports using an IIFE?
 
+The reason to maybe sometimes do this is because if you don't, then any variables you need for the module.exports object have to be scoped to the entire file.
+
+Consider these two ways.
+    1. Without IIFE.
+```js
+    var foo = 'la' + 'la';  // some computed value
+
+    //
+    // ... lots of program code here ...
+    //
+
+    module.exports = {
+        foo : foo,
+    };
+ ```
+ 2. With IIFE.
+```js
+//
+// ... lots of program code here ...
+//
+
+module.exports = (function () {
+    var foo = 'la' + 'la';  // some computed value
+    return {
+        foo : foo
+    }
+}());
+ ```
+-  In the first example, two problems arise.
+
+  Your variables (like foo) are created quite far away from where they are used to export a value from the module. This can reduce clarity. Sure, you can declare a variable after the program code, but it still has the same scope (and vars are hoisted). Plus, general best practice is to declare all your variables up front, and not doing so is a tradeoff to consider.
+  The program code can mess around with your variables, intentionally or accidentally, which complicates things and is undesirable unless you need that (sometimes you do).
+
+ 
 ---
 # 5. [05-DOM](./05-DOM/)
 *Document Object Model (DOM)*
