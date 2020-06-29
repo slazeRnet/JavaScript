@@ -727,6 +727,8 @@ title: "All about <p> Tags"
 body: "<p>This is a post about &lt;p&gt; tags</p>"
 
 ```
+
+:information_source:  controllers are also called handlers
 ---
 # 4. NoSQL and MongoDB
 
@@ -800,9 +802,737 @@ For example
 Robo 3T- https://robomongo.org/download 
 NoSQLBooster- https://nosqlbooster.com
 
+### Working with MongoDB from Node.js – Example
+```
+const mongodb = require('mongodb');
+const MongoClient = mongodb.MongoClient;
+const connectionStr = 'mongodb://localhost:27017';
+const client = new MongoClient(connectionStr);
+client.connect(function(err) {
+  const db = client.db('testdb');
+  const people = db.collection('people');
 
+  people.insert({ 'name': 'Ivan' }, (err, result) => {
+    people.find({ name: 'Ivan' }).toArray((err, data) => {
+      console.log(data);
+    });
+  });
+});
+```
+
+## 3. Mongoose overview
+Mongoose is an object-document model module in Node.js for MongoDB
+It provides a straight-forward, schema-based solution to model your application data
+Includes build-in type casting and validation
+Extends the native queries (much easier to use)
+To install type in terminal/CMD
+```
+npm install mongoose --g
+```
+
+### Getting started
+Load the following module
+```js
+const mongoose = require('mongoose')
+
+```
+Connecting to the database
+```js
+mongoose.connect('mongodb://localhost:27017/unidb')
+
+```
+
+### MongoDB Hosting
+Host a database in the largest MongoDB cloud service
+Go to 'mLab' and register - https://mlab.com/
+You can store up to 500 MB of content
+
+## 4. Mongoose Models
+Mongoose supports models
+Fixed types of documents
+Used like object constructors
+Needs a mongoose.Schema call:
+
+```js
+const modelSchema = new mongoose.Schema({
+  propString: String,
+  propNumber: Number,
+  propObject: {},
+  propArray: [],
+  propBool: Boolean
+});
+
+const Model = mongoose.model('Model', modelSchema);
+```
+
+### Model Methods
+Since mongoose models are just JavaScript object constructors, they can have methods
+And these methods can be added to a schema
+Use a different syntax than plain JS simply avoid arrow functions
+```js
+const studentSchema = new mongoose.Schema({…});
+
+studentSchema.methods.getInfo = function() {
+   return `I am ${this.firstName} ${this.lastName}`;
+};
+```
+### Model Virtual Properties
+Yet, not all properties need to be persisted to the database
+Mongoose provides a way to create properties, that are accessible on all models, but are not persisted to the database
+And they have both getters and setters
+```js
+studentSchema.virtual('fullName').get(function () {
+  return this.firstName + ' ' + this.lastName
+});
+
+```
+
+### Property validation
+With Mongoose developers can define custom validation on their properties
+Validate records when trying to save
+```js
+studentSchema.path('firstName')
+  .validate(function () {
+   	return this.firstName.length >= 2 
+	&& this.firstName.length <= 10
+}, 'First name must be between 2 and 10 symbols long!') // Error message as second param
+
+```
+
+### Exporting Modules
+Having all model definitions in the main module is no good
+That is the reason Node.js has modules in the first place
+In folder models, file Student.js
+```js
+const mongoose = require('mongoose');
+const studentSchema = new mongoose.Schema({
+   firstName: { type: String, required: true },
+   lastName: { type: String, required: true },
+   facultyNumber: { type: String, required: true, unique: true },
+   age: { type: Number }
+});
+
+module.exports = mongoose.model('Student');
+
+
+```
+
+We can put each model in a different module, and load all models at start
+Where it is needed
+```js
+const Student = require('./models/Student');
+
+```
+
+## 5. CRUD with Mongoose
+- Mongoose supports all CRUD operations
+  - Create (Persist data)
+  ```js
+  new Student({}).save(callback)
+  ```
+  
+  Example :
+  
+```js
+  const mongoose = require('mongoose');
+const connectionStr = 'mongodb://localhost:27017/unidb';
+const studentSchema = new mongoose.Schema({
+  name: { type: String, required: true, minlength: 3 },
+  age: { type: Number }
+});
+const Student = mongoose.model('Student', studentSchema);
+mongoose.connect(connectionStr).then(() => {
+  new Student({ name: 'Petar', age: 21 })
+    .save()
+    .then(student => {
+      console.log(student._id)
+    });
+});
+```
+  
+  - Read (Extract data)
+  ```js
+  Student.find({})
+  ```
+  
+  Example: 
+  ```js
+  Student
+    .find({})
+    .then(students => console.log(students))
+    .catch(err => console.error(err))
+Student
+    .find({name: 'Petar'})
+    .then(students => console.log(students))
+Student
+    .findOne({name: 'Petar'})
+    .then(student => console.log(student))
+  ```
+  
+- Update (Modify data)
+```js
+Student
+  .findById(id, callback)
+Student
+  .findByIdAndUpdate(id, {$set: {prop: newVal}}, callback)
+Student
+  .update({_id: id, {$set: {prop: newVal}}, callback)
+```
+Example: 
+```js
+Student
+    .findById('57fb9fe1853ab747b0f692d1')
+    .then((student) => { 
+      student.firstName = 'Stamat'
+      student.save()
+    });
+Student
+    .findByIdAndUpdate('57fb9fe90cd76e4e2c59e1a2', {
+      $set: { name: 'Stamat' }
+    });
+Student
+    .update(
+      { firstName: 'Kiril' },
+      { $set: { name: 'Petar' } },
+      { multi: true })
+```
+- Delete (Remove data)
+```js
+Student.findByIdAndRemove(id, callback)
+Student.remove({name: studentName})
+
+```
+
+Remove & Count Example:
+```js
+Student
+    .findByIdAndRemove('57fb9fe1853ab747b0f692d1')
+Student
+    .remove({ name: 'Stamat' })
+Student
+    .count()
+    .then(console.log)
+Student
+    .count({ age: { $gt: 19 } })
+    .then(console.log)
+```
+
+## 6. Mongoose Queries
+Mongoose defines all queries of the native MongoDB driver in a more clear and useful way
+Instead of
+```js
+{ 
+  $or: [
+    {conditionOne: true},
+    {conditionTwo: true}
+  ]
+}
+
+```
+Do
+```js
+.where({ conditionOne: true }).or({ conditionTwo: true })
+```
+
+### Example for a Query
+
+Mongoose supports many queries
+- For equality/non-equality
+```js
+Student.findOne({'lastName':'Petrov'})
+```
+```js
+Student.find({}).where('age').gt(7).lt(14)
+```
+```js
+Student.find({}).where('facultyNumber').equals('12399')
+
+```
+- Selection of some properties
+```js
+Student.findOne({'lastName':'Kirilov'}).select('name age')
+```
+- Sorting
+```js
+Student.find({}).sort({age:-1})
+```
+- Limit & skip
+```js
+Student.find({}).sort({age:-1}).skip(10).limit(10)
+
+```
+- Different methods could be stacked one upon the other
+```js
+Student.find({}).where('firstName').equals('gosho').where('age').gt(18).lt(65).sort({age:-1}).skip(10).limit(10)
+```
+
+## 7. Model Population
+Population is the process of automatically replacing the specified paths in the document with document(s) from other collection(s)
+We may populate a single document, multiple documents, plain object, multiple plain objects, or all objects returned from a query
+
+- Here we create two models that reference each other
+```js
+const studentSchema = new mongoose.Schema({
+  name: String,
+  age: Number,
+  facultyNumber: String
+  teacher: { type: Schema.Types.ObjectId, ref: 'Teacher' }
+  subjects: [{ type: Schema.Types.ObjectId, ref: 'Subject' }]
+});
+const subjectSchema = new mongoose.Schema({
+  title: String,
+  students: [{ type: Schema.Types.ObjectId, ref: 'Student' }]
+});
+const Student = mongoose.model('Student', studentSchema);
+const Subject = mongoose.model('Subject', subjectSchema);
+
+```
+
+- To load all the data referenced with the entity use populate()
+Will return an array of objects and NOT Id's
+
+```js
+Student.findOne({ name: 'Peter' })
+  .populate('subjects')
+  .then(student => {
+     console.log(student.subjects)   })
+```
+- You can also load multiple paths
+```js
+Student.findOne({ name: 'Peter' })
+   .populate('subjects')
+   .populate('teacher')
+   .then(student => {
+      console.log(student.teacher)
+      console.log(student.subjects)   })
+
+```
+- Populate based on a condition
+```js
+Subject.
+  find({}).
+  populate({
+    path: 'students',
+    match: { age: { $gte: 19 }},
+    select: 'name facultyNumber',
+    options: { limit: 3 }
+  })
+
+```
+More on populate here - mongoosejs.com/docs/populate.html
+
+
+---
 # 5. Session and Authentication
+## 5.1 Cookies and Sessions
+### HTTP Communication
+HTTP is stateless
+The Server and Client don't remember each other across requests
+To preserve state, cookies are stored on the Client
+Session cookie - exists on the Server
+It can store information about a Client
+Used to persist state across requests
+Matched to a Client by their cookie
+
+### Session vs Cookie
+Session is preferred when you need to store short-terminformation/values
+Cookies is preferred when you need to store long-terminformation/values
+Session is safer because is stored on the server
+Cookies are not very safe. Expiration can be set, and they can last for years
+
+
+### Using Cookie
+You can use cookie-parser middleware for Express
+```
+npm install cookie-parser --save --save-exact
+```
+
+```js
+// use in an express app
+const cookieParser = require('cookie-parser')
+app.use(cookieParser())
+app.get('/setCookie', (req, res) => {
+  res.cookie("message", "hello")
+  res.end('Cookie set')
+})
+app.get('/readCookie', (req, res) => {
+  res.json(req.cookies)
+})
+
+```
+
+### Using Sessions
+You can use express-session middleware for Express
+```
+npm install express-session --save --save-exact
+```
+
+```js
+// use in an express app
+const session = require('express-session')
+app.use(session({ secret: 'my secret'},		   { httpOnly: true },
+		   { secure: true}))
+app.get('/setSession', (req, res) => {
+  req.session.message = "hello"
+  res.end('Session set')
+})
+app.get('/readSession', (req, res) => {
+  res.json(req.session)
+})
+
+```
+## 5.2. Authentication Concepts
+### 5.2.1 Application Security
+Authentication is an important part of application security
+It serves to verify that clients can access certainresources, depending on their role
+It's built on several layers of abstraction
+Cookies  Sessions  Security
+Authentication is a cross-cutting concern, best handled awayfrom business logic
+Request  Authentication  Business Logic  Response
+
+### 5.2.2 Bcrypt
+Bcrypt is a password hashing function
+Besides incorporating a salt to protect against rainbow tableattacks, bcrypt is an adaptive function
+Over time, the iteration count can be increased to make itslower, so it remains resistant to brute-force search attackseven with increasing computation power
+- Installation
+```
+npm install bcrypt --save
+```
+- Hash password
+```
+const bcrypt = require('bcrypt');
+const saltRounds = 9;
+const myPlainTextPassword = "password123";
+
+bcrypt.genSalt(saltRounds, (err, salt) => {
+    bcrypt.hash(myPlainTextPassword, salt, (err, hash) => {
+        console.log(hash);
+        // $2b$09$pdhUAoT4qE0tmku.ZkXWROeLcJCy.LDRq.1I4IVImjrUTGuUbYQMi
+    })});
+
+```
+- Check password
+```js
+const myPlainTextPassword = "password123";
+const hash = "$2b$09$pdhUAoT4qE0tmku.ZkXWROeLcJCy.LDRq.1I4IVImjrUTGuUbYQMi";
+
+bcrypt.compare(myPlainTextPassword, hash, (err, res) => {
+    console.log(res); // true
+});
+
+```
+- Async way is recommended to hash and check password
+### Authentication
+The process of verifying the identity of a user or computer
+Questions: "Who are you?", "How you prove it? "
+Credentials can be password, smart card, external token, etc...
+### Authorization
+The process of determining what a user is permitted to do on a computer or network
+Questions: " What are you allowed to do?", "Can you see this page?"
+
+## 5.3. JSON Web Token
+### 5.3.1. What is JWT?
+JSON Web Token (JWT) is an open standard that defines acompact and self-contained way for securelytransmitting information between parties as a JSON object
+This information can be verified and trusted because it isdigitally signed
+JWTs can be signed using a secret or a public/private key pair using RSA or ECDSA
+### 5.3.2. When Should You Use JWT?
+- JSON Web Tokens are useful for
+Authorization (most common scenario) - Once the user islogged in, each subsequent request will include JWT, allowingthe user to access routes, services and resources that arepermitted with that token
+Information Exchange - JSON Web Tokens are good way ofsecurely transmitting information between parties. Becausethey are signed digitally
+
+### 5.3.3. JWT Structure
+- In its compact form, JSON Web Tokens consist of three partsseparated by dots ( . )
+Header 
+Payload 
+Signature
+
+- Installation
+```
+npm install jsonwebtoken --save
+
+```
+Encode token
+```js
+const jwt = require(jsonwebtoken');
+
+const payloads = { _id, username };
+const options = { expiresIn: '2d'};
+const secret = 'MySuperPrivateSecret';
+const token = jwt.sign(payload, secret, options);
+
+console.log(token); //eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXkiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.xzK8LJQz0lDkJqsng04BYxcUQzxWngyEBP
+
+```
+Decode token
+```js
+const token = req.cookies['token'] || sessionStorage.getItem('token');
+// Depends where you store the token..
+
+const decodedToken = jwt.verify(token, secretKey);
+
+console.log(decodedToken); // { _id: ..., username: ... }
+
+```
+More about JWT, you can find
+https://jwt.io/
+https://www.npmjs.com/package/jsonwebtoken
+
+---
 # 6. Validation and error handling
+## 6.1. Validation
+- Why validate?
+Bigger app === more data you will need from your users atsome point of time
+You should prevent the user from entering something incorrect
+The validation can
+either succeed and allow the data to be written to the database
+reject the input and return some information
+**How to validate?**
+- Client-Side
+Before any request is sent, we can write some JS that watchesfor input changes and approve the UX
+It's optional because the user can see, change and disable thecode because, JS runs in the browser
+This is not a protection that secures you against incorrect databeing sent to your server
+- Server-side
+The code can't be seen, change or disabled, because it happenson the server, not in the browser. This is the place where youshould add validation and filter out the invalid data
+After that, you will be sure you only work with valid data andstore the correct information into the database
+-- Database
+For most database engines there is a build in validation whichyou can turn on
+It's not required, because there should be no scenario whereyour database work with invalid data
+Make sure you have proper server-side validation and your database works with correct data
+
+### 6.1.1. validator.js - Is a library of string validators and sanitizers
+Installation and Usage
+```
+npm install validator --save
+```
+Server-side usage
+```js
+const validator = require('validator');
+const body = req.body;
+validator.isEmail(body.email); // true or false
+```
+Client-side usage
+```html
+<script type="text/javascript" src="validator.min.js"></script>
+<script type="text/javascript">
+  validator.isEmail($('#email').val()); // true or false
+</script> 
+
+```
+### 6.1.2. express-validator 
+Is a set of express.js middlewares that wraps validator.js validator and sanitizer functions
+Installation and usage
+```
+npm install express-validator --save
+```
+```js
+const { check, validationResult } = require('express-validator'); 
+
+check('email').isEmail()
+check('password').isLength({ min: 5 });
+
+const errors = validationResult(req);
+
+if(!errors.isEmpty()) // Return 422 status and export errors
+
+// Create user...
+```
+**Sanitizers** are functions which implement sanitization which is
+Making sure that the data is in the right format
+Removing any illegal character from the data
+normalizeEmail: canonicalizes an email address
+trim: trim characters from both sides of the input
+blacklist - remove characters that appear in the blacklist
+and more...
+**Sanitising** input is also something that makes sense to be done
+You can do it in one step with validating
+```js
+const { body } = require('express-validator');
+body('email')
+	.isEmail() // check if the string is an email (validation)
+	.normalizeEmail(), // canonicalizes an email address (sanitization)
+body('password')
+	.isLength({ min: 5 })
+	.isAlphanumeric()
+	.trim() // trim characters (whitespace by default) - sanitization
+
+```
+Тhе sanitization mutates the request
+This means that if req.body.email was sent
+with the value "PeteR@ood.bg    "
+after the sanitization its value will be "peter@ood.bg"
+### 6.1.3. Custom validator
+Validation is defined in the SchemaType
+Validation is middleware
+Mongoose registers validation as a pre('save') hook
+It's asynchronously recursive
+can be customizable
+unique option for schemas is not validator
+It's a convenient helper for building MongoDB unique indexes
+
+Express-validators allows you to create custom validationsand that send custom messages
+```js
+const { body } = require('express-validator');
+
+app.post('/user', body.('email').custom(value => {
+    return User.findUserByEmail(value)
+        .then(user => {
+	      if(user){
+                return Promise.reject('E-mail already in use');
+            }
+	  });
+};
+
+```
+**Mongoose Save/Validate Hooks**
+The save() function triggers validate() hook
+all pre('validate') and post('validate') hooks get called beforeany pre('save') hook
+```js
+schema.pre('validate', function() {
+  console.log('this gets printed first');
+});
+schema.post('validate', function() {
+  console.log('this gets printed second');
+});
+schema.pre('save', function() {
+  console.log('this gets printed third');
+});
+schema.post('save', function() {
+  console.log('this gets printed fourth');
+});
+
+```
+**Mongoose Built-in Validators**
+All SchemaTypes have built-in required validator
+Numbers have min and max validators
+Strings have enum, match, minelngth and maxlength
+```js
+const userSchema = new Schema({
+    username: {
+        type: String,
+        required: true,
+        unique: true,
+        minlength: 4,
+        maxlength: 20,
+    },
+});
+
+```
+**Mongoose Custom Validators**
+- If the build-in validators aren't enough, you can definecustom validators to suit your needs
+```js
+var userSchema = new Schema({
+  phone: {
+    type: String,
+    validate: {
+      validator: function(v) {
+        return /\d{3}-\d{3}-\d{4}/.test(v);
+      },
+      message: props => `${props.value} is not a valid phone number!`
+    },
+    required: [true, 'User phone number required']
+  }
+});
+
+```
+
+### 6.1.4. Custom Sanitizer
+Can be implemented by using the method .customSanitizer()
+```js
+const { sanitizeParam } = require('express-validator');
+
+app.post('/object/:id', sanitizeParam('id').customSanitizer(value => {
+  return ObjectId(value);
+}), (req, res) => {
+  // Handle the request...
+});
+
+```
+
+### 6.1.5. Mongoose Validation Errors
+- Errors returned after failed validation contain an error objectwhose values are ValidatorError object
+has kind, path, value and message properties
+```js
+toy.save((err) => {
+	assert.equal(err.errors.color.message, 'Color');
+	assert.equal(err.errors.color.kind, 'Invalid color');
+	assert.eqial(err.errors.color.path, 'color');
+	assert.equal(err.errors.color.value, 'Green');
+	...
+});
+
+```
+No matter which approach you choose, in the end some ofthe validations can fail
+ You should always return a helpful error message to the user
+Never reload the page but always keep the user data insertedbecause that is a bad user experience
+More info
+https://express-validator.github.io/docs/
+https://mongoosejs.com/docs/validation.html
+
+
+## 6.2. Error Handing
+Errors in your code should be handled properly
+- These errors can be different types
+	- Technical/Network Errors
+	MongoDB server might be down
+
+	- "Usual"/"Expected" Errors
+	File can't be reads or some database operation fails
+
+	- Bugs/Logical Errors
+	User object used when it doesn't exist
+This errors are our fault
+They should be fixed during development
+
+### 6.2.1. Working with errors
+An error is a technical object in a node application. This built-inerror object can be thrown
+Synchronous code
+try-catch
+Asynchronous code
+then()-catch()
+In the end in both scenario, you have to choice
+Directly handle the error
+Use ExpressJS functionality
+
+### 6.2.2. Error Handling
+There is a scenarios where you can't continue but there is notechnical error
+If some user try to login but the username does not exist
+You must check the values and decide what to do
+Thrown an error
+Directly handle the "error"
+- Handling errors synchronously
+```js
+const User = require('../models/User/);
+
+async (req, res, next) => {
+    const { username, password } = req.body;
+    try{
+	const currentUser = await User.findOne({ username });
+	// Login...
+    } catch (e) {
+      // Handle error properly...
+    }  
+};
+
+```
+- Handling errors asynchronously
+```js
+Post.findById(postId)
+ .then((post) => {
+   // Delete post
+ })
+ .catch(error => {
+   if (!error.statusCode) {
+      error.statusCode = 500;
+   }  
+   next(error); })
+
+```
+In all cases you can: 
+Return an error page
+Return a response with error information
+Redirect
+
+---
 # 7. RestAPI
 # 8. EXAM preparation
 
@@ -966,6 +1696,16 @@ modify the package.json file with this falg --experimental-modules
 
 - Browser JSON extension can prevent your html from rendering. This may appear as View Engine error but is not.
 
+### npm packages fail to install
+
+- can be caused by erronous spefication of the "main" & "scripts: {"start"}" field in package.json.
+For example if the starting point is index.js the file needs to be present
+
+### Node.js Debig terminal starts evry time i execute  acommand from the terminal
+- delete all terminal from the delete(bin) button near the drop down menu on the right and leave only 
+```
+1: powershell
+```
 ---
 
 # 11. File System

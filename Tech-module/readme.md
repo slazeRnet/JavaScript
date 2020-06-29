@@ -16,6 +16,73 @@ console.log('result: ', days.day, days[day]); // result: undefined 1
 ## 1. Arrays lists advanced
 ## 2. Associative Arrays
 ## 3. Functions
+
+### 3.1. Function Declaration
+they are hoiseted
+```js
+function printText(){
+console.log('Say Hello!')
+}
+```
+### 3.2. Annonimous function
+An anonymous function is, as its name implies, a function without a name (no pun intended). They are most popularly used to define function expressions. An example of such usage is shown below.
+These function expressions are created at runtime and must be declared/defined before they can be called i.e. they are not hoisted,
+:information_source:  unlike function declarations that are hoisted as soon as program execution begins and can be called before its actual declaration.
+```js
+//printName("Tom");     
+//ReferenceError: printName is not definedconst printName = function (name){ 
+   console.log(name);
+}
+printName("Tom");      
+//result: Tom
+```
+
+Anonymous functions can also be used to promote encapsulation in Immediately Invoked Function Expressions (IIFE). This is illustrated below.
+
+### 3.3. Lambda Expression
+On the other hand, lambda expressions are abstractions which enable a function to be passed around like data. In JavaScript, everything can be treated as an object, this means that a function can be sent into another function as a parameter and can also be retrieved from the called function as a return value. An example of lambda expression is as shown below. It supports arrow notation =>.
+```js
+function traverseArray(arr, func) {
+    let result = '';
+    for (const value of arr) {
+        result += func(value) + ' ';
+    }
+    console.log(result);
+}
+
+const arr = [1, 2, 3, 4, 5];
+const doubler = value => value * 2;////alternatively, can be written verbosely as
+//const doubler = (value) => {
+//    return value * 2;
+//}
+
+traverseArray(arr, doubler);      
+//result: 2 4 6 8 10 
+```
+The most salient point which differentiates lambda functions from anonymous functions in JavaScript is that lambda functions can be named. This naming could be of help during debugging. An example which illustrates this is shown below.
+```js
+function traverseArray(arr, func) {
+    let result = '';
+    for (const value of arr) {
+        result += func(value) + ' ';
+    }
+    console.log(result);
+}
+
+const arr = [1, 2, 3, 4, 5];
+
+traverseArray(arr, function doubler(value) { 
+    return value * 2;
+});                     
+//result: 2 4 6 8 10 
+```
+This shows that a lambda function is not necessarily anonymous and an anonymous function is not necessarily a lambda expression if it is not passed around like data. The fat (or thin) arrow notation is simply syntactic sugar.
+
+Most of the time, these two constructs are referred to interchangeably, and in some programming languages, finding the difference is like splitting hairs. The most important aspect of programming is grokking the underlying principles surrounding a construct and leveraging it to achieve your goals. Understanding the literature and applying it correctly improves code quality.
+
+If you have any information to add or correct, I will be glad to hear from you. As Robert A. Heinlein said, “I never learned from a man who agreed with me.”
+
+---
 ## 4. Objects and classes
 ## 5. Iterators and iterable
 
