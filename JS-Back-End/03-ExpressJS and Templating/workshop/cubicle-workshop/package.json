@@ -10,5 +10,7 @@
     },
     "devDependencies": {
         "nodemon": "^1.19.2"
-    }
+    },
+    "scripts": {		    
+        "start": "node index.js" }
 }
