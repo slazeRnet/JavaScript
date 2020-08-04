@@ -628,6 +628,10 @@ Content-Disposition: attachment;                                                
     - Code on demand (optional)
     - Uniform interface 
 
+### 4.1 :information_source: REST vs AJAX
+- AJAX is a set of (typically) client-sided web development techniques, while REST is an architecture style for sending and handling HTTP requests. So you can use AJAX to send RESTful requests. A REST API is typically not implemented using AJAX, but can be accessed by an AJAX client.
+
+
 ## 5. AJAX - Asynchronous JavaScript and XML
 
 **What is AJAX?**
