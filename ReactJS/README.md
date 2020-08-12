@@ -1,6 +1,6 @@
 ### CONTENT
-### [1. Introduction to ReactJS](#1-intro-to-reactjs-1)
-### [2. React Components](#1-react-components-1)
+### [1. Introduction to ReactJS](#1-introduction-to-reactjs-1)
+### [2. React Components](#2-react-components-1)
 
 # 1. Introduction to React.js
 1. React Overview
@@ -421,7 +421,7 @@ render() { 
 
 ```
 
-## 3. Handling Events
+## 2.3. Handling Events
 Handling events with React elements is verysimilar to handling event on DOM elements
 The syntactic differences are:
 React events are named using camelCase
