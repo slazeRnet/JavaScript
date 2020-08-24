@@ -454,4 +454,86 @@ using bind
 </button>
 
 ```
+```js
+<button className="counter"
+  onClick={props.clickHandler}>
+    Click me! I'm a counter [{props.clicks}]
+</button>
 
+```
+```js
+<Button clickHandler={() => this.clickHandler()}  clicks={this.state.clicks}/>
+
+```
+```js
+<button className="counter"
+  onClick={props.clickHandler}>
+    Click me! I'm a counter [{props.clicks}]
+</button>
+
+
+```
+
+### SyntheticEvent
+Event handlers will be passed instances of SyntheticEvent
+It has the same interface as the browser's native event
+Including stopPropagation() and preventeDefault()
+Except the events work identically across all browsers
+```js
+function onClick(event) {
+  console.log(event);
+  console.log(event.type);
+  const eventType = event.type;
+}
+
+```
+
+### Event Pooling
+Event pooling
+SyntheticEvent object will be reused and all propertieswill be nullified after the event callback has been invoked
+cannot access the event in async way
+It's possible by using event.persist()
+React Supported Events
+
+## 2.4. Conditional Rendering
+Conditional rendering in React works the sameway conditions work in JavaScript using:
+operators like if
+conditional (ternary) operators
+
+### 2.4.1. Using if operator
+```js
+function UserGreeting(props) {
+  return <h1>Welcome back!</h1>;
+}
+
+function GuestGreeting(props) {
+  return <h1>Please sign up.</h1>;
+}
+
+function Greeting(props) {
+  const isLoggedIn = props.isLoggedIn;
+    if (isLoggedIn) {
+      return <UserGreeting />;
+    }
+  return <GuestGreeting />
+}
+
+```
+
+### 2.4.2. using ternary operator
+```js
+function UserGreeting(props) {
+  return <h1>Welcome back!</h1>;
+}
+
+function GuestGreeting(props) {
+  return <h1>Please sign up.</h1>;
+}
+
+function Greeting(props) {  return (
+    <div>
+      { props.isLoggedIn ? < UserGreeting /> : <GuestGreeting /> }
+    </div>
+  )}
+
+```
