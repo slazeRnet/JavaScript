@@ -612,3 +612,40 @@ const todoItems = todos.map((todo) =>
 );
 
 ```
+
+### 2.5.3. Extracting Components with Keys
+Keys only make sense in the context of the surrounding array
+```js
+function NumberList(props) {
+    const numbers = props.numbers;
+    const listItems = numbers.map((number) =>
+        <ListItem key={number.toString()} value={number} />
+    );
+    return (
+        <ul>
+            {listItems}
+        </ul>
+    );
+}
+
+```
+
+```js
+function ListItem(props) {
+    return <li>{props.value}</li>;
+}
+
+```
+
+Don't use indexes for keys if the order may change
+Keys serve as a hint to React, but they don't get passed to your component
+If you need the same value, pass it explicitly as prop with adifferent name
+```js
+const content = posts.map((post) =>
+  <Post
+    key={post.id} id={post.id} title={post.title}
+  />
+);
+
+```
+- Keys don't need to be globally unique (only among their siblings)
