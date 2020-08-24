@@ -537,3 +537,78 @@ function Greeting(props) {  return (
   )}
 
 ```
+
+## 2.5. Lists and Keys
+Using map() we can build collections of elements and include them in JSX using {}
+Keys should be given to the elements inside the array to give the elements a stable identity
+Keys help React identify which items have changed, are added, or are removed
+
+Using map() to take an array of numbers and double their values
+Rendering Multiple Components
+```js
+const numbers = [1, 2, 3, 4, 5];
+const doubled = numbers.map((number) => number * 2);
+console.log(doubled); // [2, 4, 6, 8, 10]
+
+const numbers = [1, 2, 3, 4, 5];
+const listItems = numbers.map((number) =>
+  <li>{number}</li>
+);
+
+```
+
+Result
+```
+1
+2
+3
+4
+5
+```
+
+### 2.5.1. Basic List Component
+Basic List Component looks like
+```js
+function NumberList(props) {
+    const numbers = props.numbers;
+    const listItems = numbers.map((number) =>
+        <li>{number}</li>
+    );
+    return (
+        <ul>{listItems}</ul>
+    );
+}
+
+```
+
+You can build collections of elements and include them in JSX using {}
+```js
+function NumberList(props) {
+    const numbers = props.numbers;
+    const listItems = numbers.map((number) =>
+        <li>{number}</li>
+    );
+    return <ul>{listItems}</ul>;
+}
+
+```
+Usually lists are rendered inside a component
+
+When you render an array of elements, React needs a key prop to identify elements for optimization purposes
+If they don't have it, you will get
+:x:
+> Each child in list should have unique "key" prop
+
+It won't stop your work
+
+### 2.5.2. Picking a Key
+The best way to pick a key is to use a string that uniquely identifies a list item among its siblings
+Most often you would use ID's from your data as keys
+```js
+const todoItems = todos.map((todo) =>
+  <li key={todo.id}>
+    {todo.text}
+  </li>
+);
+
+```
