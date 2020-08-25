@@ -928,12 +928,12 @@ const someContext = React.createContext(defaultValue);
 - While rendering will read the current context value from the closest matching Provider above it in the tree
 - The default value is used only when a component does not have a matching Provider above it in the tree
 
-- > Class.contextType
+- Class.contextType
 Property that can be assigned a Context object created by React.createContext
 Lets you consume the nearest current value of that Context type using this.context
 You can reference this in any of the lifecycle methods including the render function
 
-- > Context.Consumer
+- Context.Consumer
 A React component that subscribes to context changes
 Lets you subscribe to a context within a function component
 Requires a function as a child
@@ -941,7 +941,7 @@ Receives the current context value
 Return a React node
 Value will be equal to the value prop of the closest Provider
 
-- > Context.displayName
+- Context.displayName
 String property
 React DevTools uses this string to determine what to display for the context
 ```js
