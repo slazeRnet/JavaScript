@@ -1,6 +1,7 @@
 ### CONTENT
 ### [1. Introduction to ReactJS](#1-introduction-to-reactjs-1)
 ### [2. React Components](#2-react-components-1)
+### [3. React Components – Deep Dive] () // provide link to section starting from this header 
 
 # 1. Introduction to React.js
 1. React Overview
@@ -649,3 +650,305 @@ const content = posts.map((post) =>
 
 ```
 - Keys don't need to be globally unique (only among their siblings)
+
+---
+## 3. React Components – Deep Dive
+
+### 3.1. Component Lifecycle
+A component has "lifecycle methods" that can be overridden to run code at times in the process
+A component has 3 lifecycle phases
+- Mounting  - where the component and all its children are mounted (created and inserted to the DOM)
+- Updating Updating - component is re-rendered because changes are made to its props or state
+- Unmounting - occurs when a component instance isunmounted (removed from the DOM)
+
+#### 3.1.1. Component Mounting
+After preparing with basic needs, state and props a Component is ready to mount in the browser DOM
+- constructor
+- static getDerivedStateFromProps
+- render
+- componentDidMount
+
+#### 3.1.2. Component Updating
+This phase starts with the beginning of the react component and expand by receiving new updates
+- static getDerivedStateFromProps
+- shouldCompoentUpdate
+- render 
+- getSnapshotBeforeUpdate
+- componentDidUpdate
+
+#### 3.1.3. Component Unmounting
+
+The component is not needed, and the component will get unmounted
+componentWillUnmount
+- Here React does all the cleanups related to the component
+- Invalidating timers
+- Canceling network requests
+- Cleaning up any subscriptions
+
+### 3.2. Higher-Order Components
+A higher-order component (HOC) is an advancedtechnique in React for reusing component logic
+HOCs are not part of the React API
+HOC is a function that takes a component andreturns a new component
+
+**Example: Reducer Function**
+A reducer applies a function over a sequence of elements toproduce a single result
+```js
+function reduce(arr, func) {
+    let result = arr[0];
+    for (let nextElement of arr.slice(1))
+        result = func(result, nextElement);
+    return result;
+}
+reduce([5, 10, 20], (a, b) => a + b); // 35
+reduce([5, 10, 20], (a, b) => a * b); // 1000
+
+```
+
+#### 3.2.1. Higher-Order Functions 
+Components are the primary unit of code reuse
+Some patterns aren't straightforward for traditionalcomponents
+Whereas as component transforms props into UI
+HOC component transform a component into anothercomponent
+```js
+const EnhancedComponent = higherOrderComponent(WrappedComponent);
+
+```
+
+- Logging of component lifecycle events
+```js
+function logged(WrappedComponent) {
+    return class extends React.Component {
+        componentDidMount() {
+            console.log(`${WrappedComponent.displayName} mounted`);
+        }
+        render() {
+            return <WrappedComponent {...this.props} />;
+        }
+    };
+}
+
+
+```
+
+#### 3.2.2. Advantages
+- Greater code reuse
+- Reduced boilerplate
+- Easily handle cross-cutting concerns
+*Cross-cutting concerns are parts of a program that rely on or must affect many other parts of the system. They form the basis for the development of aspects. Such cross-cutting concerns do not fit cleanly into object-oriented programming or procedural programming.*
+- Commonly used for
+- Managing form input
+- Binding component props to business logic
+- Automating repetitive tasks
+
+#### 3.3. CSS Modules
+CSS files in which all class names and animationnames are scoped locally by default
+All URLs and imports are relative
+Importing CSS Module from a JS Module
+Exports an object with all mapping from localnames to global names
+
+React supports CSS Modules alongside regular stylesheet usingthe [name].module.css file naming convention
+```cs
+.App {
+  text-align: center;
+}
+.btn {
+  background-color: green;
+  color: white;
+  border-radius: 15px;
+  margin: 2%;
+  padding: 0.5%;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+```
+- CSS Modules let you use the same CSS class name in differentfile without worrying about naming clashes
+
+CSS File called Button.module.css
+```css
+.error {
+  background-color: white;
+  color: red;
+}
+```
+
+Importing all styles
+Using error class from the css file
+
+```js
+import React, { Component } from 'react';
+import styles from './Button.module.css';
+class Button extends Component {
+  render() {
+    return <button className={styles.error}>Error Button</button>;
+  }
+}
+
+```
+
+### 3.4. Using Fetch API
+The Fetch API provides an interface for accessingand manipulating requests and responses
+fetch() function which provides easy way tofetch resources asynchronously
+functionality like this was previously achievedusing XMLHttpRequest
+fetch() takes one mandatory argument (the path to theresource you want to fetch)
+second argument is optionally (init options - object) 
+returns a promise
+once response is retrieved, there are several methodsthat defines what and how should be handled
+- Fetch API with then/catch example
+```js
+fetch('https://api.github.com/users/k1r1L')
+    .then((response) => response.json())
+    .then((myJson) => console.log(myJson))
+    .catch((myErr) => console.error(myErr));
+
+```
+
+- Fetch API with async/await example
+```js
+(async () => {
+  try {
+    const response = await fetch('https://api.github.com/users/k1r1L');
+    const myJson = await response.json();
+    console.log(myJson);
+  } catch (myErr) {
+    console.error(myErr);
+  }
+})();
+
+```
+#### 3.4.1. Fetch Services
+The basic idea is to isolate the concern of fetching data inside components
+Fetching data logic should separated as service
+```js
+const apiUrl = '...';
+export const getData = () => {
+    return fetch(apiUrl)
+        .then(res => res.json())
+        .then(data => data.results)
+        .catch(error => console.error(error))
+};
+
+```
+
+```js
+import { getData } from'./services/fetching-data-service'; // Import the service
+
+
+class App extends Component {
+  state = {
+    data: ...
+  };
+  componentDidMount() { // Using the service
+    getData().then((data) => {
+      this.setState({ data })
+    });
+  }
+  render() {    return ...;
+  }
+}
+
+```
+
+
+### 3.5. Context
+Context provides way to pass data through the component tree without passing the props manually
+- Context API
+  - React.createContext
+  - Context.Provider
+  - Class.contextType
+  - Context.Consumer
+  - Context.displayName
+Context is designed to share data that can be considered global
+Current authenticated user
+Theme
+Preferred language
+Using context, we can avoid passing props through intermediate elements
+
+**Without Using Context**
+```js
+class App extends React.Component {
+  render() {
+    return <Toolbar theme="dark" />;
+  }
+}
+function Toolbar(props) {
+  return (
+    <div>
+      <ThemedButton theme={props.theme} />
+    </div>
+  );
+}
+class ThemedButton extends React.Component {
+  render() {
+    return <Button theme={this.props.theme} />;
+  }
+}
+
+```
+
+**Using Context**
+```js
+const ThemeContext = React.createContext('light');
+class App extends React.Component {
+  render() {
+    return (
+      <ThemeContext.Provider value="dark">
+        <Toolbar />
+      </ThemeContext.Provider>
+    );}
+}
+
+
+function Toolbar(props) {
+  return (
+    <div>
+      <ThemedButton />
+    </div>
+  );}
+
+class ThemedButton extends React.Component {
+  static contextType = ThemeContext;
+  render() {
+    return <Button theme={this.context} />;
+  }
+}
+
+```
+
+Context is primarily used when
+Some data needs to be accessible by many components at different nesting levels
+Apply it sparingly because it makes component reuse more difficult
+Using Context only the top-most Page Component know about your data
+
+- React.createContext
+```js
+const someContext = React.createContext(defaultValue);
+```
+- Creates a Context object
+- While rendering will read the current context value from the closest matching Provider above it in the tree
+- The default value is used only when a component does not have a matching Provider above it in the tree
+
+- > Class.contextType
+Property that can be assigned a Context object created by React.createContext
+Lets you consume the nearest current value of that Context type using this.context
+You can reference this in any of the lifecycle methods including the render function
+
+- > Context.Consumer
+A React component that subscribes to context changes
+Lets you subscribe to a context within a function component
+Requires a function as a child
+Receives the current context value
+Return a React node
+Value will be equal to the value prop of the closest Provider
+
+- > Context.displayName
+String property
+React DevTools uses this string to determine what to display for the context
+```js
+const MyContext = React.createContext(/* some value */);
+MyContext.displayName = 'MyDisplayName';
+
+<MyContext.Provider> // "MyDisplayName.Provider" in DevTools
+<MyContext.Consumer> // "MyDisplayName.Consumer" in DevTools
+
+```
