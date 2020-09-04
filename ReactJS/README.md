@@ -3,8 +3,8 @@
 ### [2. React Components](#2-react-components-1)
 ### [3. React Components – Deep Dive] () // provide link to section starting from this header 
 
-### [11. Errors](#11-errors) 
-### [12. Definitions](#12-definitions)
+### [11. Errors](#11-errors-1) 
+### [12. Definitions](#12-definitions-1)
 
 # 1. Introduction to React.js
 1. React Overview
