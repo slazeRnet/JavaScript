@@ -3,6 +3,7 @@
 ### [2. React Components](#2-react-components-1)
 ### [3. React Components – Deep Dive] () // provide link to section starting from this header 
 
+### [11. React Components – Deep Dive](#11-errors) 
 # 1. Introduction to React.js
 1. React Overview
 2. Installation
@@ -952,3 +953,9 @@ MyContext.displayName = 'MyDisplayName';
 <MyContext.Consumer> // "MyDisplayName.Consumer" in DevTools
 
 ```
+
+# 11. Errors
+
+### 11.1 TypeError: this.handleClick is not a function
+a function handleClick is called but never defined.
+
