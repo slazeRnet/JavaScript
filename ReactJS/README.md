@@ -963,7 +963,10 @@ a function handleClick is called but never defined.
 
 # 12. Definitions
 
-### 12.1 controlled components
+### 12.1. controlled components
 source: https://reactjs.org/tutorial/tutorial.html
 > the Square components receive values from the Board component and inform the Board component when they’re clicked. 
 > In React terms, the Square components are now controlled components. The Board has full control over them.
+
+### 12.2. immutability 
+(bg) неизменност
