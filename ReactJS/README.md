@@ -5,6 +5,7 @@
 
 ### [11. Errors](#11-errors-1) 
 ### [12. Definitions](#12-definitions-1)
+### [13. Debugging](#13-debugging-1)
 
 # 1. Introduction to React.js
 1. React Overview
@@ -970,3 +971,9 @@ source: https://reactjs.org/tutorial/tutorial.html
 
 ### 12.2. immutability 
 (bg) неизменност
+
+---
+
+# 13. Debugging
+
+### 13.1. never use console.log() for debugging
