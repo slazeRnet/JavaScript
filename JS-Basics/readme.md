@@ -12,6 +12,17 @@
   console.log(state.xIsNext) //false
 ```
 
+### 1.2. Conversion to bool
+
+```js
+let a = 0
+let b = 1
+
+console.log(!!a); //false
+console.log(!!b); //true
+
+```
+
 # 2. Condition Statements
 
 ### 1. default value of argument
