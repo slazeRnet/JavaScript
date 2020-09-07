@@ -13,11 +13,17 @@ console.log('result: ', days.day, days[day]); // result: undefined 1
 ```
 ### 5. Iterators and iterable
 
-## 1. Arrays lists advanced
-## 2. Associative Arrays
-## 3. Functions
+# 1. Arrays lists advanced
+### 1.1. throws error when trying to get property of undefined:
+```js
+let arr; //undefined
+console.log(arr[0]) //TypeError: Cannot read property '0' of undefined
+```
 
-### 3.1. Function Declaration
+# 2. Associative Arrays
+# 3. Functions
+
+## 3.1. Function Declaration
 they are hoiseted
 ```js
 function printText(){

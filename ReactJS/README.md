@@ -3,6 +3,10 @@
 ### [2. React Components](#2-react-components-1)
 ### [3. React Components – Deep Dive] () // provide link to section starting from this header 
 
+### [11. Errors](#11-errors-1) 
+### [12. Definitions](#12-definitions-1)
+### [13. Debugging](#13-debugging-1)
+
 # 1. Introduction to React.js
 1. React Overview
 2. Installation
@@ -952,3 +956,24 @@ MyContext.displayName = 'MyDisplayName';
 <MyContext.Consumer> // "MyDisplayName.Consumer" in DevTools
 
 ```
+
+# 11. Errors
+
+### 11.1 TypeError: this.handleClick is not a function
+a function handleClick is called but never defined.
+
+# 12. Definitions
+
+### 12.1. controlled components
+source: https://reactjs.org/tutorial/tutorial.html
+> the Square components receive values from the Board component and inform the Board component when they’re clicked. 
+> In React terms, the Square components are now controlled components. The Board has full control over them.
+
+### 12.2. immutability 
+(bg) неизменност
+
+---
+
+# 13. Debugging
+
+### 13.1. never use console.log() for debugging

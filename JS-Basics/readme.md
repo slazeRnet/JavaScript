@@ -5,6 +5,24 @@
 ### [4. While Loops](#4-while-loops-1)
 
 # 1. Simple Operations
+### 1.1. flip the value of a bool variable
+```js
+  let state = {xIsNext: true}
+      state = {xIsNext: !state.xIsNext, }
+  console.log(state.xIsNext) //false
+```
+
+### 1.2. Conversion to bool
+
+```js
+let a = 0
+let b = 1
+
+console.log(!!a); //false
+console.log(!!b); //true
+
+```
+
 # 2. Condition Statements
 
 ### 1. default value of argument
