@@ -67,6 +67,17 @@ cd my-app
 npm start
 
 ```
+- Change default port
+edin package.json file to :
+```json
+"scripts": {
+    "start": "PORT=3000 react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+```
+>This is in case we want our port to be 3000
 - Browse your app from http://localhost:3000
 
 - Visit the official website
