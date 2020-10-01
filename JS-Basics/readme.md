@@ -23,7 +23,7 @@ console.log(!!b); //true
 
 ```
 ### 1.3. Incrementing a string returns NaN
-- ('b'+'a'+ + 'a' + 'a').toLowerCase() returns 'banana'?
+:information_source: ('b'+'a'+ + 'a' + 'a').toLowerCase() returns 'banana'?
 > +'a' 
 resolves to NaN ("Not a Number") because it coerces a string to a number, while the character a cannot be parsed as a number.
 # 2. Condition Statements
