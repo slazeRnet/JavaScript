@@ -1,6 +1,7 @@
 ### CONTENT
 ### [1. Overview](#1-overview-1)
 ### [2. Definitions](#1-definitions-1)
+### [3. Data Types](#3-data-types)
 ### [11. Errors](#11-errors-1)
 
 ---
@@ -47,10 +48,45 @@ null === null        // true
 null == null         // true
 !null                // true
 isNaN(1 + null)      // false
+isNaN(1 + undefined) // true
   </code>
 </details>
 
-isNaN(1 + undefined) // true
+
+
+### 3.1.3. Fundamental objects
+#### 3.1.3.1. Object
+- [MDN Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)
+- The Object class represents one of JavaScript's data types. It is used to store various keyed collections and more complex entities. Objects can be created using the Object() constructor or the object initializer / literal syntax.
+<details>
+    <summary>:information_source: Description </summary>
+    Description
+Nearly all objects in JavaScript are instances of Object; a typical object inherits properties (including methods) from Object.prototype, although these properties may be shadowed (a.k.a. overridden). However, an Object may be deliberately created for which this is not true (e.g. by Object.create(null)), or it may be altered so that this is no longer true (e.g. with Object.setPrototypeOf).
+
+Changes to the Object prototype object are seen by all objects through prototype chaining, unless the properties and methods subject to those changes are overridden further along the prototype chain. This provides a very powerful although potentially dangerous mechanism to override or extend object behavior.
+
+The Object constructor creates an object wrapper for the given value.
+
+- If the value is null or undefined, it will create and return an empty object.
+- Otherwise, it will return an object of a Type that corresponds to the given value.
+- If the value is an object already, it will return the value.
+- When called in a non-constructor context, Object behaves identically to new Object().
+
+</details
+#### 3.1.3.1.1. Self reference in object literals/ initialisers
+- [Stackoverflow](https://stackoverflow.com/questions/4616202/self-references-in-object-literals-initializers)
+- The only way to do this is with getter:
+```js
+var foo = {
+  a: 5,
+  b: 6,
+  get c() {
+    return this.a + this.b;
+  }
+}
+
+console.log(foo.c) // 11
+```
 ---
 # 11. Errors
 
