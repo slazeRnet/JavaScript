@@ -24,13 +24,16 @@
     <summary>Code Example</summary>
     <code>
   // foo does not exist. It is not defined and has never been initialized:
+        <br>
 foo; //ReferenceError: foo is not defined
   </code>
+    <br>
  <code>
 // foo is known to exist now but it has no type or value:
+     <br>
 var foo = null; 
 foo; //null
-  </code>
+    </code>
 </details>
 
 <details>
