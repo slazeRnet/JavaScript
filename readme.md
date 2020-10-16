@@ -7,6 +7,48 @@
 # 1. Overview
 - stable API - API stability refers to some level of guarantee from a project that its API will only change in defined ways in the future, or will not change at all.
 
+---
+# 2. Definitions
+
+---
+# 3. Data Types
+## 3.1. Standart Build in Objects
+### 3.1.1. Value Properties
+#### 3.1.1.1. Infinity
+#### 3.1.1.2. NaN
+#### 3.1.1.3. undefined
+#### 3.1.1.4. globalThis
+### 3.1.2. Lack of Identification (null)
+- The value null is written with a literal: null. null is not an identifier for a property of the global object, like undefined can be. Instead, null expresses a lack of identification, indicating that a variable points to no object. In APIs, null is often retrieved in a place where an object can be expected but no object is relevant. 
+<details>
+    <summary>Code Example</summary>
+    ```js
+  // foo does not exist. It is not defined and has never been initialized:
+foo; //ReferenceError: foo is not defined
+  ```
+  ```js
+// foo is known to exist now but it has no type or value:
+var foo = null; 
+foo; //null
+  ```
+</details>
+
+<details>
+    <summary>Comparison Operator Code Example</summary>
+  ```js
+typeof null          // "object" (not "null" for legacy reasons)
+typeof undefined     // "undefined"
+null === undefined   // false
+null  == undefined   // true
+null === null        // true
+null == null         // true
+!null                // true
+isNaN(1 + null)      // false
+  ```
+</details>
+
+isNaN(1 + undefined) // true
+---
 # 11. Errors
 
 ### :x: 1. TypeError: cyclic object value (Firefox) / TypeError: Converting circular structure to JSON (Chrome)
