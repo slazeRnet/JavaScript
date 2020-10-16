@@ -22,20 +22,20 @@
 - The value null is written with a literal: null. null is not an identifier for a property of the global object, like undefined can be. Instead, null expresses a lack of identification, indicating that a variable points to no object. In APIs, null is often retrieved in a place where an object can be expected but no object is relevant. 
 <details>
     <summary>Code Example</summary>
-    ```js
+    <code>
   // foo does not exist. It is not defined and has never been initialized:
 foo; //ReferenceError: foo is not defined
-  ```
-  ```js
+  </code>
+ <code>
 // foo is known to exist now but it has no type or value:
 var foo = null; 
 foo; //null
-  ```
+  </code>
 </details>
 
 <details>
     <summary>Comparison Operator Code Example</summary>
-  ```js
+ <code>
 typeof null          // "object" (not "null" for legacy reasons)
 typeof undefined     // "undefined"
 null === undefined   // false
@@ -44,7 +44,7 @@ null === null        // true
 null == null         // true
 !null                // true
 isNaN(1 + null)      // false
-  ```
+  </code>
 </details>
 
 isNaN(1 + undefined) // true
