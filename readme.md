@@ -72,7 +72,8 @@ The Object constructor creates an object wrapper for the given value.
 - If the value is an object already, it will return the value.
 - When called in a non-constructor context, Object behaves identically to new Object().
 
-</details
+</details>
+
 #### 3.1.3.1.1. Self reference in object literals/ initialisers
 - [Stackoverflow](https://stackoverflow.com/questions/4616202/self-references-in-object-literals-initializers)
 - The only way to do this is with getter:
