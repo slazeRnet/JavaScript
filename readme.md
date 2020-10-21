@@ -99,6 +99,29 @@ var foo = {
 
 console.log(foo.c) // 11
 ```
+
+### 3.1.4. Indexed collections
+- Reversing a string (incidentally, a common
+JavaScript interview trivia question!). arrays have a reverse()
+in-place mutator method, but strings do not:
+```js
+text.reverse; // undefined
+arr.reverse(); // ["!","o","O","f"]
+arr; // ["!","o","O","f"]
+```
+
+#### 3.1.4.1. Array
+#### 3.1.4.2. Int8Array
+#### 3.1.4.3. Uint8Array
+#### 3.1.4.4. Uint8ClampedArray
+#### 3.1.4.5. Int16Array
+#### 3.1.4.6. Uint16Array
+#### 3.1.4.7. Int32Array
+#### 3.1.4.8. Uint32Array
+#### 3.1.4.9. Float32Array
+#### 3.1.4.10. Float64Array
+#### 3.1.4.11. BigInt64Array
+#### 3.1.4.12. BigUint64Array
 ---
 # 11. Errors
 
