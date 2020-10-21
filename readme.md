@@ -19,6 +19,17 @@
 #### 3.1.1.2. NaN
 #### 3.1.1.3. undefined
 #### 3.1.1.4. globalThis
+- manually referencing the global variable with a
+window reference is something some developers prefer to avoid,
+especially if your code needs to run in multiple JS environments
+(not just browsers, but server-side node.js, for instance), where the
+global variable may not always be called window.
+
+NodeJS global scope:
+> this
+
+ES6 global scope:
+> window
 ### 3.1.2. Lack of Identification (null)
 - The value null is written with a literal: null. null is not an identifier for a property of the global object, like undefined can be. Instead, null expresses a lack of identification, indicating that a variable points to no object. In APIs, null is often retrieved in a place where an object can be expected but no object is relevant. 
 <details>
