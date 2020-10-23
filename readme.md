@@ -110,6 +110,46 @@ arr.reverse(); // ["!","o","O","f"]
 arr; // ["!","o","O","f"]
 ```
 
+### 3.1.5. Statements and Declarations
+<details>
+    - <summary> :information_source: Difference between var and let in JavaScript </summary>
+
+Last Updated: 07-08-2019
+var and let are both used for variable declaration in javascript but the difference between them is that var is function scoped and let is block scoped.
+It can be said that a variable declared with var is defined throughout the program as compared to let.
+An example will clarify the difference even better
+Example of var:
+
+Input:
+    <code>
+console.log(x);
+var x=5;
+console.log(x);
+    </code>
+    <br>
+Output:
+<code>
+undefined
+5
+ </code>
+ <br>
+Example of let:
+ <br>
+
+Input:
+<code>
+console.log(x);
+let x=5;
+console.log(x);
+    </code>
+    <br>
+   
+Output:
+ <code>
+Error
+    </code>
+</details>
+
 #### 3.1.4.1. Array
 #### 3.1.4.2. Int8Array
 #### 3.1.4.3. Uint8Array
