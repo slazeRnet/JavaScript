@@ -116,7 +116,11 @@ var foo = {
 console.log(foo.c) // 11
 ```
 
+## 3.4. Error objects
 
+## 3.5. Numbers and dates
+
+## 3.6. Text processing
 
 ### 3.7. Indexed collections
 - Reversing a string (incidentally, a common
@@ -130,21 +134,34 @@ arr; // ["!","o","O","f"]
 
 
 
-#### 3.1.4.1. Array
-#### 3.1.4.2. Int8Array
-#### 3.1.4.3. Uint8Array
-#### 3.1.4.4. Uint8ClampedArray
-#### 3.1.4.5. Int16Array
-#### 3.1.4.6. Uint16Array
-#### 3.1.4.7. Int32Array
-#### 3.1.4.8. Uint32Array
-#### 3.1.4.9. Float32Array
-#### 3.1.4.10. Float64Array
-#### 3.1.4.11. BigInt64Array
-#### 3.1.4.12. BigUint64Array
+#### 3.7.1. Int8Array
+#### 3.7.2. Array
+#### 3.7.3. Uint8Array
+#### 3.7.4. Uint8ClampedArray
+#### 3.7.5. Int16Array
+#### 3.7.6. Uint16Array
+#### 3.7.7. Int32Array
+#### 3.7.8. Uint32Array
+#### 3.7.9. Float32Array
+#### 3.7.10. Float64Array
+#### 3.7.11. BigInt64Array
+#### 3.7.12. BigUint64Array
+---
 
+## 3.8. Keyed collections
 
-### 3.XXX. Statements and Declarations
+## 3.9. Structured data
+
+## 3.10. Control abstraction objects
+
+## 3.11. Reflection
+
+## 3.12. Internationalization
+
+## 3.13. WebAssembly
+
+## 3.14. Other
+### 3.14.1.  Statements and Declarations
 <details>
     - <summary> :information_source: Difference between var and let in JavaScript </summary>
 
@@ -184,9 +201,9 @@ Error
     </code>
 </details>
 
-## 3.2. Function Properties
+### 3.14.2. arguments
 
-## 3.3. 
+
 ---
 # 11. Errors
 
