@@ -65,8 +65,7 @@ isNaN(1 + undefined) // true
 
 ## 3.2. Function properties
 <details>
-    <summary> All Function Properties </summary>
-    
+    <summary>All Function Properties</summary>  
 - eval()
 - uneval() 
 - isFinite()
