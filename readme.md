@@ -63,10 +63,27 @@ isNaN(1 + undefined) // true
   </code>
 </details>
 
+## 3.2. Function properties
+<details>
+    <summary> All Function Properties </summary>
+    
+- eval()
+- uneval() 
+- isFinite()
+- isNaN()
+- parseFloat()
+- parseInt()
+- encodeURI()
+- encodeURIComponent()
+- decodeURI()
+- decodeURIComponent()
+- Deprecated
+    - escape()
+    - unescape()
+ </details>
 
-
-### 3.1.3. Fundamental objects
-#### 3.1.3.1. Object
+## 3.3. Fundamental objects
+#### 3.3.1. Object
 - [MDN Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)
 - The Object class represents one of JavaScript's data types. It is used to store various keyed collections and more complex entities. Objects can be created using the Object() constructor or the object initializer / literal syntax.
 <details>
@@ -85,7 +102,7 @@ The Object constructor creates an object wrapper for the given value.
 
 </details>
 
-#### 3.1.3.1.1. Self reference in object literals/ initialisers
+#### 3.3.1.1. Self reference in object literals/ initialisers
 - [Stackoverflow](https://stackoverflow.com/questions/4616202/self-references-in-object-literals-initializers)
 - The only way to do this is with getter:
 ```js
@@ -100,7 +117,9 @@ var foo = {
 console.log(foo.c) // 11
 ```
 
-### 3.1.4. Indexed collections
+
+
+### 3.7. Indexed collections
 - Reversing a string (incidentally, a common
 JavaScript interview trivia question!). arrays have a reverse()
 in-place mutator method, but strings do not:
@@ -110,7 +129,23 @@ arr.reverse(); // ["!","o","O","f"]
 arr; // ["!","o","O","f"]
 ```
 
-### 3.1.5. Statements and Declarations
+
+
+#### 3.1.4.1. Array
+#### 3.1.4.2. Int8Array
+#### 3.1.4.3. Uint8Array
+#### 3.1.4.4. Uint8ClampedArray
+#### 3.1.4.5. Int16Array
+#### 3.1.4.6. Uint16Array
+#### 3.1.4.7. Int32Array
+#### 3.1.4.8. Uint32Array
+#### 3.1.4.9. Float32Array
+#### 3.1.4.10. Float64Array
+#### 3.1.4.11. BigInt64Array
+#### 3.1.4.12. BigUint64Array
+
+
+### 3.XXX. Statements and Declarations
 <details>
     - <summary> :information_source: Difference between var and let in JavaScript </summary>
 
@@ -150,18 +185,9 @@ Error
     </code>
 </details>
 
-#### 3.1.4.1. Array
-#### 3.1.4.2. Int8Array
-#### 3.1.4.3. Uint8Array
-#### 3.1.4.4. Uint8ClampedArray
-#### 3.1.4.5. Int16Array
-#### 3.1.4.6. Uint16Array
-#### 3.1.4.7. Int32Array
-#### 3.1.4.8. Uint32Array
-#### 3.1.4.9. Float32Array
-#### 3.1.4.10. Float64Array
-#### 3.1.4.11. BigInt64Array
-#### 3.1.4.12. BigUint64Array
+## 3.2. Function Properties
+
+## 3.3. 
 ---
 # 11. Errors
 
