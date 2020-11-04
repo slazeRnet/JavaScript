@@ -12,7 +12,7 @@ ___
 # 2. Definitions
 
 ---
-# 3. Data Types
+# 3. Data Types & Values
 ## 3.1. Standart Build in Objects
 ### 3.1.1. Value Properties
 #### 3.1.1.1. Infinity
