@@ -4,7 +4,7 @@
 ### [3. Data Types](#3-data-types)
 ### [11. Errors](#11-errors-1)
 
----
+___
 # 1. Overview
 - stable API - API stability refers to some level of guarantee from a project that its API will only change in defined ways in the future, or will not change at all.
 
@@ -63,6 +63,7 @@ isNaN(1 + undefined) // true
   </code>
 </details>
 
+---
 ## 3.2. Function properties
 <details>
     <summary>All Function Properties</summary>  
@@ -80,7 +81,8 @@ isNaN(1 + undefined) // true
     - escape()
     - unescape()
  </details>
-
+ 
+---
 ## 3.3. Fundamental objects
 #### 3.3.1. Object
 - [MDN Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)
@@ -115,9 +117,10 @@ var foo = {
 
 console.log(foo.c) // 11
 ```
-
+---
 ## 3.4. Error objects
 
+---
 ## 3.5. Numbers and dates
 
 ### 3.5.1. Number
@@ -171,7 +174,8 @@ Number(undefined)  // NaN
 ---
 ## 3.6. Text processing
 
-### 3.7. Indexed collections
+---
+## 3.7. Indexed collections
 - Reversing a string (incidentally, a common
 JavaScript interview trivia question!). arrays have a reverse()
 in-place mutator method, but strings do not:
