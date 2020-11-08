@@ -267,38 +267,71 @@ ___
 <details>
 <summary> :page_with_curl: CONTENT </summary>
 <strong>5.1 Primary expressions</strong>
+    <br>
 - this
+     <br>
 - function
+     <br>
 - class
+     <br>
 - function*
+     <br>
 - yield
+     <br>
 - yield*
+     <br>
 - async function
+     <br>
 - await
+     <br>
 - []
+     <br>
 - {}
+     <br>
 - /ab+c/i
+     <br>
 - ( )
+     <br>
 - null  
+     <br>
 <strong>5.2. Left-hand-side expressions</strong>
+     <br>
 - Property accessors
+     <br>
 - new
+     <br>
 - new.target
+     <br>
 - super
+     <br>
 - ...obj
+     <br>
 <strong>5.3. Increment & decrement</strong>
+     <br>
 - A++
+     <br>
 - A--
+     <br>
 - ++A
+     <br>
 - --A
+     <br>
 <strong>5.4. Unary operators</strong>
+     <br>
 - delete
+     <br>
 - void
+     <br>
 - typeof
+     <br>
 - +
+     <br>
 - -
+     <br>
 - ~
+     <br>
 - !
+     <br>
 </details>
 
 ___
