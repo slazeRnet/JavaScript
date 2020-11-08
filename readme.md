@@ -1,9 +1,10 @@
 ### CONTENT
 ### [1. Overview](#1-overview-1)
-### [2. Definitions](#1-definitions-1)
+
 ### [3. Data Types](#3-data-types-1)
 ### [4. Statements](#4-statements-1)
 ### [5. Expressions & Operations](#5-expressions-operations-1)
+### :capital_abcd: [10. Definitions](#10-definitions-1)
 ### [11. Errors](#11-errors-1)
 
 ___
@@ -11,7 +12,6 @@ ___
 - stable API - API stability refers to some level of guarantee from a project that its API will only change in defined ways in the future, or will not change at all.
 
 ---
-# 2. Definitions
 
 ---
 # 3. Data Types & Values
@@ -336,6 +336,12 @@ ___
      <br>
 </details>
 
+___
+
+# :capital_abcd: 10. Definitions
+
+### 10.1. Callbacks
+Callbacks are just the name of a convention for using JavaScript functions. There isn't a special thing called a 'callback' in the JavaScript language, it's just a convention. Instead of immediately returning some result like most functions, functions that use callbacks take some time to produce a result. The word 'asynchronous', aka 'async' just means 'takes some time' or 'happens in the future, not right now'. Usually callbacks are only used when doing I/O, e.g. downloading things, reading files, talking to databases, etc.
 ___
 
 # 11. Errors
