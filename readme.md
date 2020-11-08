@@ -4,8 +4,8 @@
 ### [3. Data Types](#3-data-types-1)
 ### [4. Statements](#4-statements-1)
 ### [5. Expressions & Operations](#5-expressions-operations-1)
-### :capital_abcd: [10. Definitions](#10-definitions-1)
-### [11. Errors](#11-errors-1)
+### :capital_abcd: [10. Definitions](#capital_abcd-10-definitions-1)
+### :x: [11. Errors](#x-11-errors-1)
 
 ___
 # 1. Overview
@@ -344,7 +344,7 @@ ___
 Callbacks are just the name of a convention for using JavaScript functions. There isn't a special thing called a 'callback' in the JavaScript language, it's just a convention. Instead of immediately returning some result like most functions, functions that use callbacks take some time to produce a result. The word 'asynchronous', aka 'async' just means 'takes some time' or 'happens in the future, not right now'. Usually callbacks are only used when doing I/O, e.g. downloading things, reading files, talking to databases, etc.
 ___
 
-# 11. Errors
+# :x: 11. Errors
 
 ### :x: 1. TypeError: cyclic object value (Firefox) / TypeError: Converting circular structure to JSON (Chrome)
 
