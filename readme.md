@@ -454,6 +454,57 @@ document.querySelector('form').onsubmit = formUploader.submit
 :white_check_mark: formuploader can get used in other places without duplicating code and can easily be shared on github or npm
 <br>
 
+##### :three: Handle every single error
+There are different types of errors: syntax errors caused by the programmer (usually caught when you try to first run the program), runtime errors caused by the programmer (the code ran but had a bug that caused something to mess up), platform errors caused by things like invalid file permissions, hard drive failure, no network connection etc. This section is only meant to address this last class of errors.
+
+The first two rules are primarily about making your code readable, but this one is about making your code stable. When dealing with callbacks you are by definition dealing with tasks that get dispatched, go off and do something in the background, and then complete successfully or abort due to failure. Any experienced developer will tell you that you can never know when these errors happen, so you have to plan on them always happening.
+
+With callbacks the most popular way to handle errors is the Node.js style where <strong>the first argument to the callback is always reserved for an error</strong>.
+```js
+var fs = require('fs')
+
+ fs.readFile('/Does/not/exist', handleFile)
+
+ function handleFile (error, file) {
+   if (error) return console.error('Uhoh, there was an error', error)
+   // otherwise, continue on and use `file` in your code
+ }
+```
+Having the first argument be the <code>error</code> is a simple convention that encourages you to remember to handle your errors. If it was the second argument you could write code like <code>function handleFile (file) { }</code> and more easily ignore the error.
+
+Code linters can also be configured to help you remember to handle callback errors. The simplest one to use is called standard. All you have to do is run <code>$ standard</code> in your code folder and it will show you every callback in your code with an unhandled error.
+<details>
+    <summary>:infomation_source: SUMMARY </summary>
+   
+- Don't nest functions. Give them names and place them at the top level of your program
+<br>
+- Use function hoisting to your advantage to move functions 'below the fold'
+<br>
+- Handle every single error in every one of your callbacks. Use a linter like standard to help you with this.
+<br>
+- Create reusable functions and place them in a module to reduce the cognitive load required to understand your code. Splitting your code into small pieces like this also helps you handle errors, write tests, forces you to create a stable and documented public API for your code, and helps with refactoring.
+<br>
+</details>
+#### 10.1.2. the first argument to the callback is always reserved for an error
+
+### 10.2. :package: Module
+
+#### 10.2.1. :pencil: Rules of thumb when creating a module:
+
+:black_small_square: Start by moving repeatedly used code into a function
+<br>
+:black_small_square: When your function (or a group of functions related to the same theme) get big enough, move them into another file and expose them using module.exports. You can load this using a relative require
+<br>
+:black_small_square: If you have some code that can be used across multiple projects give it it's own readme, tests and package.json and publish it to github and npm. There are too many awesome benefits to this specific approach to list here!
+<br>
+:black_small_square: A good module is small and focuses on one problem
+<br>
+:black_small_square: Individual files in a module should not be longer than around 150 lines of JavaScript
+<br>
+:black_small_square: A module shouldn't have more than one level of nested folders full of JavaScript files. If it does, it is probably doing too many things
+<br>
+:black_small_square: Ask more experienced coders you know to show you examples of good modules until you have a good idea of what they look like. If it takes more than a few minutes to understand what is happening, it probably isn't a very good module.
+<br>
 ___
 
 # :x: 11. Errors
