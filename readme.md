@@ -342,6 +342,80 @@ ___
 
 ### 10.1. Callbacks [:link: MORE INFO](http://callbackhell.com/)
 Callbacks are just the name of a convention for using JavaScript functions. There isn't a special thing called a 'callback' in the JavaScript language, it's just a convention. Instead of immediately returning some result like most functions, functions that use callbacks take some time to produce a result. The word 'asynchronous', aka 'async' just means 'takes some time' or 'happens in the future, not right now'. Usually callbacks are only used when doing I/O, e.g. downloading things, reading files, talking to databases, etc.
+
+#### 10.1.1. :question: How do I fix callback hell?
+- Callback hell is caused by poor coding practices. Luckily writing better code isn't that hard!
+
+- :information_source: You only need to follow three rules:
+##### :one: Keep your code shallow
+:spaghetti: Here is some messy browser JavaScript that uses browser-request to make an AJAX request to a server:
+```js
+var form = document.querySelector('form')
+form.onsubmit = function (submitEvent) {
+  var name = document.querySelector('input').value
+  request({
+    uri: "http://example.com/upload",
+    body: name,
+    method: "POST"
+  }, function (err, response, body) {
+    var statusMessage = document.querySelector('.status')
+    if (err) return statusMessage.value = err
+    statusMessage.value = body
+  })
+}
+```
+
+:name_badge: This code has two anonymous functions. Let's give em names!
+
+```js
+var form = document.querySelector('form')
+form.onsubmit = function formSubmit (submitEvent) {
+  var name = document.querySelector('input').value
+  request({
+    uri: "http://example.com/upload",
+    body: name,
+    method: "POST"
+  }, function postResponse (err, response, body) {
+    var statusMessage = document.querySelector('.status')
+    if (err) return statusMessage.value = err
+    statusMessage.value = body
+  })
+}
+```
+:information_source: As you can see naming functions is super easy and has some immediate benefits:
+
+:one: makes code easier to read thanks to the descriptive function names
+:two: when exceptions happen you will get stacktraces that reference actual function names instead of "anonymous"
+:three: allows you to move the functions and reference them by their names
+:point_up: Now we can move the functions to the top level of our program:
+
+```js
+document.querySelector('form').onsubmit = formSubmit
+
+function formSubmit (submitEvent) {
+  var name = document.querySelector('input').value
+  request({
+    uri: "http://example.com/upload",
+    body: name,
+    method: "POST"
+  }, postResponse)
+}
+
+function postResponse (err, response, body) {
+  var statusMessage = document.querySelector('.status')
+  if (err) return statusMessage.value = err
+  statusMessage.value = body
+}
+```
+Note that the function declarations here are defined at the bottom of the file. This is thanks to function hoisting.
+
+##### :two: Modularize
+
+:heavy_exclamation_mark: This is the most important part: Anyone is capable of creating modules (aka libraries). To quote Isaac Schlueter (of the node.js project): "Write small modules that each do one thing, and assemble them into other modules that do a bigger thing. You can't get into callback hell if you don't go there."
+
+:arrow_right: Let's take out the boilerplate code from above and turn it into a module by splitting it up into a couple of files. I'll show a module pattern that works for either browser code or server code (or code that works in both):
+
+Here is a new file called formuploader.js that contains our two functions from before:
 ___
 
 # :x: 11. Errors
