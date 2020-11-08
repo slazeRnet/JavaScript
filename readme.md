@@ -266,7 +266,7 @@ ___
 #5. Expressions & Operations
 <details>
 <summary> :page_with_curl: CONTENT </summary>
-  ### 5.1 Primary expressions
+<strong>5.1 Primary expressions</strong>
 - this
 - function
 - class
@@ -280,18 +280,18 @@ ___
 - /ab+c/i
 - ( )
 - null  
-### Left-hand-side expressions
+<strong>5.2. Left-hand-side expressions</strong>
 - Property accessors
 - new
 - new.target
 - super
 - ...obj
-### Increment & decrement
+<strong>5.3. Increment & decrement</strong>
 - A++
 - A--
 - ++A
 - --A
-### Unary operators
+<strong>5.4. Unary operators</strong>
 - delete
 - void
 - typeof
@@ -300,7 +300,9 @@ ___
 - ~
 - !
 </details>
+
 ___
+
 # 11. Errors
 
 ### :x: 1. TypeError: cyclic object value (Firefox) / TypeError: Converting circular structure to JSON (Chrome)
