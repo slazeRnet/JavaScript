@@ -1,7 +1,9 @@
 ### CONTENT
 ### [1. Overview](#1-overview-1)
 ### [2. Definitions](#1-definitions-1)
-### [3. Data Types](#3-data-types)
+### [3. Data Types](#3-data-types-1)
+### [4. Statements](#4-statements-1)
+### [5. Expressions & Operations](#5-expressions-operations-1)
 ### [11. Errors](#11-errors-1)
 
 ___
@@ -256,8 +258,49 @@ Error
 
 ### 3.14.2. arguments
 
+___
 
----
+# 4. Statements
+
+___
+#5. Expressions & Operations
+<details>
+<summary> :page_with_curl: CONTENT </summary>
+  ### 5.1 Primary expressions
+- this
+- function
+- class
+- function*
+- yield
+- yield*
+- async function
+- await
+- []
+- {}
+- /ab+c/i
+- ( )
+- null  
+### Left-hand-side expressions
+- Property accessors
+- new
+- new.target
+- super
+- ...obj
+### Increment & decrement
+- A++
+- A--
+- ++A
+- --A
+### Unary operators
+- delete
+- void
+- typeof
+- +
+- -
+- ~
+- !
+</details>
+___
 # 11. Errors
 
 ### :x: 1. TypeError: cyclic object value (Firefox) / TypeError: Converting circular structure to JSON (Chrome)
