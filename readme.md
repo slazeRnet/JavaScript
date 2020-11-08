@@ -383,11 +383,15 @@ form.onsubmit = function formSubmit (submitEvent) {
 }
 ```
 :information_source: As you can see naming functions is super easy and has some immediate benefits:
-
+<br>
 :one: makes code easier to read thanks to the descriptive function names
+<br>
 :two: when exceptions happen you will get stacktraces that reference actual function names instead of "anonymous"
+<br>
 :three: allows you to move the functions and reference them by their names
+<br>
 :point_up: Now we can move the functions to the top level of our program:
+<br>
 
 ```js
 document.querySelector('form').onsubmit = formSubmit
@@ -416,6 +420,40 @@ Note that the function declarations here are defined at the bottom of the file. 
 :arrow_right: Let's take out the boilerplate code from above and turn it into a module by splitting it up into a couple of files. I'll show a module pattern that works for either browser code or server code (or code that works in both):
 
 Here is a new file called formuploader.js that contains our two functions from before:
+
+```js
+module.exports.submit = formSubmit
+
+function formSubmit (submitEvent) {
+  var name = document.querySelector('input').value
+  request({
+    uri: "http://example.com/upload",
+    body: name,
+    method: "POST"
+  }, postResponse)
+}
+
+function postResponse (err, response, body) {
+  var statusMessage = document.querySelector('.status')
+  if (err) return statusMessage.value = err
+  statusMessage.value = body
+}
+```
+
+The <code>module.exports</code> bit is an example of the node.js module system which works in node, Electron and the browser using browserify. I quite like this style of modules because it works everywhere, is very simple to understand and doesn't require complex configuration files or scripts.
+
+Now that we have <code>formuploader.js</code> (and it is loaded in the page as a script tag after being browserified) we just need to require it and use it! Here is how our application specific code looks now:
+```js
+var formUploader = require('formuploader')
+document.querySelector('form').onsubmit = formUploader.submit
+```
+:ok_hand: Now our application is only two lines of code and has the following benefits:
+<br>
+:white_check_mark: easier for new developers to understand -- they won't get bogged down by having to read through all of the formuploader functions
+<br>
+:white_check_mark: formuploader can get used in other places without duplicating code and can easily be shared on github or npm
+<br>
+
 ___
 
 # :x: 11. Errors
