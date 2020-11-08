@@ -263,7 +263,9 @@ ___
 # 4. Statements
 
 ___
-#5. Expressions & Operations
+
+# 5. Expressions & Operations
+
 <details>
 <summary> :page_with_curl: CONTENT </summary>
 <strong>5.1 Primary expressions</strong>
