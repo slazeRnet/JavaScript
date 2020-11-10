@@ -336,6 +336,53 @@ ___
      <br>
 </details>
 
+## 5.1.1.
+
+## 5.1.2.
+
+## 5.1.3. 
+
+## 5.1.4. Generator Function (function*)
+- generator function objects created with the GeneratorFunction constructor are parsed when the function is created. This is less efficient than declaring a generator function with a function* expression and calling it within your code, because such functions are parsed with the rest of the code.
+
+-All arguments passed to the function are treated as the names of the identifiers of the parameters in the function to be created, in the order in which they are passed.
+
+:ledger: NOTE: generator function created with the GeneratorFunction constructor do not create closures to their creation contexts; they are always created in the global scope.
+When running them, they will only be able to access their own local variables and global ones, not the ones from the scope in which the GeneratorFunction constructor was called.
+This is different from using eval with code for a generator function expression.
+
+- Invoking the GeneratorFunction constructor as a function (without using the new operator) has the same effect as invoking it as a constructor.
+- hen the iterator's next() method is called, the generator function's body is executed until the first yield expression, which specifies the value to be returned from the iterator:
+```js
+    function* getGenerator(i) {
+            i *= 2;
+             yield i;
+             yield i + 1;
+    }
+
+let iteraorGeneratorFunc = getGenerator(1);
+
+console.log(iteraorGeneratorFunc.next().value); // 2
+console.log(iteraorGeneratorFunc.next().value); // 3
+console.log(iteraorGeneratorFunc.next().value); // undefined
+```
+
+- So for the purpose of creating a iterator you can place the yield keyword inside a recursive function:
+```js
+function* getGenerator(i) {
+        while(true){
+            i *= 2;
+             yield i;
+            }
+    }
+    
+let iteraorGeneratorFunc = getGenerator(1);
+
+console.log(iteraorGeneratorFunc.next().value); // 2
+console.log(iteraorGeneratorFunc.next().value); // 4
+console.log(iteraorGeneratorFunc.next().value); // 8
+```
+[:point_right: FIBONACI CODE EXAMPLE](./JS Core/JS Applications/01-this/02-yield-return-fibonacci.js)
 ___
 
 # :capital_abcd: 10. Definitions
