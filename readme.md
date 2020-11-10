@@ -18,7 +18,16 @@ ___
 <details>
     <summary>  :page_with_curl: CONTENT </summary>
     <strong><a href="#31-standart-build-in-objects">3.1. Standart Build in Objects</a><strong>
+        <br>
         <a href="#311-value-properties"> 3.1.1. Value Properties</a>
+        <br>
+        <a href="#312-lack-of-identification-null"> 3.1.1. Lack of Identification (null)</a>
+        <br>
+     <strong> <a href="#32-function-properties">3.2. Function properties </a></strong>
+        <br>
+        <a href="#321-eval"> 3.2.1. eval </a>
+        <br>
+     <strong><a href="#33-fundamental-objects"> 3.3. Fundamental Objects</a></strong>
 </details>
         
         
