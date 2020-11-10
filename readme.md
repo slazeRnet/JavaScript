@@ -15,6 +15,11 @@ ___
 
 ---
 # 3. Data Types & Values
+<details>
+    <summary>  :page_with_curl: CONTENT </summary
+#### 3.1. [Standart Build in Objects](#31-standart-build-in-objects)
+        3.1.1. [Value Properties](#311-value-properties)
+        </details>
 ## 3.1. Standart Build in Objects
 ### 3.1.1. Value Properties
 #### 3.1.1.1. Infinity
@@ -84,6 +89,22 @@ isNaN(1 + undefined) // true
     - unescape()
  </details>
  
+ ### 3.2.1. eval()  :exclamation:
+ - The eval() function evaluates JavaScript code represented as a string.
+
+```js
+console.log(eval('2 + 2'));
+// expected output: 4
+
+console.log(eval(new String('2 + 2')));
+// expected output: 2 + 2
+
+console.log(eval('2 + 2') === eval('4'));
+// expected output: true
+
+console.log(eval('2 + 2') === eval(new String('2 + 2')));
+// expected output: false
+```
 ---
 ## 3.3. Fundamental objects
 #### 3.3.1. Object
@@ -336,13 +357,13 @@ ___
      <br>
 </details>
 
-## 5.1.1.
+### 5.1.1.
 
-## 5.1.2.
+### 5.1.2.
 
-## 5.1.3. 
+### 5.1.3. 
 
-## 5.1.4. Generator Function (function*)
+### 5.1.4. Generator Function (function*)
 - generator function objects created with the GeneratorFunction constructor are parsed when the function is created. This is less efficient than declaring a generator function with a function* expression and calling it within your code, because such functions are parsed with the rest of the code.
 
 -All arguments passed to the function are treated as the names of the identifiers of the parameters in the function to be created, in the order in which they are passed.
@@ -368,6 +389,160 @@ console.log(iteraorGeneratorFunc.next().value); // undefined
 ```
 
 - So for the purpose of creating a iterator you can place the yield keyword inside a recursive function:
+
+#### 3.1.5.1 Simple Example
+
+```js
+function* idMaker() {
+  var index = 0;
+  while (true)
+    yield index++;
+}
+
+var gen = idMaker();
+
+console.log(gen.next().value); // 0
+console.log(gen.next().value); // 1
+console.log(gen.next().value); // 2
+console.log(gen.next().value); // 3
+// ...
+```
+
+#### 3.1.5.2. Example with yield*
+
+```js
+function* anotherGenerator(i) {
+  yield i + 1;
+  yield i + 2;
+  yield i + 3;
+}
+
+function* generator(i) {
+  yield i;
+  yield* anotherGenerator(i);
+  yield i + 10;
+}
+
+var gen = generator(10);
+
+console.log(gen.next().value); // 10
+console.log(gen.next().value); // 11
+console.log(gen.next().value); // 12
+console.log(gen.next().value); // 13
+console.log(gen.next().value); // 20
+```
+#### 3.1.5.3. Passing arguments into generators
+
+```js
+function* logGenerator() {
+  console.log(0);
+  console.log(1, yield);
+  console.log(2, yield);
+  console.log(3, yield);
+}
+
+var gen = logGenerator();
+
+// the first call of next executes from the start of the function
+// until the first yield statement
+gen.next();             // 0
+gen.next('pretzel');    // 1 pretzel
+gen.next('california'); // 2 california
+gen.next('mayonnaise'); // 3 mayonnaise
+```
+
+#### 3.1.5.4. Return Statement into generator
+
+```js
+function* yieldAndReturn() {
+  yield "Y";
+  return "R";
+  yield "unreachable";
+}
+
+var gen = yieldAndReturn()
+console.log(gen.next()); // { value: "Y", done: false }
+console.log(gen.next()); // { value: "R", done: true }
+console.log(gen.next()); // { value: undefined, done: true }
+```
+
+#### 3.1.5.5. Generator as an Object Property
+
+```js
+const someObj = {
+  *generator () {
+    yield 'a';
+    yield 'b';
+  }
+}
+
+const gen = someObj.generator()
+
+console.log(gen.next()); // { value: 'a', done: false }
+console.log(gen.next()); // { value: 'b', done: false }
+console.log(gen.next()); // { value: undefined, done: true }
+```
+
+#### 3.1.5.6. Generator as an Object Method
+
+```js
+class Foo {
+  *generator () {
+    yield 1;
+    yield 2;
+    yield 3;
+  }
+}
+
+const f = new Foo ();
+const gen = f.generator();
+
+console.log(gen.next()); // { value: 1, done: false }
+console.log(gen.next()); // { value: 2, done: false }
+console.log(gen.next()); // { value: 3, done: false }
+console.log(gen.next()); // { value: undefined, done: true }
+```
+
+#### 3.1.5.7. Generator as an Computed Property
+```js
+class Foo {
+  *[Symbol.iterator] () {
+    yield 1;
+    yield 2;
+  }
+}
+
+const SomeObj = {
+  *[Symbol.iterator] () {
+    yield 'a';
+    yield 'b';
+  }
+}
+
+console.log(Array.from(new Foo)); // [ 1, 2 ]
+console.log(Array.from(SomeObj)); // [ 'a', 'b' ]
+
+```
+#### 3.1.5.8. Generators are not constructable
+```js
+function* f() {}
+var obj = new f; // throws "TypeError: f is not a constructor
+```
+
+#### 3.1.5.9. Generator difined in expression
+```js
+const foo = function* () {
+  yield 10;
+  yield 20;
+};
+
+const bar = foo();
+console.log(bar.next()); // {value: 10, done: false}
+```
+[:point_right: FIBONACI CODE EXAMPLE](JS%20Core/JS%20Applications/01-this/02-fibonacci.js)
+
+### 5.1.5. [yield](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/yield)
+The yield keyword is used to pause and resume a generator function (function* or legacy generator function).
 ```js
 function* getGenerator(i) {
         while(true){
@@ -382,7 +557,32 @@ console.log(iteraorGeneratorFunc.next().value); // 2
 console.log(iteraorGeneratorFunc.next().value); // 4
 console.log(iteraorGeneratorFunc.next().value); // 8
 ```
-[:point_right: FIBONACI CODE EXAMPLE](JS%20Core/JS%20Applications/01-this/02-fibonacci.js)
+- You can also send a value with next(value) into the generator. 'step' evaluates as a return value in this syntax [rv] = yield [expression]
+
+```js
+function* counter(value) {
+ let step;
+
+ while (true) {
+   step = yield ++value;
+
+   if (step) {
+     value += step;
+   }
+ }
+}
+
+const generatorFunc = counter(0);
+console.log(generatorFunc.next().value);   // 1 step == 'undefined'
+console.log(generatorFunc.next().value);   // 2 step == 'undefined'
+console.log(generatorFunc.next().value);   // 3 step == 'undefined'
+console.log(generatorFunc.next(10).value); // 14 step == 10 // because return value is set to 10
+console.log(generatorFunc.next().value);   // 15
+console.log(generatorFunc.next(10).value); // 26
+```
+
+
+
 ___
 
 # :capital_abcd: 10. Definitions
