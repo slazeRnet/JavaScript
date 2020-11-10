@@ -18,8 +18,10 @@ ___
 <details>
     <summary>  :page_with_curl: CONTENT </summary>
     <strong><a href="#31-standart-build-in-objects">3.1. Standart Build in Objects</a><strong>
-        <a href="#311-value-properties"> 3.1.1. [Value Properties]</a>
+        <a href="#311-value-properties"> 3.1.1. Value Properties</a>
 </details>
+        
+        
 ## 3.1. Standart Build in Objects
 ### 3.1.1. Value Properties
 #### 3.1.1.1. Infinity
