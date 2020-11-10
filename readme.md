@@ -382,7 +382,7 @@ console.log(iteraorGeneratorFunc.next().value); // 2
 console.log(iteraorGeneratorFunc.next().value); // 4
 console.log(iteraorGeneratorFunc.next().value); // 8
 ```
-[:point_right: FIBONACI CODE EXAMPLE](./JS Core/JS Applications/01-this/02-yield-return-fibonacci.js)
+[:point_right: FIBONACI CODE EXAMPLE](JS Core/JS Applications/01-this/02-yield-return-fibonacci.js)
 ___
 
 # :capital_abcd: 10. Definitions
