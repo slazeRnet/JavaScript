@@ -38,9 +38,8 @@ Nov 18 21:38:21 ip-172-31-29-18 systemd[1]: Reloaded A high performance web serv
 FIX:
 remove all configuration of web services that point to the same port (in this case port 80) from config:
 
-> etc/nginx/sites-available/<site>.conf
+> etc/nginx/sites-available/{site}.conf
      <br>
-> etc/nginx/sites-enabled/<site>.conf
+> etc/nginx/sites-enabled/{site}.conf
           <br>
-
-> home/<site>/
+> home/{site}/
