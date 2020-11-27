@@ -1,6 +1,12 @@
-import { createFormEntity } from './form-helper.js';
-import { fireBaseRequestFactory } from './firebase-request.js';
-import { apiKey } from './apiKey.js';
+// import { createFormEntity } from './form-helper.js';
+// import { fireBaseRequestFactory } from './firebase-request.js';
+// import { apiKey } from './apiKey.js';
+var createFormEntity = require('./form-helper.js')
+var fireBaseRequestFactory = require('./firebase-request.js')
+var apiKey = require('./apiKey.js')
+
+
+const sammy = require('sammy')
 
 // load header and footer
 async function applyCommon() {

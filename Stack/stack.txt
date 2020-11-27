@@ -1,0 +1,26 @@
+*******
+CURRENT STACK
+Servers: Nginx, 
+
+
+Cloudflare - compress web pages to reduce file size and bandwith
+
+
+Requirements
+• Portfolio displaying work as a Web Designer
+• Demonstrable graphic design skills
+• Solid experience in visual design, wire-framing tools to create wireframes, storyboards, user flows, process flows and site maps with sensitivity to user-system interaction
+• Proficiency in WordPress, including mailing lists and forums, media galleries, membership sites, learning management systems (LMS) and online stores
+• Proficiency in HTML, CSS and JavaScript for rapid prototyping
+• Experience working in an Agile/Scrum development process
+• Up-to-date with the latest Web trends, techniques and technologies
+• Ability to solve problems creatively and effectively
+• Excellent project management, organizational and time-management skills
+• Excellent written and oral communications in English
+• Problem-solving attitude with an eye for detail
+• BS/MS in Human-Computer Interaction, Interaction Design or a Visual Arts subject
+
+
+
+git config --global user.name "P.M."
+sudo env PATH=$PATH:/usr/bin /usr/lib/node_modules/pm2/bin/pm2 startup systemd -u ubuntu --hp /home/sammy

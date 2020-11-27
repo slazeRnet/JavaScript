@@ -1,0 +1,22 @@
+/* LVHA-order */
+.link1:link { color: blue; }          /* Unvisited links */
+.link1:visited { color: purple; }     /* Visited links */
+.link1:hover { background: yellow; }  /* Hovered links */
+.link1:active { color: red; }         /* Active links */
+
+.paragraph1:active { 
+    background: #f8f5f5; 
+}   /* Active paragraphs */
+
+a {
+    /* Specify non-transparent defaults to certain properties,
+       allowing them to be styled with the :visited state */
+    background-color: white;
+    border: 1.4px solid greenyellow;
+  }
+  
+  a:visited {
+    background-color: yellow;
+    border-color: hotpink;
+    color: hotpink;
+  }
