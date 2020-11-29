@@ -2,19 +2,11 @@
 
 # [1. Overview](#1-overview-1)
 
-# [11. Exercise](#1-exercise-1)
----
+# 4. Containers and Grids
 
-#1. Overview
-- HTTP is called as a stateless protocol because each request is executed independently, without any knowledge of the requests that were executed before it, which means once the
-transaction ends the connection between the browser and the server is also lost
+### 4.1. [Grid layout](./EXERCISE/grid-layout.html)
 
-
-# 11. Exercise
-
-### [Grid layout](./EXERCISE/grid-layout.html)
-
-### grid pattern aranges is items like table:
+#### 4.1.1. grid pattern aranges is items like table:
 ```html
 <div class="wrapper">
     <div>
@@ -55,9 +47,38 @@ grid-template-columns: 70% 30%;
             grid-gap: 1em
         }
 ```
-- <coe>grid-gap</code> erquals 
+- <code>grid-gap: 1em;</code> equals 
 <code>
 grid-column-gap: 1em;
 <br>
 grid-row-gap: 1em;
 </code>
+
+####  4.1.2. Splitting container elements into fractions using fr unit
+- To prevent issues with margin and padding use fr insted of %.
+- Example:
+```
+.wrapper{
+    display: grid;
+    grid-template-columns: 1fr, 1fr, 1fr;
+}
+```
+
+#### 4.1.3. Repeating grid pattern
+.wrapper{
+    <!-- this will repeat 4 times the 1fr 2 fr grid pattern -->
+    grid-template-dcolumns:repeat(4, 1fr, 2fr)
+}
+
+
+
+# [11. Exercise](#1-exercise-1)
+---
+
+#1. Overview
+- HTTP is called as a stateless protocol because each request is executed independently, without any knowledge of the requests that were executed before it, which means once the
+transaction ends the connection between the browser and the server is also lost
+
+
+# 11. Exercise
+
