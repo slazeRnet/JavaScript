@@ -773,7 +773,7 @@ ___
 
 - The JavaScript exception "cyclic object value" occurs when object references were found in JSON. JSON.stringify() doesn't try to solve them and fails accordingly.
 
-### :information_source: What went wrong?
+#### :information_source: What went wrong?
 The JSON format per se doesn't support object references (although an IETF draft exists), hence JSON.stringify() doesn't try to solve them and fails accordingly.
 
 ```js
@@ -781,3 +781,28 @@ var circularReference = {otherData: 123};
 circularReference.myself = circularReference;
 console.log(circularReference); //<ref *1> { otherData: 123, myself: [Circular *1] }
 ``` 
+
+### :x: SyntaxError: Unexpected token 'export'
+
+- This occured when using :
+> export default {}
+on nodeJS app
+
+You are using ES6 Module syntax.
+
+This means your environment (e.g. node.js) must support ES6 Module syntax.
+
+NodeJS uses CommonJS Module syntax (module.exports) not ES6 module syntax (export keyword).
+
+#### Solution:
+
+Use babel npm package to transpile your ES6 to a commonjs target
+or
+
+Refactor with CommonJS syntax.
+Examples of CommonJS syntax are (from flaviocopes.com/commonjs/):
+
+<code>
+exports.uppercase = str => str.toUpperCase()
+exports.a = 1
+</code>
