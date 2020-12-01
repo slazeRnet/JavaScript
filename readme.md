@@ -17,7 +17,7 @@ ___
 # 3. Data Types & Values
 <details>
     <summary>  :page_with_curl: CONTENT </summary>
-    <strong><a href="#31-standart-build-in-objects">3.1. Standart Build in Objects</a><strong>
+    <strong><a href="#31-standart-build-in-objects">3.1. Standart Build in Objects</a></strong>
         <br>
         <a href="#311-value-properties"> 3.1.1. Value Properties</a>
         <br>
