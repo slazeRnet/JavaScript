@@ -767,13 +767,13 @@ ___
 
 # :x: 11. Errors
 
-### :x: 1. TypeError: cyclic object value (Firefox) / TypeError: Converting circular structure to JSON (Chrome)
+### :x: 11.1. TypeError: cyclic object value (Firefox) / TypeError: Converting circular structure to JSON (Chrome)
 
 - Circular referencing implies that the 2 objects referencing each other are tightly coupled and changes to one object may need changes in other as well.
 
 - The JavaScript exception "cyclic object value" occurs when object references were found in JSON. JSON.stringify() doesn't try to solve them and fails accordingly.
 
-#### :information_source: What went wrong?
+#### :information_source: 12.2. What went wrong?
 The JSON format per se doesn't support object references (although an IETF draft exists), hence JSON.stringify() doesn't try to solve them and fails accordingly.
 
 ```js
