@@ -1,18 +1,70 @@
 ### CONTENT
 ### [1. Overview](#1-overview-1)
-
+### [2. Design Patterns](#x-2-design-patterns-1)
 ### [3. Data Types](#3-data-types-1)
 ### [4. Statements](#4-statements-1)
 ### [5. Expressions & Operations](#5-expressions-operations-1)
 ### :capital_abcd: [10. Definitions](#capital_abcd-10-definitions-1)
 ### :x: [11. Errors](#x-11-errors-1)
-
 ___
 # 1. Overview
 - stable API - API stability refers to some level of guarantee from a project that its API will only change in defined ways in the future, or will not change at all.
 
 ---
+# 2. Design Patterns
+- This is a simple and common design pattern in JavaScript. Factory is a creational design pattern allowing us to abstract away object creation implementation details from the outside world. Express does this by only exporting the factory.
 
+### 2.1 Factory Pattern [example](./Design-Patterns/factory.js)
+
+```js
+
+//FACTORY DESIGN PATTERN
+function Developer(name){
+    this.name = name;
+    this.type = "Developer";
+}
+
+function Tester(name){
+    this.name = name;
+    this.type = "Tester";
+}
+
+function EmployerFactory(){
+    this.create = (name, type) => {
+        switch(type){
+            case 1: 
+            return new Developer(name);
+            break;
+            case 2: 
+            return new Tester(name);
+            break;
+        }
+    }
+}
+
+function say(){
+console.log(`Hi i am ${this.name} and I am a ${this.type}.`);
+}
+
+const employeeFactory = new EmployerFactory();
+const employees = [];
+
+employees.push(employeeFactory.create("Patrick", 1));
+employees.push(employeeFactory.create("Adam", 2));
+
+employees.forEach(emp => {
+    say.call(emp)
+})
+
+/*
+result: 
+
+Hi i am Patrick and I am a Developer.
+Hi i am Adam and I am a Tester.
+*/
+```
+
+## 2.1 Factory Pattern
 ---
 # 3. Data Types & Values
 <details>
