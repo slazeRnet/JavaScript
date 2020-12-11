@@ -123,14 +123,96 @@ can be sized using properties like width and height
 - Margin Box - the margin wrapping the content, padding and
 border
 
+
+## 4.2.2. Block and Inline Elements
+HTML is made up of various elements that act as the
+building blocks of web pages
+
+CSS has two different types of boxes - block and inline:
+
+- Block Elements
+- Inline Elements
+- Inline-block Elements
+
+#### 4.2.2.1. Block Elements
+Block element: starts on a new line, and fills up the horizontal
+space left and right on the web page
+
+Some examples of block elements are:
+
+- main, header , article , section , fieldset , nav , ul , ol ,
+li , form , h1-h6 , p , div
+
+#### 4.2.2.2. Inline Elements
+
+Inline element: don't start on a new line. They appear on the
+same line as the content and tags beside them
+
+Some examples of inline-block elements are:
+
+- a, label, map, span, strong, em, i, img, textarea, input,
+button, select
+
+You can add margins and padding just on right and left sides of
+any inline element
+#### 4.2.2.3. Inline-Block Elements
+
+Inline-block elements are similar to inline elements
+
+They can have padding and margins added on all four sides
+
+You have to declare display: inline-block in your CSS
+code
+
+One common use for using inline-block is for creating
+navigation links horizontally
+
+> page.html
+```html
+<ul>
+
+<li>Home</li>
+
+<li>About Us</li>
+
+<li>Clients</li>
+
+<li>Contacts</li>
+
+</ul>
+```
+> style.css
+```css
+ul {
+
+background-color: #f0b27a;
+
+padding: 20px;
+
+list-style-type: none;
+
+text-align: center;
+
+}
+
+li {
+
+display: inline-block;
+
+padding: 0 20px;
+
+font-size: 20px;
+
+}
+```
+
 ---
-# [11. Exercise](#1-exercise-1)
-
-
-
----
-
-
-
 # 11. Exercise
+
+
+
+---
+
+
+
 
