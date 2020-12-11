@@ -3,14 +3,28 @@
 #### [1. Selectors]
 #### [2. Syntax and Semantics]
 #### [3. Values]
+
+---
 #### [4. Layout]
+
+- Block formatting context
+- Box model
+- Containing block
+- Layout mode
+- Margin collapsing
+- Replaced elements
+- Stacking context
+- Visual formatting model
+---
 #### [5. DOM-CSS/ CSSOM]
 
 
-
+___
 # [1. Overview](#1-overview-1)
 
-# 4. Containers and Grids
+
+---
+# 4. Layout
 
 ### 4.1. [Grid layout](./EXERCISE/grid-layout.html)
 
@@ -95,12 +109,27 @@ fixed value:
 In the following example we have a simple 2 x 2 grid layout. Initially the grid container is given a justify-items value of stretch (the default), which causes the grid items to stretch across the entire width of their cells.
 
 If you hover or tab onto the grid container however, it is given a justify-items value of center, which causes the grid items to span only as wide as their content width, and align in the center of their cells.
+## 4.2. Box Model
+
+#### 4.2.1. Parts of a Box
+
+- Content Box - the area where your content is displayed, which
+can be sized using properties like width and height
+
+- Padding Box - the padding sits around the content
+
+- Border Box - the border box wraps the content and any padding
+
+- Margin Box - the margin wrapping the content, padding and
+border
+
+---
 # [11. Exercise](#1-exercise-1)
+
+
+
 ---
 
-#1. Overview
-- HTTP is called as a stateless protocol because each request is executed independently, without any knowledge of the requests that were executed before it, which means once the
-transaction ends the connection between the browser and the server is also lost
 
 
 # 11. Exercise
