@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="../favicon.png">
+    <title>Nested Grids</title>
+    <style rel="stylesheet">
+        .grid1{
+            display: grid;
+            grid-template-columns: repeat(2, 20vw);
+            justify-self: center;
+            gap: 1em;
+        }
+       .grid1 > div{
+            background: rosybrown;
+        }
+
+        .nested-grid{
+            display: grid;
+            grid-template-columns: repeat(2, 50%);
+        }
+        .nested-grid>div{
+            border: 1px solid chartreuse;
+
+        }
+    </style>
+</head>
+
+<body>
+    <p style="color:red">The following style expressions take no effect:<br>
+    - .content2{background: rosybrown}<br>
+    -  .grid1 > .content2{background: rosybrown}<br>
+    Correct one:<br>
+    - .grid1>div{background: rosybrown}
+</p> 
+    <div class="grid1">
+        <div class="conten2">
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sunt mollitia perferendis pariatur quo, deserunt
+            eius. Aspernatur ad nostrum rem laudantium.
+        </div>
+        <div class="nested-grid">
+            <div class="content2">
+                Lorem ipsum dolor sit amet.
+            </div>
+            <div class="content2">
+                Lorem ipsum dolor sit amet.
+            </div>
+        </div>
+        <div class="conten2">
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sunt mollitia perferendis pariatur quo, deserunt
+            eius. Aspernatur ad nostrum rem laudantium.
+        </div>
+        <div class="conten2">
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sunt mollitia perferendis pariatur quo, deserunt
+            eius. Aspernatur ad nostrum rem laudantium.
+        </div>
+    </div>
+</body>
+
+</html>

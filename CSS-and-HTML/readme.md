@@ -1,8 +1,8 @@
 # CONTENT
 *Based on: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference)*
-#### [1. Selectors]
-#### [2. Syntax and Semantics]
-#### [3. Values]
+#### [1. Selectors](./)
+#### [2. Syntax and Semantics](./)
+#### [3. Values](./)
 
 ---
 #### [4. Layout]

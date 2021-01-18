@@ -1,3 +1,0 @@
-this is met to test git commit and and git reset [commit 1]
-
-on this line i messed up need to use git reset

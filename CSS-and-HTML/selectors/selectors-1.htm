@@ -1,0 +1,43 @@
+ <div class="table">
+	<div class="bento">
+		<div class="orange">
+		</div>
+	</div>
+	<div class="plate" id="fancy">
+		<div id="pickle">
+		</div>
+	</div>
+	<div class="plate">
+		<div class="pickle">
+		</div>
+	</div>
+</div>
+    <style>
+	.table{
+	display: flex;
+	justify-content: center; /*for a flex container justify-content is a property that defines the position of the child elements on the main axis */
+	width: 70vw; /* 100 vw is 100% view port width */
+	height: 60vh; /* 100 vh is 100% view port height */
+	}
+        .bento{
+			display: flex;
+            border: 4px dotted red;
+            width: 100px;
+                height: 160px;
+			align-items: center;
+			align-content: space-between;
+			justify-content: center;
+            
+        }
+		.orange{
+		/* flex-box is invalid value */
+			display: flex; 
+            border: 2px dotted orange;
+            width: 50px;
+                height: 50px;
+				border-radius: 30px;
+			self-align: center;
+			
+            
+        }
+    </style>

@@ -3,7 +3,18 @@
 ### [2. Design Patterns](#x-2-design-patterns-1)
 ### [3. Data Types](#3-data-types-1)
 ### [4. Statements](#4-statements-1)
+#### 4.1. Control Flow
+#### 4.2. Declarations
+#### 4.3. Funtions and Classes
+##### 4.3.1. function
+##### 4.3.2. function*
+##### 4.3.3. async function
+##### 4.3.4. async
+##### 4.3.5. class
+#### 4.4. Iterations
+#### 4.5. Other
 ### [5. Expressions & Operations](#5-expressions-operations-1)
+### [6. Automation](#6-automation)
 ### :capital_abcd: [10. Definitions](#capital_abcd-10-definitions-1)
 ### :x: [11. Errors](#x-11-errors-1)
 ___
@@ -132,6 +143,42 @@ isNaN(1 + null)      // false
 isNaN(1 + undefined) // true
   </code>
 </details>
+
+### 3.1.10. Control abstraction objects
+CONTENT
+- Promise
+- Generator
+- GeneratorFunction
+- AsyncFunction
+- AsyncGenerator
+- AsyncGeneratorFunction
+
+#### 3.1.10.1. Promise
+
+##### 3.1.10.2. Denition and Example
+
+##### 3.1.10.2. :x: Commonon errors while working with promise
+
+###### 3.1.10.2.1. Closure and Callbac func in Promise
+
+Example:
+
+```js
+var array = [ ... ]; // An array with some objects
+for( var i = 0; i < array.length; ++i )
+{
+  $.doSthWithCallbacks( function() {
+    array[i].something = 42; // Error
+  });
+}
+```
+Remember those first JavaScript tutorials you read, where it said that JavaScript is asynchronous? This means that under some circumstances code might not be executed sequentially. This is usually the case when using internal APIs that depend on an external event. For example, processing a response after an HTTP request is completed or after some other processing is done.
+
+So what happens then, is that the doSthWithCallbacks (general expression for all JavaScript function that use a callback) schedules the callback function to be executed at a later stage. But the for loop isn't just scheduling one callback. It's scheduling an array.length worth of callbacks and they most certainly won't be completed within the same for loop iteration. Each of those callbacks will be executed at an unpredictable time later on, when multiple for iterations have gone through, the value if i is different and multiple other callbacks have also been scheduled.
+
+Usually, the callbacks aren't executed until the for loop has completed, at which point i is exactly equal to array.length - 1. So, every time any of the callbacks is executed it will be modifying the last value of the array instead of the value of the for loop iteration it was scheduled on. Of course, as I said, it's unpredictable when the callbacks will be executed and depends on multiple factors the JavaScript interpreter used, the function invoking the callbacks and it's input data. An example is an HTTP request with a success callback that won't be executed before the server sends a response, which could be any time interval between several milliseconds and several minutes.
+
+More info about this error here: [11.4. :x: JavaScript Callbacks Variable Scope Problem](#114-x-javascript-callbacks-variable-scope-problem)
 
 ---
 ## 3.2. Function properties
@@ -345,6 +392,215 @@ Error
 ___
 
 # 4. Statements
+
+
+### CONTENT
+
+#### [4.1. Control Flow](#41-control-flow-1)
+
+[ 4.1.1. Block](#411-block-1)
+[ 4.1.2. break](#412-break-1)
+[ 4.1.3. continue](#413-continue-1)
+[ 4.1.4. Empty](#414-empty-1)
+[ 4.1.5. if...else](#415-ifelse-1)
+[ 4.1.6. switch](#416-switch-1)
+[ 4.1.7. throw](#417-throw-1)
+[ 4.1.8. try...catch](#418-trycatch-1)
+
+
+
+---
+#### [4.2. Declarations](#42-declarations-1)
+[ 4.2.1. var](#421-var-1)
+[ 4.2.2. let](#422-let-1)
+[ 4.2.3. const](#423-const-1)
+
+
+
+#### [4.3. Functions and classes](#43-function-and-classes-1)
+
+#### [4.4. Iterations](#44-iterations-1)
+
+#### [4.5. Others](#45-others-1)
+
+
+
+---
+## 4.3. Functions and classes
+
+#### 4.3.1. function
+
+##### 4.3.1.1. Anonimous function
+```js
+var func = new function(){
+this.property = "some property";
+}
+return func;
+```
+ its constructor will point to the anonymous function passed after new operator, and its prototype chain will contain two prototypes, but it won't contain any other method than with an object created with {} or new Object. 
+
+#### 4.3.1.2. new Function()
+The function is created with the arguments arg1...argN and the given functionBody.
+
+It’s easier to understand by looking at an example. Here’s a function with two arguments:
+
+
+
+```js
+let sum = new Function('a', 'b', 'return a + b');
+
+alert( sum(1, 2) ); // 3
+```
+
+- And here there’s a function without arguments, with only the function body:
+
+```js
+let sayHi = new Function('alert("Hello")');
+
+sayHi(); // Hello
+```
+
+The major difference from other ways we’ve seen is that the function is created literally from a string, that is passed at run time.
+
+All previous declarations required us, programmers, to write the function code in the script.
+
+But new Function allows to turn any string into a function. For example, we can receive a new function from a server and then execute it:
+
+```js
+let str = ... receive the code from a server dynamically ...
+
+let func = new Function(str);
+func();
+```
+
+##### 4.3.1.3. Closure
+Usually, a function remembers where it was born in the special property [[Environment]]. It references the Lexical Environment from where it’s created (we covered that in the chapter Variable scope, closure).
+
+But when a function is created using new Function, its [[Environment]] is set to reference not the current Lexical Environment, but the global one.
+
+So, such function doesn’t have access to outer variables, only to the global ones.
+
+```js
+function getFunc() {
+  let value = "test";
+
+  let func = new Function('alert(value)');
+
+  return func;
+}
+
+getFunc()(); // error: value is not defined
+```
+
+Compare it with the regular behavior:
+
+```js
+function getFunc() {
+  let value = "test";
+
+  let func = function() { alert(value); };
+
+  return func;
+}
+
+getFunc()(); // "test", from the Lexical Environment of getFunc
+```
+
+---
+#### 4.3.5. class
+
+##### It is not possible to use promise in the constructor
+<details>
+<summary>Read more</summary>
+<strong>This can never work.</strong>
+<br>
+The async keyword allows await to be used in a function marked as async but it also converts that function into a promise generator. So a function marked with async will return a promise. A constructor on the other hand returns the object it is constructing. Thus we have a situation where you want to both return an object and a promise: an impossible situation.
+<br>
+You can only use async/await where you can use promises because they are essentially syntax sugar for promises. You can't use promises in a constructor because a constructor must return the object to be constructed, not a promise.
+<br>
+There are two design patterns to overcome this, both invented before promises were around.
+<br>
+
+- 1. Use of an init() function. This works a bit like jQuery's .ready(). The object you create can only be used inside it's own init or ready function:
+<br>
+Usage:
+<code>
+var myObj = new myClass();
+myObj.init(function() {
+    // inside here you can use myObj
+});
+</code>
+
+<br>
+- Implementation: 
+<br>
+<code>
+class myClass {
+    constructor () {
+
+    }
+
+    init (callback) {
+        // do something async and call the callback:
+        callback.bind(this)();
+    }
+}
+</code>
+<br>
+- 2. Use a builder. I've not seen this used much in javascript but this is one of the more common work-arounds in Java when an object needs to be constructed asynchronously. Of course, the builder pattern is used when constructing an object that requires a lot of complicated parameters. Which is exactly the use-case for asynchronous builders. The difference is that an async builder does not return an object but a promise of that object:
+<br>
+Usage:
+<br>
+<code>
+myClass.build().then(function(myObj) {
+    // myObj is returned by the promise, 
+    // not by the constructor
+    // or builder
+});
+
+// with async/await:
+
+async function foo () {
+    var myObj = await myClass.build();
+}
+</code>
+
+
+<br>
+<code>
+class myClass {
+    constructor (async_param) {
+        if (typeof async_param === 'undefined') {
+            throw new Error('Cannot be called directly');
+        }
+    }
+
+    static build () {
+        return doSomeAsyncStuff()
+           .then(function(async_result){
+               return new myClass(async_result);
+           });
+    }
+}
+</code>
+<br>
+- Implementation with async/await:
+<br>
+<code>
+class myClass {
+    constructor (async_param) {
+        if (typeof async_param === 'undefined') {
+            throw new Error('Cannot be called directly');
+        }
+    }
+
+    static async build () {
+        var async_result = await doSomeAsyncStuff();
+        return new myClass(async_result);
+    }
+}
+</code>
+</details>
 
 ___
 
@@ -643,6 +899,11 @@ console.log(generatorFunc.next(10).value); // 14 step == 10 // because return va
 console.log(generatorFunc.next().value);   // 15
 console.log(generatorFunc.next(10).value); // 26
 ```
+___
+
+# 6. Automation
+
+## 6.1. Puppeteer Library
 
 
 
@@ -834,7 +1095,7 @@ circularReference.myself = circularReference;
 console.log(circularReference); //<ref *1> { otherData: 123, myself: [Circular *1] }
 ``` 
 
-### :x: SyntaxError: Unexpected token 'export'
+### 11.2. :x: SyntaxError: Unexpected token 'export'
 
 - This occured when using :
 > export default {}
@@ -858,3 +1119,88 @@ Examples of CommonJS syntax are (from flaviocopes.com/commonjs/):
 exports.uppercase = str => str.toUpperCase()
 exports.a = 1
 </code>
+
+### 11.3. :x: TypeError: EmailManager is not a constructor
+
+- Class being unproperly used/ Trying to utilise the new keyword but the function is not of type class.
+
+Example:
+> emailManager.js
+```js
+class EmailManager{
+  constructor(){
+    //....
+  }
+}
+
+module.exports = {
+  EmailManager
+}
+```
+
+> index.js
+```js
+const EmailManager = require('./emailManager') // { EmailManager: [Function: EmailManager] }
+
+let emailClient = new EmailManager() // Error
+```
+
+#### Solution:
+> index.js
+```js
+const EmailManager = require('./emailManager').EmailManager // { EmailManager: [Function: EmailManager] }
+
+let emailClient = new EmailManager() // Error
+```
+### 11.4. :x: JavaScript Callbacks Variable Scope Problem
+
+While this code looks perfectly fine, it shows the misunderstanding of a very basic JavaScript concept. This code will return an error because the 
+> var array
+is not accessable in the callback.
+
+```js
+var array = [ ... ]; // An array with some objects
+for( var i = 0; i < array.length; ++i )
+{
+  $.doSthWithCallbacks( function() {
+    array[i].something = 42;
+  });
+}
+```
+
+#### Explanation
+Remember those first JavaScript tutorials you read, where it said that JavaScript is asynchronous? This means that under some circumstances code might not be executed sequentially. This is usually the case when using internal APIs that depend on an external event. For example, processing a response after an HTTP request is completed or after some other processing is done.
+
+So what happens then, is that the doSthWithCallbacks (general expression for all JavaScript function that use a callback) schedules the callback function to be executed at a later stage. But the for loop isn't just scheduling one callback. It's scheduling an array.length worth of callbacks and they most certainly won't be completed within the same for loop iteration. Each of those callbacks will be executed at an unpredictable time later on, when multiple for iterations have gone through, the value if i is different and multiple other callbacks have also been scheduled.
+
+#### How to work around it
+
+- Closure in a function
+This method is relatively easy to understand and that is why I won't be covering it in much detail. This isn't the case with inline closures, so I will cover that in depth. The 
+> callbackClosure 
+function returns a function that invokes the actual callback with an explicit copy of <code>i</code> as an argument.
+```js
+var array = [ ... ]; // An array with some objects
+
+function callbackClosure(i, callback) {
+  return function() {
+    return callback(i);
+  }
+}
+
+for( var i = 0; i < array.length; ++i )
+{
+  API.doSthWithCallbacks( callbackClosure( i, function(i) {
+    array[i].something = 42;
+  }) );
+}
+```
+
+
+Since each function declares it's own scope, and i has a base atomic type (int) it is not passed as a reference, but rather as a copy (unlike objects) which ensures that the actual callback will be executed against the correct value.
+
+- Inline closure
+
+
+
+

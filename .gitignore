@@ -1,1 +1,2 @@
-/JS Core/JS Advanced/10-EXAM-PREP
+
+find . -size +8M | cat >> .gitignore

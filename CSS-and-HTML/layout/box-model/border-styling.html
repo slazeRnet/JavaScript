@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>border styling</title>
+    <style>
+        body{
+            margin: 0px;
+        }
+        /* border element */
+        #border-element{
+            width: 200px;
+            height: 150px;
+            border-width: 2px;
+            border-style: solid;
+            border-color: #0053ff;
+            border-radius: 15px;
+            border-top-left-radius: 30px;
+            border-bottom-style: dotted;
+            border-left-color: #89af4c;
+            text-align: center;
+        }
+
+        /* nested div elements */
+        .wrapper{
+            display: flex;
+            width: 100vw;
+            height: 100vh;
+            border: 1px dotted red;
+        }
+        .parent{
+            display:block;
+            align-self: center;
+            width: 80%;
+            height: 90%;
+            border-width: 1px;
+            border-style: solid;
+            border-color: #4e586d;
+        }
+
+    </style>
+</head>
+<body>
+    <p style="color:magenta">This is border element!</p>
+    <div id="border-element"></div>
+
+    <p style="color:magenta"><strong>CSS BORDERS</strong></p>
+    <p><italics>Emmet abreviation: div.parent>div#element$*9>div#child$</italics></p>
+
+    <div class="wrapper">
+        <div class="parent">
+            <div id="element1">
+                <div id="child1"></div>
+            </div>
+            <div id="element2">
+                <div id="child2"></div>
+            </div>
+            <div id="element3">
+                <div id="child3"></div>
+            </div>
+            <div id="element4">
+                <div id="child4"></div>
+            </div>
+            <div id="element5">
+                <div id="child5"></div>
+            </div>
+            <div id="element6">
+                <div id="child6"></div>
+            </div>
+            <div id="element7">
+                <div id="child7"></div>
+            </div>
+            <div id="element8">
+                <div id="child8"></div>
+            </div>
+            <div id="element9">
+                <div id="child9"></div>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="../etc/images/favicon.png">
+    <title>Arrange Grid</title>
+    <style>
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr 1fr;
+            grid-auto-rows: minmax(100px, auto);
+            grid-gap: 1em;
+        }
+
+        .grid>.box {
+            background: rosybrown;
+        }
+
+        .grid>.box:nth-child(odd) {
+            background: pink;
+        }
+
+        .grid2{
+            grid-auto-rows: minmax(auto, auto);
+        }
+
+        .grid3{
+            justify-items: center;
+        }
+
+        .grid4{
+            justify-items: center;
+        }
+        .grid4>div:nth-child(even){
+            justify-self: start;
+        }
+    </style>
+</head>
+
+<body>
+    <br>
+    <p style="color:red">grid justify-content set to default (stretch):</p>
+    <br>
+    <div class="grid grid1">
+        <div class="box">Box 1</div>
+        <div class="box">Box 2 Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maxime magni placeat maiores
+            esse ipsa sapiente repellendus repudiandae ea quia ullam!
+        </div>
+        <div class="box">Box 3</div>
+        <div class="box">Box 4 Lorem, ipsum dolor sit amet consectetur adipisicing elit. Saepe harum magnam vero autem!
+            Corrupti, animi?
+        </div>
+        <div class="box">Box 1</div>
+        <div class="box">Box 2</div>
+        <div class="box">Box 3</div>
+        <div class="box">Box 4</div>
+    </div>
+    <br>
+    <p style="color:red">grid 2 grid-auto-rows set to auto:</p>
+    <br>
+    <div class="grid grid2">
+        <div class="box">Box 1</div>
+        <div class="box">Box 2 Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tempora ipsam inventore fugiat
+            rem eos dolorem dignissimos rerum impedit, deleniti esse dicta ex eum magni officiis quidem laboriosam
+            delectus nesciunt quibusdam nobis minus similique nihil dolore? Modi, commodi a iure fugiat repellendus
+            dolores non labore, aut aperiam molestiae, maxime quisquam esse.
+        </div>
+        <div class="box">Box 3</div>
+        <div class="box">Box 4</div>
+        <div class="box">Box 1</div>
+        <div class="box">Box 2 Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolor necessitatibus ea saepe
+            sapiente sed voluptatibus!
+        </div>
+        <div class="box">Box 3</div>
+        <div class="box">Box 4</div>
+    </div>
+    <br>
+    <p style="color:red">grid 3 justify-content set to center:</p>
+    <br>
+    <div class="grid grid3">
+        <div class="box">Box 1</div>
+        <div class="box">Box 2 Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tempora ipsam inventore fugiat
+            rem eos dolorem dignissimos rerum impedit, deleniti esse dicta ex eum magni officiis quidem laboriosam
+            delectus nesciunt quibusdam nobis minus similique nihil dolore? Modi, commodi a iure fugiat repellendus
+            dolores non labore, aut aperiam molestiae, maxime quisquam esse.
+        </div>
+        <div class="box">Box 3</div>
+        <div class="box">Box 4</div>
+        <div class="box">Box 1</div>
+        <div class="box">Box 2 Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolor necessitatibus ea saepe
+            sapiente sed voluptatibus!
+        </div>
+        <div class="box">Box 3</div>
+        <div class="box">Box 4</div>
+    </div>
+    <br>
+    <p style="color:red">grid 4: justify-content set to center but every odd child justify-self is set to start:</p>
+    <br>
+    <div class="grid grid4">
+        <div class="box">Box 1</div>
+        <div class="box">Box 2 Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tempora ipsam inventore fugiat
+            rem eos dolorem dignissimos rerum impedit, deleniti esse dicta ex eum magni officiis quidem laboriosam
+            delectus nesciunt quibusdam nobis minus similique nihil dolore? Modi, commodi a iure fugiat repellendus
+            dolores non labore, aut aperiam molestiae, maxime quisquam esse.
+        </div>
+        <div class="box">Box 3</div>
+        <div class="box">Box 4</div>
+        <div class="box">Box 1</div>
+        <div class="box">Box 2 Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolor necessitatibus ea saepe
+            sapiente sed voluptatibus!
+        </div>
+        <div class="box">Box 3</div>
+        <div class="box">Box 4</div>
+    </div>
+    <br>
+</body>
+
+</html>

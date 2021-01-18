@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Positioning Elements in FLex Container</title>
+    <link rel="Icon" href="../etc/images/favicon.png" />
+    <style>
+        body {
+            background-color: beige;
+        }
+
+        p {
+            color: rgb(151, 101, 9);
+        }
+
+        .box {
+            display: flex;
+            border: 2px dotted rgb(192, 140, 45);
+            width: 200px;
+            height: 100px;
+        }
+
+        .nested-box{
+            display: flex;
+            border: 1px solid rgb(241, 169, 35);
+            width: 20%;
+            height: 20%;
+        }
+
+        .nested-box-stretched{
+            display: flex;
+            border: 1px solid rgb(241, 169, 35);
+            width: 40%;
+            height: 40%;
+        }
+    </style>
+</head>
+
+<body>
+    <p>This is a flex box</p>
+    <div class="box box1"></div>'
+    <p> Placing a few elements(width and height 20% flex container) in this flex box:</p>
+    <div class="box box1">
+        <p>Text...</p>
+        <div class="nested-box nested-box-1"></div>
+        <div class="nested-box nested-box-2"></div>
+        <div class="nested-box nested-box-3"></div>
+    </div>
+    <details>
+        <summary>
+           + Nested box set to size bigger than the parent container case
+        </summary>
+        <p>Each nested box width and height is set to 40%: </p>
+        <p><i>The elements do not overlap the parent container insted they refit</i></p>
+        <div class="box box1">
+            <p>Text...</p>
+            <div class="nested-box-stretched nested-box-1"></div>
+            <div class="nested-box-stretched nested-box-2"></div>
+            <div class="nested-box-stretched nested-box-3"></div>
+        </div>
+        <p>Even with size in px set to 80 px wirdh the three boxes are set to 51px and do not overlap</p>
+        <div class="box box1">
+            <p>Text...</p>
+            <div class="nested-box-stretched nested-box-1" style="width:80px; border-color:red"></div>
+            <div class="nested-box-stretched nested-box-2" style="width:80px"></div>
+            <div class="nested-box-stretched nested-box-3" style="width:80px"></div>
+        </div>
+    </details>
+</body>
+
+</html>

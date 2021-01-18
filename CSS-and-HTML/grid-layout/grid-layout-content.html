@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="shortcut icon" href="../etc/images/favicon.png" />
+    <style>
+        .wrapper {
+            display: grid;
+            /* center the content on the horizontal axis */
+            justify-content: center;
+
+            grid-auto-rows: minmax(1px, min-content);
+            grid-template-columns: repeat(2, 1fr);
+            /* grid-gap properti is obsolete replace it with gap instead */
+            gap: 1em;
+        }
+
+        .wrapper>div {
+            background: #eee;
+        }
+
+        .wrapper>div:nth-child(odd) {
+            background: #ddd;
+        }
+
+        .infinite-container {
+            height: 1300px;
+            width: 200px;
+            background: seashell;
+            border: 1px solid orange;
+        }
+
+        .child-container {
+            max-width: max-content;
+            max-height: max-content;
+            border: 1px solid lightgreen;
+        }
+
+        .container2 {
+            display: grid;
+            justify-content: flex-start;
+            grid-auto-rows: min-content max-content auto;
+            grid-template-columns: repeat(2, 20vw);
+            gap: 1em;
+        }
+
+        .container2>div {
+            background: skyblue;
+        }
+        .container3 {
+            display: grid;
+            justify-content: flex-start;
+            grid-auto-rows: 100px 150px 390px;
+            grid-template-columns: repeat(2, 20vw);
+            gap: 1em;
+        }
+
+        .container3>div {
+            background: skyblue;
+        }
+    </style>
+</head>
+
+<body>
+    <p style="color:red"> display is set to grid <br>
+        grid-template-columns is set to 2 columns by default the columns are equal in width :
+    </p>
+    <br>
+    <div class="wrapper">
+        <div class="content">
+            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nisi
+            illum facilis consequuntur excepturi dicta quam enim cum nemo
+            accusantium doloribus nobis ab repudiandae culpa atque, rerum quo sed, sit
+            ullam! Iste, nulla. Facere esse beatae provident error, sunt minus dolores
+            veniam similique laudantium magnam eaque officia, quaerat optio voluptatem natus!
+        </div>
+        <div class="content">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            Nemo tenetur, ullam et libero provident eaque ut debitis voluptas excepturi
+            dolore id. Accusamus ullam sed voluptas corrupti laudantium nisi et distinctio,
+            ad doloribus quas aliquid recusandae cupiditate quo praesentium mollitia beatae!
+
+        </div>
+        <div class="content">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Error, assumenda!
+        </div>
+        <div class="content">
+            nan
+        </div>
+        <p style="color:red">grid-auto-rows: min size is set to 1px: </p>
+        <br>
+        <div class="content"></div>
+        <div class="content"></div>
+
+    </div>
+    <p style="color:red">if infinite-container is increased child container also increases untill the least amount of
+        height possible</p>
+    <div class="infinite-container">
+        <div class="child-container">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem quidem dolor fugit natus possimus
+            itaque totam dolores magni aliquam modi?
+        </div>
+    </div>
+    <p style="color:red">! it is wrong to set background to container2 because it is parent element and the gap property
+        will be of no use. Instead place background on is child element</p>
+    <div class="container2">
+        <div class="content2">
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Harum esse quas expedita, natus ex id. Beatae
+            natus consequatur quos repellat alias voluptates et quis aliquid eligendi quidem perspiciatis, sit
+            exercitationem nam molestiae hic, doloribus reiciendis, earum assumenda. Aliquid, quod harum.
+        </div>
+        <div class="container2">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam ea sequi mollitia eum voluptatem sint?
+        </div>
+        <div class="content2">
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Harum esse quas expedita, natus ex id. Beatae
+            natus consequatur quos repellat alias voluptates et quis aliquid eligendi quidem perspiciatis, sit
+            exercitationem nam molestiae hic, doloribus reiciendis, earum assumenda. Aliquid, quod harum.
+        </div>
+        <div class="container2">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam ea sequi mollitia eum voluptatem sint?
+        </div>
+        <div class="content2">
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Harum esse quas expedita, natus ex id. Beatae
+            natus consequatur quos repellat alias voluptates et quis aliquid eligendi quidem perspiciatis, sit
+            exercitationem nam molestiae hic, doloribus reiciendis, earum assumenda. Aliquid, quod harum.
+        </div>
+        <div class="container2">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam ea sequi mollitia eum voluptatem sint?
+        </div>
+        <div class="container2">
+            Lorem ipsum dolor sit.
+
+        </div>
+        <div class="contianer2">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa, laudantium!
+        </div>
+    </div>
+<p style="color:red">.container3: grid-auto-rows: 100px 150px 390px;</p>
+    <div class="container3">
+        <div class="content2">
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Harum esse quas expedita, natus ex id. Beatae
+            natus consequatur quos repellat alias voluptates et quis aliquid eligendi quidem perspiciatis, sit
+            exercitationem nam molestiae hic, doloribus reiciendis, earum assumenda. Aliquid, quod harum.
+        </div>
+        <div class="container2">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam ea sequi mollitia eum voluptatem sint?
+        </div>
+        <div class="content2">
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Harum esse quas expedita, natus ex id. Beatae
+            natus consequatur quos repellat alias voluptates et quis aliquid eligendi quidem perspiciatis, sit
+            exercitationem nam molestiae hic, doloribus reiciendis, earum assumenda. Aliquid, quod harum.
+        </div>
+        <div class="container2">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam ea sequi mollitia eum voluptatem sint?
+        </div>
+        <div class="content2">
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Harum esse quas expedita, natus ex id. Beatae
+            natus consequatur quos repellat alias voluptates et quis aliquid eligendi quidem perspiciatis, sit
+            exercitationem nam molestiae hic, doloribus reiciendis, earum assumenda. Aliquid, quod harum.
+        </div>
+        <div class="container2">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam ea sequi mollitia eum voluptatem sint?
+        </div>
+        <div class="container2">
+            Lorem ipsum dolor sit.
+
+        </div>
+        <div class="contianer2">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa, laudantium!
+        </div>
+    </div>
+</body>
+
+</html>
