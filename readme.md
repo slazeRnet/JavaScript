@@ -3,16 +3,16 @@
 ### [2. Design Patterns](#x-2-design-patterns-1)
 ### [3. Data Types](#3-data-types-1)
 ### [4. Statements](#4-statements-1)
-#### 4.1. Control Flow
-#### 4.2. Declarations
-#### 4.3. Funtions and Classes
-##### 4.3.1. function
-##### 4.3.2. function*
-##### 4.3.3. async function
-##### 4.3.4. async
-##### 4.3.5. class
-#### 4.4. Iterations
-#### 4.5. Other
+  #### [4.1. Control Flow](#41-control-flow-1)
+  #### [4.2. Declarations](#42-declarations-1)
+  #### [4.3. Funtions and Classes](#43-functions-and-classes-1)
+##### [4.3.1. function](#431-function-1)
+##### [4.3.2. function*](#432-function-2)
+##### [4.3.3. async function](#433-async-function-1)
+##### [4.3.4. async](#434-async-1)
+##### [4.3.5. class](#435-class-1)
+#### [4.4. Iterations](#4-iterations-1)
+#### [4.5. Other](#45-other-1)
 ### [5. Expressions & Operations](#5-expressions-operations-1)
 ### [6. Automation](#6-automation)
 ### :capital_abcd: [10. Definitions](#capital_abcd-10-definitions-1)
