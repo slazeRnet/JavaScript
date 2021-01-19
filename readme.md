@@ -411,6 +411,14 @@ ___
 
 ---
 #### [4.2. Declarations](#42-declarations-1)
+
+|       | block scope | binds to this | hoisted | allow redeclaration | allow reinitialization |
+|-------|-------------|---------------|---------|---------------------|------------------------|
+| var   | no          | if global     | yes     | yes                 | yes                    |
+| let   | yes         | no            | no      | no                  | yes                    |
+| const | yes         | no            | no      | no                  | no                     |
+
+
 [ 4.2.1. var](#421-var-1)
 [ 4.2.2. let](#422-let-1)
 [ 4.2.3. const](#423-const-1)
