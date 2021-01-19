@@ -517,9 +517,8 @@ getFunc()(); // "test", from the Lexical Environment of getFunc
 ---
 #### 4.3.5. class
 
-##### It is not possible to use promise in the constructor
 <details>
-<summary>Read more</summary>
+<summary><h4>It is not possible to use promise in the constructor</h4></summary>
 <strong>This can never work.</strong>
 <br>
 The async keyword allows await to be used in a function marked as async but it also converts that function into a promise generator. So a function marked with async will return a promise. A constructor on the other hand returns the object it is constructing. Thus we have a situation where you want to both return an object and a promise: an impossible situation.
@@ -1198,9 +1197,13 @@ So what happens then, is that the doSthWithCallbacks (general expression for all
 #### How to work around it
 
 - Closure in a function
+
+<br>
 This method is relatively easy to understand and that is why I won't be covering it in much detail. This isn't the case with inline closures, so I will cover that in depth. The 
-> callbackClosure 
+<code>callbackClosure</code> 
 function returns a function that invokes the actual callback with an explicit copy of <code>i</code> as an argument.
+<br>
+
 ```js
 var array = [ ... ]; // An array with some objects
 
@@ -1217,12 +1220,60 @@ for( var i = 0; i < array.length; ++i )
   }) );
 }
 ```
+<br>
 
 
 Since each function declares it's own scope, and i has a base atomic type (int) it is not passed as a reference, but rather as a copy (unlike objects) which ensures that the actual callback will be executed against the correct value.
 
 - Inline closure
+<br>
+This brings us to my most favorite JavaScript hack. This is done by declaring a self called anonymous function, which generally looks like this:
+```js
+(function() {
+  // Something declared here will only be available to the function below.
+  // Code here is executed only once upon the creation of the inner function
+  return function(callbackArguments) {
+    // Actual callback here
+  };
+})(); // The last brackets execute the outer function
+```
+<br>
 
+```js
+var array = [ ... ]; // An array with some objects
+for( var i = 0; i < array.length; ++i )
+{
+  API.doSthWithCallbacks( (function() {
+    var j = i; // j is a copy of i only available to the scope of the inner function
+    return function() {
+      array[j].something = 42;
+    }
+  })() );
+}
 
+```
+<br>
 
+If, for example, you have to do some asynchronous processing, and there should be some aggregate code that should only be run after all the callbacks have been completed, all you need to do is know how many callback you have scheduled and count how many of those were completed. If count is equal to length that means that you are currently processing the last callback.
 
+```js
+var array = [ ... ]; // An array with some objects
+var count = 0, length = array.length;
+for( var i = 0; i < array.length; ++i )
+{
+  API.doSthWithCallbacks( (function() {
+    var j = i; // A copy of i only available to the scope of the inner function
+    return function() {
+      array[j].something = 42;
+
+      ++count;
+      if( count == length ) {
+        // Code executed only after all the processing tasks have been completed
+      }
+    }
+  })() );
+}
+```
+Now, at this point it's easy to get confused. Is the ++count operation atomic? A Race Condition could occur and the code might be executed multiple times or, worse, not executed at all. Some consider something like a mutex or a semaphore. But this isn't right.
+
+While JavaScript is asynchronous, it's not multithreaded. In fact, while it's impossible to predict when a callback will be executed, it is guaranteed that a Race Condition will not occur since JavaScript only runs in a single thread. (As a side note, that doesn't mean there isn't a way to run multiple threads in JavaScript. See Web Workers API for the Web kind of JavaScript).
