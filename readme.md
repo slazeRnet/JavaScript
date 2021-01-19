@@ -521,6 +521,8 @@ getFunc()(); // "test", from the Lexical Environment of getFunc
 <summary><h4>It is not possible to use promise in the constructor</h4></summary>
 <strong>This can never work.</strong>
 <br>
+[Example here in Errors Section](#114-x-javascript-callbacks-variable-scope-problem)
+<br>
 The async keyword allows await to be used in a function marked as async but it also converts that function into a promise generator. So a function marked with async will return a promise. A constructor on the other hand returns the object it is constructing. Thus we have a situation where you want to both return an object and a promise: an impossible situation.
 <br>
 You can only use async/await where you can use promises because they are essentially syntax sugar for promises. You can't use promises in a constructor because a constructor must return the object to be constructed, not a promise.
