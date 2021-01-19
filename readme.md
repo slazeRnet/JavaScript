@@ -550,7 +550,7 @@ myObj.init(function() {
 <br>
 - Implementation: 
 <br>
-```js
+<code>
 class myClass {
 
     constructor () {
@@ -566,8 +566,8 @@ class myClass {
     }
 
 }
-```
-_line_
+</code>
+
 <br>
 - 2. Use a builder. I've not seen this used much in javascript but this is one of the more common work-arounds in Java when an object needs to be constructed asynchronously. Of course, the builder pattern is used when constructing an object that requires a lot of complicated parameters. Which is exactly the use-case for asynchronous builders. The difference is that an async builder does not return an object but a promise of that object:
 <br>
