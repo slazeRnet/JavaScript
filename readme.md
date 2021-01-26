@@ -15,6 +15,7 @@
 #### [4.5. Other](#45-other-1)
 ### [5. Expressions & Operations](#5-expressions-operations-1)
 ### [6. Automation](#6-automation)
+### [7. NodeJS](#7-nodejs)
 ### :capital_abcd: [10. Definitions](#capital_abcd-10-definitions-1)
 ### :x: [11. Errors](#x-11-errors-1)
 ___
@@ -699,10 +700,325 @@ ___
      <br>
 </details>
 
-### 5.1.1.
+### 5.1.1. this
 
-### 5.1.2.
+1) A function's this keyword behaves a little differently in JavaScript compared to other languages. It also has some differences between strict mode and non-strict mode.
 
+In most cases, the value of this is determined by how a function is called (runtime binding). It can't be set by assignment during execution, and it may be different each time the function is called. ES5 introduced the bind() method to set the value of a function's this regardless of how it's called, and ES2015 introduced arrow functions which don't provide their own this binding (it retains the this value of the enclosing lexical context).
+
+#### 5.1.1.1. Value
+
+2) A property of an execution context (global, function or eval) that, in non–strict mode, is always a reference to an object and in strict mode can be any value.
+
+#### 5.1.1.2. Description
+__Global context__
+In the global execution context (outside of any function), this refers to the global object whether in strict mode or not.
+```js
+// In web browsers, the window object is also the global object:
+console.log(this === window); // true
+
+a = 37;
+console.log(window.a); // 37
+
+this.b = "MDN";
+console.log(window.b)  // "MDN"
+console.log(b)         // "MDN"
+```
+:information_source:
+> Note: You can always easily get the global object using the global globalThis property, 
+> regardless of the current context in which your code is running.
+
+#### 5.1.1.3. Function context
+Inside a function, the value of this depends on how the function is called.
+
+Since the following code is not in strict mode, and because the value of this is not set by the call, this will default to the global object, which is window in a browser.
+
+```js
+function f1() {
+  return this;
+}
+
+// In a browser:
+f1() === window; // true
+
+// In Node:
+f1() === globalThis; // true
+```
+
+In strict mode, however, if the value of this is not set when entering an execution context, it remains as undefined, as shown in the following example:
+
+```js
+function f2() {
+  'use strict'; // see strict mode
+  return this;
+}
+
+f2() === undefined; // true
+```
+
+
+> In the second example, this should be undefined, because f2 was called directly and not as
+> a 
+> method or property of an object (e.g. window.f2()). This feature wasn't implemented in some 
+> browsers when they first started to support strict mode. As a result, they incorrectly 
+> returned the window object.
+
+<br>
+
+#### 5.1.1.4. Class context
+The behavior of this in classes and functions is similar, since classes are functions under the hood. But there are some differences and caveats.
+
+Within a class constructor, this is a regular object. All non-static methods within the class are added to the prototype of this:
+
+```js
+class Example {
+  constructor() {
+    const proto = Object.getPrototypeOf(this);
+    console.log(Object.getOwnPropertyNames(proto));
+  }
+  first(){}
+  second(){}
+  static third(){}
+}
+
+new Example(); // ['constructor', 'first', 'second']
+```
+
+<br>
+
+> Note: Static methods are not properties of this. They are properties of the class itself.
+
+<br>
+
+#### 5.1.1.5. Derived classes
+
+<br>
+Unlike base class constructors, derived constructors have no initial this binding. Calling  super() creates a this binding within the constructor and essentially has the effect of evaluating the following line of code, where Base is the inherited class:
+
+> this = new Base();
+
+:x: 
+> Warning: Referring to this before calling super() will throw an error.
+
+Derived classes must not return before calling super(), unless they return an Object or have no constructor at all.
+
+```js
+class Base {}
+class Good extends Base {}
+class AlsoGood extends Base {
+  constructor() {
+    return {a: 5};
+  }
+}
+class Bad extends Base {
+  constructor() {}
+}
+
+new Good();
+new AlsoGood();
+new Bad(); // ReferenceError
+```
+<br>
+
+#### 5.1.1.6. Examples
+
+<br>
+
+__this in function contexts__
+
+```js
+// An object can be passed as the first argument to call or apply and this will be bound to it.
+var obj = {a: 'Custom'};
+
+// We declare a variable and the variable is assigned to the global window as its property.
+var a = 'Global';
+
+function whatsThis() {
+  return this.a;  // The value of this is dependent on how the function is called
+}
+
+whatsThis();          // 'Global' as this in the function isn't set, so it defaults to the global/window object
+whatsThis.call(obj);  // 'Custom' as this in the function is set to obj
+whatsThis.apply(obj); // 'Custom' as this in the function is set to obj
+```
+
+__this and object conversion__
+
+```js
+function add(c, d) {
+  return this.a + this.b + c + d;
+}
+
+var o = {a: 1, b: 3};
+
+// The first parameter is the object to use as
+// 'this', subsequent parameters are passed as
+// arguments in the function call
+add.call(o, 5, 7); // 16
+
+// The first parameter is the object to use as
+// 'this', the second is an array whose
+// members are used as the arguments in the function call
+add.apply(o, [10, 20]); // 34
+```
+
+Note that in non–strict mode, with call and apply, if the value passed as this is not an object, an attempt will be made to convert it to an object. Values null and undefined become the global object. Primitives like 7 or 'foo' will be converted to an Object using the related constructor, so the primitive number 7 is converted to an object as if by new Number(7) and the string 'foo' to an object as if by new String('foo'), e.g.
+
+```js
+function bar() {
+  console.log(Object.prototype.toString.call(this));
+}
+
+bar.call(7);     // [object Number]
+bar.call('foo'); // [object String]
+bar.call(undefined); // [object global]
+
+```
+
+<br>
+
+__The bind method__
+
+<br>
+
+ECMAScript 5 introduced Function.prototype.bind(). Calling f.bind(someObject) creates a new function with the same body and scope as f, but where this occurs in the original function, in the new function it is permanently bound to the first argument of bind, regardless of how the function is being used.
+
+```js
+function f() {
+  return this.a;
+}
+
+var g = f.bind({a: 'azerty'});
+console.log(g()); // azerty
+
+var h = g.bind({a: 'yoo'}); // bind only works once!
+console.log(h()); // azerty
+
+var o = {a: 37, f: f, g: g, h: h};
+console.log(o.a, o.f(), o.g(), o.h()); // 37,37, azerty, azerty
+```
+<br>
+
+__Arrow functions__
+
+<br>
+
+In arrow functions, this retains the value of the enclosing lexical context's this. In global code, it will be set to the global object:
+
+```js
+var globalObject = this;
+var foo = (() => this);
+console.log(foo() === globalObject); // true
+```
+
+> Note: if this arg is passed to call, bind, or apply on invocation of an arrow function it 
+> will be ignored. You can still prepend arguments to the call, but the first argument 
+>(thisArg) should be set to null.
+
+No matter what, foo's this is set to what it was when it was created (in the example above, the global object). The same applies to arrow functions created inside other functions: their this remains that of the enclosing lexical context.
+
+
+
+### 5.1.2. function
+
+### Function Chaining
+
+Next step is to find a way to make sure that we can call another method on the return value of the this.someMethod(), so we can have this.someMethod().someOtherMethod(). To achieve this, we simply tell our methods to return this. That way, each method returns the object that contains the methods we want.
+
+```js
+class ChainAble {
+  firstMethod() {
+    console.log('This is the First Method');
+    return this;
+  }
+  
+  secondMethod() {
+    console.log('This is the Second Method');
+    return this;
+  }
+  
+  thirdMethod() {
+    console.log('This is the Third Method');
+    return this;
+  }
+}
+
+const chainableInstance = new Chainable()
+chainableInstance
+  .firstMethod()
+  .secondMethod()
+  .thirdMethod();
+
+// Console Output
+// This is the First Method
+// This is the Second Method
+// This is the Third Method
+```
+
+Okay, that’s all nice and good. Now we can chain our methods and produce some side-effects — logging to the console in this case. Our code is a lot more readable and clean, but how do we get actual values from our chainable class?
+
+__Instance Properties__
+To get the result of our chain of function calls, we need to store the results of each function call and then access that data at the end of our chain. For this, we’ll add an instance property to our class to hold the result of each function/method call.
+Instance properties are properties unique to each object instance, meaning if we create two objects(instances) from the same class by writing new SomeClassWeWrote(), their values can be manipulated independently. Since this refers to the current object instance, attaching the property to this e.g this.property = ‘someValue' guarantees it’ll be available to the current instance and not shared with other instances of the same class.
+
+
+```js
+class Arithmetic {
+  constructor() {
+    this.value = 0;
+  }
+  sum(...args) {
+    this.value = args.reduce((sum, current) => sum + current, 0);
+    return this;
+  }
+  add(value) {
+    this.value = this.value + value;
+    return this;
+  }
+  subtract(value) {
+    this.value = this.value - value;
+    return this;
+  }
+  average(...args) {
+    this.value = args.length
+      ? (this.sum(...args).value) / args.length
+      : undefined;
+    return this;
+  }
+}
+
+a = new Arithmetic()
+a.sum(1, 3, 6)   // => { value: 10 } 
+  .subtract(3)   // => { value: 7 }
+  .add(4)        // => { value: 11 }
+  .value         // => 11 
+
+// Console Output
+// 11
+```
+
+Let’s run through the code.
+This example shares lots of similarities with the ChainAble class shown before. It contains methods that do some things, then return this. However, instead of just logging to the console, they store the results of their computations in an instance variable, this.value. In order to access the result of our computations, we add .value at the end of our chain of method calls.
+__Getting Values With Getters__
+Because I like the idea, I have decided to slip in something extra. Instead of accessing our value directly, we could define a getter that lets us get our value. This is done by defining a dedicated function prefixed with get between lines 3 and 5 which has the responsibility of returning the final result. Then we access it like a regular property on line 15.
+
+```js
+class Arithmetic {
+  // add getter for value
+  get val() {
+    return this.value;
+  }
+  
+  // rest of the code truncated for clarity
+}
+
+
+a = new Arithmetic()
+a.sum(1, 3, 6)   // => { value: 10 } 
+  .subtract(3)   // => { value: 7 }
+  .add(4)        // => { value: 11 }
+  .val           // <== read the result of the computation  
+```
 ### 5.1.3. 
 
 ### 5.1.4. Generator Function (function*)
@@ -927,6 +1243,14 @@ ___
 # 6. Automation
 
 ## 6.1. Puppeteer Library
+
+
+___
+
+
+# 7. NodeJS
+
+## 7.1. HTTP
 
 
 
@@ -1279,3 +1603,37 @@ for( var i = 0; i < array.length; ++i )
 Now, at this point it's easy to get confused. Is the ++count operation atomic? A Race Condition could occur and the code might be executed multiple times or, worse, not executed at all. Some consider something like a mutex or a semaphore. But this isn't right.
 
 While JavaScript is asynchronous, it's not multithreaded. In fact, while it's impossible to predict when a callback will be executed, it is guaranteed that a Race Condition will not occur since JavaScript only runs in a single thread. (As a side note, that doesn't mean there isn't a way to run multiple threads in JavaScript. See Web Workers API for the Web kind of JavaScript).
+
+### 11.5. NodeJS http.request() code: 'ENOTFOUND',
+
+The following error remains unresolved
+```js
+const dns = require('dns');
+const http = require('http');
+
+let options = {
+    hostname: 'https://www.google.bg',
+    port: 80,
+    path: '/',
+    method: 'POST',
+
+}
+
+let req = http.request(options, (res) => {
+    console.log(res);
+}).on('data', (data) => {
+    console.log(data);
+})
+
+req.end();
+
+```
+
+
+Terminal output:
+```js
+  errno: -3008,
+  code: 'ENOTFOUND',
+  syscall: 'getaddrinfo',
+  hostname: 'https://www.google.bg'
+  ```
