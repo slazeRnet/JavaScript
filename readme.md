@@ -5,6 +5,7 @@
 ### [4. Statements](#4-statements-1)
   #### [4.1. Control Flow](#41-control-flow-1)
   #### [4.2. Declarations](#42-declarations-1)
+  - var, let, const
   #### [4.3. Funtions and Classes](#43-functions-and-classes-1)
 ##### [4.3.1. function](#431-function-1)
 ##### [4.3.2. function*](#432-function-2)
@@ -424,8 +425,83 @@ ___
 [ 4.2.2. let](#422-let-1)
 [ 4.2.3. const](#423-const-1)
 
+These are JavaScript’s main ways of declaring variables:
+
+- let declares mutable variables.
+- const declares constants (immutable variables).
+
+:information_source:
+Before ES6, there was also var. But it has several quirks, so it’s best to avoid it in modern JavaScript.
+
+##### 4.2.1. var
 
 
+##### 4.2.2. let
+
+
+##### 4.2.3. const
+
+:x: __Assigning values to declared const returns error__
+```
+    name: 'TypeError',
+    message: 'Assignment to constant variable.'
+```
+
+#### 4.2.3.1. <code>const</code> and immutability 
+
+In JavaScript, const only means that the binding (the association between variable name and variable value) is immutable. The value itself may be mutable, like obj in the following example.
+
+<br>
+
+```js
+const obj = { prop: 0 };
+
+// Allowed: changing properties of `obj`
+obj.prop = obj.prop + 1;
+assert.equal(obj.prop, 1);
+
+// Not allowed: assigning to `obj`
+assert.throws(
+  () => { obj = {} },
+  {
+    name: 'TypeError',
+    message: 'Assignment to constant variable.',
+  }
+);
+```
+
+<br>
+
+#### 4.2.3.2. <code>const</code> and loops 
+
+<br>
+
+You can use const with for-of loops, where a fresh binding is created for each iteration:
+
+```js
+const arr = ['hello', 'world'];
+for (const elem of arr) {
+  console.log(elem);
+}
+// Output:
+// 'hello'
+// 'world'
+```
+In plain for loops, you must use let, however:
+
+<br>
+
+```js
+const arr = ['hello', 'world'];
+for (let i=0; i<arr.length; i++) {
+  const elem = arr[i];
+  console.log(elem);
+}
+```
+
+<br>
+
+---
 #### [4.3. Functions and classes](#43-function-and-classes-1)
 
 #### [4.4. Iterations](#44-iterations-1)
@@ -727,6 +803,30 @@ console.log(b)         // "MDN"
 :information_source:
 > Note: You can always easily get the global object using the global globalThis property, 
 > regardless of the current context in which your code is running.
+
+1) The global object is now considered a mistake that JavaScript can’t get rid of, due to backward compatibility. It affects performance negatively and is generally confusing.
+
+2) ECMAScript 6 introduced several features that make it easier to avoid the global object – for example:
+
+- const, let, and class declarations don’t create global object properties when used in global scope.
+```js
+let a = 'text a';
+
+this.b = 'text b';
+
+console.log(this); //{ b: 'text b' }
+```
+
+- Each ECMAScript module has its own local scope.
+
+3) The root is also called the global scope. In web browsers, the only location where one is directly in that scope is at the top level of a script. The variables of the global scope are called global variables and accessible everywhere. There are two kinds of global variables:
+
+- __Global declarative variables are normal variables.__
+They can only be created while at the top level of a script, via const, `let, and class declarations.
+- __Global object variables__ are stored in properties of the so-called global object.
+They are created in the top level of a script, via var and function declarations.
+The global object can be accessed via the global variable globalThis. It can be used to create, read, and delete global object variables.
+Other than that, global object variables work like normal variables.
 
 #### 5.1.1.3. Function context
 Inside a function, the value of this depends on how the function is called.
@@ -1423,6 +1523,13 @@ Code linters can also be configured to help you remember to handle callback erro
 <br>
 :black_small_square: Ask more experienced coders you know to show you examples of good modules until you have a good idea of what they look like. If it takes more than a few minutes to understand what is happening, it probably isn't a very good module.
 <br>
+
+
+### 10.3. static vs. dynamic
+These two adjectives describe phenomena in programming languages:
+
+- Static means that something is related to source code and can be determined without executing code.
+- Dynamic means at runtime.
 ___
 
 # :x: 11. Errors
