@@ -125,6 +125,8 @@ The global environment record uses two environment records to manage its variabl
 
 - A __normal (declarative) environment record__ that has its own storage for its bindings.
 
+![illustration](./utils/img/global_env.svg)
+
 Which of these two records is used when will be explained soon.
 
 
