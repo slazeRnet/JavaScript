@@ -1978,6 +1978,7 @@ Since each function declares it's own scope, and i has a base atomic type (int) 
 - Inline closure
 <br>
 This brings us to my most favorite JavaScript hack. This is done by declaring a self called anonymous function, which generally looks like this:
+
 ```js
 (function() {
   // Something declared here will only be available to the function below.
@@ -1987,6 +1988,7 @@ This brings us to my most favorite JavaScript hack. This is done by declaring a 
   };
 })(); // The last brackets execute the outer function
 ```
+
 <br>
 
 ```js
