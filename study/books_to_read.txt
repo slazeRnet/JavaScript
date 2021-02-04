@@ -1,0 +1,5 @@
+1) The Computer and the Brain, by John von Neumann, a polymath who in the 1940s pioneered the design of a computer architecture that is still the basis of most modern computers today.2 Let’s look at some of these comparisons in numbers (Table 1).
+
+---
+
+2) The art of Programmign - Donald Knuth

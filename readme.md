@@ -113,6 +113,109 @@ NodeJS global scope:
 
 ES6 global scope:
 > window
+
+#### 3.1.1.4.1. The global environment 
+_source: exploringjs.com_
+
+The global scope is the “outermost” scope – it has no outer scope. Its environment is the global environment. Every environment is connected with the global environment via a chain of environments that are linked by outer environment references. The outer environment reference of the global environment is null.
+
+The global environment record uses two environment records to manage its variables:
+
+- An __object environment record__ has the same interface as a normal environment record, but keeps its bindings in a JavaScript object. In this case, the object is the global object.
+
+- A __normal (declarative) environment record__ that has its own storage for its bindings.
+
+Which of these two records is used when will be explained soon.
+
+
+#### 3.1.1.4.2. Script scope and module scopes 
+
+In JavaScript, we are only in global scope at the top levels of scripts. In contrast, each module has its own scope that is a subscope of the script scope.
+
+If we ignore the relatively complicated rules for how variable bindings are added to the global environment, then global scope and module scopes work as if they were nested code blocks:
+
+```js
+{ // Global scope (scope of *all* scripts)
+
+  // (Global variables)
+
+  { // Scope of module 1
+    ···
+  }
+  { // Scope of module 2
+    ···
+  }
+  // (More module scopes)
+}
+```
+<br>
+
+#### 3.1.1.4.3.  Creating variables: declarative record vs. object record 
+
+<br>
+
+In order to create a variable that is truly global, we must be in global scope – which is only the case at the top level of scripts:
+
+- Top-level <code>const</code>, <code>let</code>, and <code>class</code> create bindings in the declarative environment record.
+- Top-level var and function declarations create bindings in the object environment record.
+<br>
+
+```js
+<script>
+  const one = 1;
+  var two = 2;
+</script>
+<script>
+  // All scripts share the same top-level scope:
+  console.log(one); // 1
+  console.log(two); // 2
+  
+  // Not all declarations create properties of the global object:
+  console.log(globalThis.one); // undefined
+  console.log(globalThis.two); // 2
+</script>
+```
+
+<br>
+
+#### 3.1.1.4.4. Getting or setting variables 
+When we get or set a variable and both environment records have a binding for that variable, then the declarative record wins:
+
+```js
+<script>
+  let myGlobalVariable = 1; // declarative environment record
+  globalThis.myGlobalVariable = 2; // object environment record
+
+  console.log(myGlobalVariable); // 1 (declarative record wins)
+  console.log(globalThis.myGlobalVariable); // 2
+</script>
+```
+
+<br>
+
+Using const or let guarantees that global variable declarations aren’t influencing (or influenced by) the built-in global variables of ECMAScript and host platform.
+
+For example, browsers have the global variable .location:
+```js
+// Changes the location of the current document:
+var location = 'https://example.com'; // changes the url to example.com
+
+// Shadows window.location, doesn’t change it:
+let location = 'https://example.com';
+```
+
+If a variable already exists (such as location in this case), then a var declaration with an initializer behaves like an assignment. That’s why we get into trouble in this example.
+
+<br>
+
+#### 3.1.1.4.5. Conclusion: Why does JavaScript have both normal global variables and the global object?
+
+The global object is generally considered to be a mistake. For that reason, newer constructs such as const, let, and classes create normal global variables (when in script scope).
+
+Thankfully, most of the code written in modern JavaScript, lives in ECMAScript modules and CommonJS modules. Each module has its own scope, which is why the rules governing global variables rarely matter for module-based code.
+
+<br>
+
 ### 3.1.2. Lack of Identification (null)
 - The value null is written with a literal: null. null is not an identifier for a property of the global object, like undefined can be. Instead, null expresses a lack of identification, indicating that a variable points to no object. In APIs, null is often retrieved in a place where an object can be expected but no object is relevant. 
 <details>
@@ -514,6 +617,81 @@ for (let i=0; i<arr.length; i++) {
 ## 4.3. Functions and classes
 
 #### 4.3.1. function
+
+#### 4.3.1.8. function tips and tricks
+
+##### 4.3.1.8.1. Partial functions
+
+We can bind not only this, but also arguments. That’s rarely done, but sometimes can be handy.
+
+The full syntax of bind:
+
+> let bound = func.bind(context, [arg1], [arg2], ...);
+
+
+For instance, we have a multiplication function mul(a, b):
+```js
+function mul(a, b) {
+  return a * b;
+}
+```
+
+Let’s use bind to create a function double on its base:
+
+
+```js
+function mul(a, b) {
+  return a * b;
+}
+
+let double = mul.bind(null, 2);
+
+alert( double(3) ); // = mul(2, 3) = 6
+alert( double(4) ); // = mul(2, 4) = 8
+alert( double(5) ); // = mul(2, 5) = 10
+```
+
+The call to mul.bind(null, 2) creates a new function double that passes calls to mul, fixing null as the context and 2 as the first argument. Further arguments are passed “as is”.
+
+That’s called partial function application – we create a new function by fixing some parameters of the existing one.
+
+Please note that we actually don’t use this here. But bind requires it, so we must put in something like null.
+
+The benefit is that we can create an independent function with a readable name (double, triple). We can use it and not provide the first argument every time as it’s fixed with bind.
+
+For instance, we have a function send(from, to, text). Then, inside a user object we may want to use a partial variant of it: sendTo(to, text) that sends from the current user.
+
+__Going partial without context__
+What if we’d like to fix some arguments, but not the context this? For example, for an object method.
+
+The native bind does not allow that. We can’t just omit the context and jump to arguments.
+
+Fortunately, a function partial for binding only arguments can be easily implemented.
+
+Like this:
+
+```js
+function partial(func, ...argsBound) {
+  return function(...args) { // (*)
+    return func.call(this, ...argsBound, ...args);
+  }
+}
+
+// Usage:
+let user = {
+  firstName: "John",
+  say(time, phrase) {
+    alert(`[${time}] ${this.firstName}: ${phrase}!`);
+  }
+};
+
+// add a partial method with fixed time
+user.sayNow = partial(user.say, new Date().getHours() + ':' + new Date().getMinutes());
+
+user.sayNow("Hello");
+// Something like:
+// [10:00] John: Hello!
+```
 
 ##### 4.3.1.1. Anonimous function
 ```js
@@ -1016,6 +1194,143 @@ console.log(foo() === globalObject); // true
 >(thisArg) should be set to null.
 
 No matter what, foo's this is set to what it was when it was created (in the example above, the global object). The same applies to arrow functions created inside other functions: their this remains that of the enclosing lexical context.
+
+// INSERT MORE FROM MDN HERE <<<====================
+<br>
+
+#### 5.1.1.7. Losing “this” in method callback
+
+<br>
+
+_When passing object methods as callbacks, for instance to setTimeout, there’s a known problem: "losing this"._
+
+__Example__
+
+ We’ve already seen examples of losing this. Once a method is passed somewhere separately from the object – this is lost.
+
+Here’s how it may happen with setTimeout:
+
+```js
+let user = {
+  firstName: "John",
+  sayHi() {
+    alert(`Hello, ${this.firstName}!`);
+  }
+};
+
+setTimeout(user.sayHi, 1000); // Hello, undefined!
+```
+
+As we can see, the output shows not “John” as this.firstName, but undefined!
+
+That’s because setTimeout got the function user.sayHi, separately from the object. The last line can be rewritten as:
+
+```js
+let f = user.sayHi;
+setTimeout(f, 1000); // lost user context
+```
+
+The method setTimeout in-browser is a little special: it sets this=window for the function call (for Node.js, this becomes the timer object, but doesn’t really matter here). So for this.firstName it tries to get window.firstName, which does not exist. In other similar cases, usually this just becomes undefined.
+
+The task is quite typical – we want to pass an object method somewhere else (here – to the scheduler) where it will be called. How to make sure that it will be called in the right context?
+
+<br>
+
+__Solution 1: a wrapper__
+
+
+
+Now it works, because it receives user from the outer lexical environment, and then calls the method normally.
+
+```js
+let user = {
+  firstName: "John",
+  sayHi() {
+    alert(`Hello, ${this.firstName}!`);
+  }
+};
+
+setTimeout(function() {
+  user.sayHi(); // Hello, John!
+}, 1000);
+```
+
+The same, but shorter:
+```js
+setTimeout(() => user.sayHi(), 1000); // Hello, John!
+```
+
+Looks fine, but a slight vulnerability appears in our code structure.
+
+What if before setTimeout triggers (there’s one second delay!) user changes value? Then, suddenly, it will call the wrong object!
+
+```js
+let user = {
+    firstName: "John",
+    sayHi() {
+      alert(`Hello, ${this.firstName}!`);
+    }
+  };
+  
+  setTimeout(() => user.sayHi(), 1000);  // Another user in setTimeout!
+  
+  // ...the value of user changes within 1 second
+  user = {
+    sayHi() { console.log("Another user in setTimeout!"); }
+  };
+  
+
+```
+The next solution guarantees that such thing won’t happen.
+
+__Solution 2: bind__
+Functions provide a built-in method bind that allows to fix this.
+
+The result of func.bind(context) is a special function-like “exotic object”, that is callable as function and transparently passes the call to func setting this=context.
+
+In other words, calling boundFunc is like func with fixed this.
+
+For instance, here funcUser passes a call to func with this=user:
+
+```js
+let user = {
+  firstName: "John"
+};
+
+function func() {
+  alert(this.firstName);
+}
+
+let funcUser = func.bind(user);
+funcUser(); // John
+```
+
+Here func.bind(user) as a “bound variant” of func, with fixed this=user.
+
+Now let’s try with an object method:
+
+```js
+let user = {
+  firstName: "John",
+  sayHi() {
+    alert(`Hello, ${this.firstName}!`);
+  }
+};
+
+let sayHi = user.sayHi.bind(user); // (*)
+
+// can run it without an object
+sayHi(); // Hello, John!
+
+setTimeout(sayHi, 1000); // Hello, John!
+
+// even if the value of user changes within 1 second
+// sayHi uses the pre-bound value which is reference to the old user object
+user = {
+  sayHi() { alert("Another user in setTimeout!"); }
+};
+```
+
 
 
 
