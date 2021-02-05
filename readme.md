@@ -17,6 +17,7 @@
 ### [5. Expressions & Operations](#5-expressions-operations-1)
 ### [6. Automation](#6-automation)
 ### [7. NodeJS](#7-nodejs)
+### [8. Libraries](#8-libraries)
 ### :capital_abcd: [10. Definitions](#capital_abcd-10-definitions-1)
 ### :x: [11. Errors](#x-11-errors-1)
 ___
@@ -93,6 +94,16 @@ Hi i am Adam and I am a Tester.
         <a href="#321-eval"> 3.2.1. eval </a>
         <br>
      <strong><a href="#33-fundamental-objects"> 3.3. Fundamental Objects</a></strong>
+     <strong><a href="#34-error-objects"> 3.4. Error Objects</a></strong>
+     <strong><a href="#35-numbers-and-dates"> 3.5. Numbers and dates</a></strong>
+     <strong><a href="#36-text-processing"> 3.6. Text processing</a></strong>
+     <strong><a href="#37-indexed-collections"> 3.7. Indexed collections</a></strong>
+     <strong><a href="#38-keyed-collections"> 3.8. Keyed collections</a></strong>
+     <strong><a href="#39-structured-data"> 3.9. Structured data</a></strong>
+     <strong><a href="#310-control-abstraction-objects"> 3.10. Control abstraction objects</a></strong>
+     <strong><a href="#311-reflection"> 3.11. Reflection</a></strong>
+     <strong><a href="#312-internationalisation"> 3.12. Internationalization</a></strong>
+     <strong><a href="#313-webassembly"> 3.13. WebAssembly</a></strong>
 </details>
         
         
@@ -414,6 +425,30 @@ Number(undefined)  // NaN
 ---
 ## 3.6. Text processing
 
+### 3.6.1. String
+
+--
+
+### 3.6.2. RegExp
+
+#### 3.6.2.10. Some Examples
+
+```js
+  pattern = /[0-9]{5}([- ]?[0-9]{4})?/;
+```
+
+evaluates to:
+```
+ * Creates a ZipCode object.
+ *
+ * Accepted formats for a zip code are:
+ *    12345
+ *    12345-6789
+ *    123456789
+ *    12345 6789
+```
+
+---
 ---
 ## 3.7. Indexed collections
 - Reversing a string (incidentally, a common
@@ -514,7 +549,9 @@ ___
 [ 4.1.7. throw](#417-throw-1)
 [ 4.1.8. try...catch](#418-trycatch-1)
 
-
+//  ADD MDN reference:
+- Block
+- break
 
 ---
 #### [4.2. Declarations](#42-declarations-1)
@@ -1683,10 +1720,118 @@ ___
 
 # 7. NodeJS
 
-## 7.1. HTTP
+<details>
+<summary>CONTENT</summary>
+
+#### 7.1. Assertion Testing
+#### 7.2. Async Hooks
+#### 7.3. Buffer
+#### 7.4. C++ Addons
+#### 7.5. C/C++ Addons - N-API
+#### 7.6. Child Processes
+#### 7.7. Cluster
+#### 7.8. Command Line Options
+#### 7.9. Console
+#### 7.10. Crypto
+#### 7.11. Debugger
+#### 7.12. Deprecated APIs
+#### 7.13. DNS
+#### 7.14. Domain
+#### 7.15. ECMAScript Modules
+#### 7.16. Errors
+#### 7.17. Events
+#### 7.18. File System
+#### 7.19. Globals
+#### 7.20. HTTP
+#### 7.21. HTTP/2
+#### 7.22. HTTPS
+#### 7.23. Inspector
+#### 7.24. Internationalization
+#### 7.25. Modules
+#### 7.26. Net
+#### 7.27. OS
+#### 7.28. Path
+#### 7.29. Performance Hooks
+#### 7.30. Process
+#### 7.31. Punycode
+#### 7.32. Query Strings
+#### 7.33. Readline
+#### 7.34. REPL
+#### 7.35. Stream
+#### 7.36. String Decoder
+#### 7.37. Timers
+#### 7.38. TLS/SSL
+#### 7.39. Tracing
+#### 7.40. TTY
+#### 7.41. UDP/Datagram
+#### 7.42. URL
+#### 7.43. Utilities
+#### 7.44. V8
+#### 7.45. VM
+#### 7.46. ZLIB
+
+</details>
+
+## 7.43 Utils
+
+### 7.43.1 util.promisify(original)
+
+- original <Function>
+- Returns: <Function>
+
+We can “promisify” any function that does not support promises (and as a consequence the async/await syntax) by importing promisify from the core Node.js util module:
+
+```js
+const { promisify } = require('util')
+
+```
+
+Then we create new functions using it:
+
+```js
+const ahget = promisify(client.hget).bind(client)
+const asmembers = promisify(client.smembers).bind(client)
+const ahkeys = promisify(client.hkeys).bind(client)
+```
+
+See how I added the a letter to mean async.
+
+Now we can change this example “callback hell”:
+
+```js
+client.hget(`user:${req.session.userid}`, 'username', (err, currentUserName) => {
+  client.smembers(`followers:${currentUserName}`, (err, followers) => {
+    client.hkeys('users', (err, users) => {
+      res.render('dashboard', {
+        users: users.filter((user) => user !== currentUserName && followers.indexOf(user) === -1)
+      })
+    })
+  })
+})
+```
+into a much cleaner:
+
+```js
+const currentUserName = await ahget(`user:${req.session.userid}`, 'username')
+const followers = await asmembers(`followers:${currentUserName}`)    
+const users = await ahkeys('users')
+
+res.render('dashboard', {
+  users: users.filter((user) => user !== currentUserName && followers.indexOf(user) === -1)
+})
+
+```
 
 
+___
 
+# :books: 8. Libraries
+
+### List of libraries:
+
+#### 1. [Browserify](http://browserify.org/)
+
+Browserify is an open-source JavaScript tool that allows developers to write Node.js-style modules that compile for use in the browser. Browserify lets you use require in the browser, the same way you'd use it in Node. It's not just syntactic sugar for loading scripts on the client.
 ___
 
 # :capital_abcd: 10. Definitions
