@@ -774,7 +774,8 @@ getFunc()(); // "test", from the Lexical Environment of getFunc
 ---
 #### 4.3.5. class
 
-It is not possible to use promise in the constructor
+### 4.3.5.1. It is not possible to use promise in the constructor
+
 <strong>This can never work.</strong>
 <br>
 
