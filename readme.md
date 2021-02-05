@@ -774,25 +774,34 @@ getFunc()(); // "test", from the Lexical Environment of getFunc
 ---
 #### 4.3.5. class
 
-<details>
-<summary><h4>It is not possible to use promise in the constructor</h4></summary>
+It is not possible to use promise in the constructor
 <strong>This can never work.</strong>
 <br>
+
 [Example here in Errors Section](#114-x-javascript-callbacks-variable-scope-problem)
+
 <br>
 The async keyword allows await to be used in a function marked as async but it also converts that function into a promise generator. So a function marked with async will return a promise. A constructor on the other hand returns the object it is constructing. Thus we have a situation where you want to both return an object and a promise: an impossible situation.
+
 <br>
+
 You can only use async/await where you can use promises because they are essentially syntax sugar for promises. You can't use promises in a constructor because a constructor must return the object to be constructed, not a promise.
+
 <br>
+
 There are two design patterns to overcome this, both invented before promises were around.
+
 <br>
 
 - 1. Use of an init() function. This works a bit like jQuery's .ready(). The object you create can only be used inside it's own init or ready function:
-<br>
-Usage:
+
 <br>
 
-<code>
+Usage:
+
+<br>
+
+```js
 
 var myObj = new myClass();
 
@@ -802,13 +811,15 @@ myObj.init(function() {
 
 });
 
-</code>
+```
+
 <br>
 
 <br>
 - Implementation: 
 <br>
-<code>
+
+```js
 class myClass {
 
     constructor () {
@@ -824,14 +835,16 @@ class myClass {
     }
 
 }
-</code>
+
+```
 
 <br>
 - 2. Use a builder. I've not seen this used much in javascript but this is one of the more common work-arounds in Java when an object needs to be constructed asynchronously. Of course, the builder pattern is used when constructing an object that requires a lot of complicated parameters. Which is exactly the use-case for asynchronous builders. The difference is that an async builder does not return an object but a promise of that object:
 <br>
 Usage:
 <br>
-<code>
+
+```js
 myClass.build().then(function(myObj) {
     // myObj is returned by the promise, 
     // not by the constructor
@@ -843,11 +856,10 @@ myClass.build().then(function(myObj) {
 async function foo () {
     var myObj = await myClass.build();
 }
-</code>
+```
 
 
-<br>
-<code>
+```js
 class myClass {
     constructor (async_param) {
         if (typeof async_param === 'undefined') {
@@ -862,11 +874,13 @@ class myClass {
            });
     }
 }
-</code>
+```
+
 <br>
 - Implementation with async/await:
 <br>
-<code>
+
+```js
 class myClass {
     constructor (async_param) {
         if (typeof async_param === 'undefined') {
@@ -879,8 +893,9 @@ class myClass {
         return new myClass(async_result);
     }
 }
-</code>
-</details>
+```
+
+
 
 ___
 
