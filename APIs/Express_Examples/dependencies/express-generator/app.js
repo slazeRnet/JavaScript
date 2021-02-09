@@ -8,7 +8,6 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
 
-let mod = function(){
   var app = express();
   
   // view engine setup
@@ -40,6 +39,4 @@ let mod = function(){
     res.render('error');
   });
 
-}
 
-module.exports = mod;

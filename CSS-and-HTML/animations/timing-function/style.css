@@ -1,0 +1,55 @@
+body > div {
+    position: relative;
+    height: 100px;
+  }
+  
+  div > div {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background-color: blue;
+    background-image: radial-gradient(circle at 10px 10px, rgba(25,255,255,0.8),rgba(25,255,255,0.4));
+    border-radius: 50%;
+    top: 25px;
+    animation: 1.5s infinite alternate;
+  }
+  
+  div > div#square {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    border-radius: 10%;
+    background: linear-gradient(rgb(115, 115, 255), rgb(31, 31, 231));
+    animation-name: square-slide;
+    animation-duration: 1s;
+    animation-timing-function: linear;
+
+  }
+
+  div >div#slide-rectangle{
+      position: absolute;
+      height: 5px;
+      width: 100%;
+      animation-name: loading-slide;
+      animation-duration: 2s;
+      animation-timing-function: linear; /* the timing function*/
+
+  }
+  @keyframes move-right {
+    from {
+      left: 10%;
+    }
+  
+    to {
+      left: 90%;
+    }   
+}
+    @keyframes square-slide{
+        from { top: 10%; }
+        to { bottom: 80% }
+    }
+
+    @keyframes loading-slide {
+        from { transform: scaleX(0); }
+        to   { transform: scaleX(1); }
+      }

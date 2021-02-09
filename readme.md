@@ -56,6 +56,9 @@ replace(a);  // a still has its original value - it's unmodfied
 update(a);   // the _contents_ of 'a' are changed
 ```
 
+## 1.2. Polyfill 
+- A source code that is a substitute for an API
+In web development, a polyfill is code that implements a feature on web browsers that do not support the feature. Most often, it refers to a JavaScript library that implements an HTML5 or CSS web standard, either an established standard on older browsers, or a proposed standard on existing browsers.
 ---
 # 2. Design Patterns
 - This is a simple and common design pattern in JavaScript. Factory is a creational design pattern allowing us to abstract away object creation implementation details from the outside world. Express does this by only exporting the factory.
@@ -1779,7 +1782,7 @@ ___
 #### 7.22. HTTPS
 #### 7.23. Inspector
 #### 7.24. Internationalization
-#### 7.25. Modules
+#### 7.25. Modules: CommonJS modules
 #### 7.26. Net
 #### 7.27. OS
 #### 7.28. Path
@@ -1804,7 +1807,9 @@ ___
 
 </details>
 
-## 7.25. Modules
+## 7.25. Modules: CommonJS modules
+
+
 
 ### 7.25.1. The whole process of requiring/loading a module is synchronous
 
@@ -1903,6 +1908,27 @@ Accepted answer from another topic should also help: Does Javascript pass by ref
 
 ---
 
+
+### 7.25.4. The module scope
+#### __dirname
+#### __filename
+#### exports
+#### module
+#### require(id)
+
+- id <string> module name or path
+- Returns: <any> exported module content
+
+#### The following immietly executes the module required:
+
+```js
+require('./module.js')
+```
+#### require.cache
+#### require.extensions
+#### require.main
+#### require.resolve(request[, options])
+#### require.resolve.paths(request)
 ___
 
 ## 7.43 Utils
