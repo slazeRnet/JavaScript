@@ -24,6 +24,38 @@ ___
 # 1. Overview
 - stable API - API stability refers to some level of guarantee from a project that its API will only change in defined ways in the future, or will not change at all.
 
+## 1.1. Does JavaScript pass by reference?
+
+```js
+let my = 1;
+
+var rectangle = function(my){
+
+my = 2;
+console.log(my)
+}
+
+rectangle(my) //2
+
+console.log(my)// 1
+```
+Primitives are passed by value, and Objects are passed by "copy of a reference".
+
+Specifically, when you pass an object (or array) you are (invisibly) passing a reference to that object, and it is possible to modify the contents of that object, but if you attempt to overwrite the reference it will not affect the copy of the reference held by the caller - i.e. the reference itself is passed by value:
+```js
+function replace(ref) {
+    ref = {};           // this code does _not_ affect the object passed
+}
+
+function update(ref) {
+    ref.key = 'newvalue';  // this code _does_ affect the _contents_ of the object
+}
+
+var a = { key: 'value' };
+replace(a);  // a still has its original value - it's unmodfied
+update(a);   // the _contents_ of 'a' are changed
+```
+
 ---
 # 2. Design Patterns
 - This is a simple and common design pattern in JavaScript. Factory is a creational design pattern allowing us to abstract away object creation implementation details from the outside world. Express does this by only exporting the factory.
@@ -1772,6 +1804,107 @@ ___
 
 </details>
 
+## 7.25. Modules
+
+### 7.25.1. The whole process of requiring/loading a module is synchronous
+
+That’s why we were able to see the modules fully loaded after one cycle of the event loop.
+
+This also means that we cannot change the exports object asynchronously. We can’t, for example, do the following in any module:
+
+```js
+fs.readFile('/etc/passwd', (err, data) => {
+  if (err) throw err;
+  
+  exports.data = data; // Will not work.
+});
+```
+
+### 7.25.2. Circular module dependency
+Let’s now try to answer the important question about circular dependency in Node: What happens when module 1 requires module 2, and module 2 requires module 1?
+
+To find out, let’s create the following two files under lib/, module1.js and module2.js and have them require each other:
+
+> lib/module1.js
+```js
+
+exports.a = 1;
+
+require('./module2');
+
+exports.b = 2;
+exports.c = 3;
+```
+
+> lib/module2.js
+```js
+
+const Module1 = require('./module1');
+console.log('Module1 is partially loaded here', Module1);
+```
+
+### 7.25.3. module.exports vs exports in Node.js
+[Stackoverflow question]()
+
+543
+
+Even though question has been answered and accepted long ago, i just want to share my 2 cents:
+
+You can imagine that at the very beginning of your file there is something like (just for explanation):
+```js
+var module = new Module(...);
+var exports = module.exports;
+```
+
+![image_module](./utils/img/module1.png)
+
+So whatever you do just keep in mind that module.exports and NOT exports will be returned from your module when you're requiring that module from somewhere else.
+
+So when you do something like:
+```js
+exports.a = function() {
+    console.log("a");
+}
+exports.b = function() {
+    console.log("b");
+}
+```
+You are adding 2 function a and b to the object on which module.exports points too, so the typeof the returning result will be an object : { a: [Function], b: [Function] }
+
+Of course, this is the same result you will get if you are using module.exports in this example instead of exports.
+
+This is the case where you want your module.exports to behave like a container of exported values. Whereas, if you only want to export a constructor function then there is something you should know about using module.exports or exports;(Remember again that module.exports will be returned when you require something, not export).
+```js
+module.exports = function Something() {
+    console.log('bla bla');
+}
+```
+Now typeof returning result is 'function' and you can require it and immediately invoke like:
+
+```js
+var x = require('./file1.js')();
+```
+
+ because you overwrite the returning result to be a function.
+
+However, using exports you can't use something like:
+```js
+exports = function Something() {
+    console.log('bla bla');
+}
+```
+
+```js
+var x = require('./file1.js')(); //Error: require is not a function
+```
+Because with exports, the reference doesn't point anymore to the object where module.exports points, so there is not a relationship between exports and module.exports anymore. In this case module.exports still points to the empty object {} which will be returned.
+
+Accepted answer from another topic should also help: Does Javascript pass by reference?
+
+---
+
+___
+
 ## 7.43 Utils
 
 ### 7.43.1 util.promisify(original)
@@ -2224,3 +2357,129 @@ Terminal output:
   syscall: 'getaddrinfo',
   hostname: 'https://www.google.bg'
   ```
+
+  ### 11.6. :x: NodeJS express 
+
+  Returns error:
+  ```js
+      at GetAddrInfoReqWrap.onlookup [as oncomplete] (dns.js:66:26)
+Emitted 'error' event on Server instance at:
+    at GetAddrInfoReqWrap.doListen [as callback] (net.js:1495:12)
+    at GetAddrInfoReqWrap.onlookup [as oncomplete] (dns.js:66:17) {
+  errno: -3008,
+  code: 'ENOTFOUND',
+  syscall: 'getaddrinfo',
+  hostname: 'Listening on port 3000'
+  ```
+
+Solution:
+
+:x: index.js
+```js
+app.listen(port, `Listening on port ${port}`)
+```
+
+fix to:
+```js
+app.listen(port,() => { `Listening on port ${port}`})
+```
+  ### 11.7. :x: NodeJS express Error: No default engine was specified and no extension was provided.
+
+```js
+let express = require('express')
+// let pubSub = require('pubSub')
+
+let app = express();
+const port = 3000;
+
+app.get('/', function(req, res){
+    res.render('./views/index')
+})
+
+app.listen(port,() => { `Listening on port ${port}`})
+
+
+```
+
+  ### 11.8. :x: Exoress Cannot Get /
+
+In the browser console:
+```
+GET http://localhost:3000/ 404 (Not Found)
+```
+
+:x: index. :
+
+  ```js
+  let express = require('express')
+let app = express();
+const router = express.Router();
+let mustache = require('mustache')
+let path = require('path')
+// let pubSub = require('pubSub')
+
+
+const port = 3000;
+
+router.get('/', function(req, res){
+    // res.sendFile(path.join(__dirname + '/views/index.html'))
+    res.send('All OK!')
+})
+
+app.listen(port,() => { `Listening on port ${port}`})
+
+
+```
+
+:information_soure: Temprory fix: don't use router.gey() instead use app.get():
+```js
+app.get(...)
+
+```
+
+### 11.9. :x: failed to create express app with express-generator
+
+:x:
+> express --view=ejs myapp 
+
+```js
+express : The term 'express' is not recognized as the name of a cmdlet, function, script file, or operable program. Check the
+ spelling of the name, or if a path was included, verify that the path is correct and try again.
+At line:1 char:1
++ express --view=ejs myapp
++ ~~~~~~~
+```
+
+### 11.10. :x: Error: Cannot find module 'express'
+
+//index.js
+```js
+let dependencies = require('./dependencies')
+```
+
+//dependencies.js
+```js
+let module = require('./dependencies/intro/)
+
+```
+
+//dependencies/intro/app.js
+```js
+let express = require('express')
+
+// ... some code
+```
+#### Solution found on hypothesis 2:
+
+#### Hypothesis 2: Conflict appears because the project name is called Express same as the named library.
+- rename the project folder
+>npm uninstall express
+>npm express --v
+Output:
+> 6.14.5
+
+>yarn remove express
+>yarn add express
+
+:information_source: The project name should never be named the same as a dependancy that might be used in the app
+
