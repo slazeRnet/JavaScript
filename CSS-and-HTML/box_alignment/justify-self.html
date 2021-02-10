@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="wrapper">
+        <div  class="nested" style="width:120px" ><p>Lorem ipsum contetn Lorem ipsum contetn</p></div>
+        <div  class="nested" style="width:90px" ><p>Lorem ipsum contetn</p></div>
+        <div  class="nested" style="width: 180px" ><p>Lorem ipsum contetn Lorem ipsum contetn Lorem ipsum contetn Lorem ipsum contetn</p></div>
+        <div  class="nested" style="width: 60px" ><p>Lorem ipsum contetn</p></div>
+        <div  class="nested" style="width: 120px" ><p>Lorem ipsum content</p></div>
+        <div  class="nested" style="width: 120px" ><p>Lorem ipsum contetn Lorem ipsum contetn Lorem ipsum contetn Lorem ipsum contetn Lorem ipsum contetn Lorem ipsum contetn</p></div>
+    </div>
+</body>
+<style>
+body {
+    background-color: #77c28d;
+}
+
+p{
+    font-family: 'Halvetica';
+    font-size: 16px;
+    color: #632a00;
+}
+
+div.wrapper{
+    display:grid;
+    position: absolute;
+    width: 75%;
+    height: auto;
+    left: 15%;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 2rem;
+    justify-items: stretch;
+}
+
+div.nested{
+    min-height:  200px;
+    min-width: 100px;
+    border: 2px solid #632a00;
+    outline: 3px solid #632a00;
+    outline-offset: 3px;
+    background-color: #ee9528;
+}
+
+div.nested > p {
+    padding: 1rem;
+}
+</style>
+</html>

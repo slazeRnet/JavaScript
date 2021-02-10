@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p style="color: #E97865"><i>The paragraph text is not selectable</i></p>
+    <div class="box1 praent">
+        <div class="padding-div">
+            <h2 class="text-main">
+                This is text in parent element
+            </h2>
+        </div>
+        <div class="box12 nested1">
+            <div class="padding-div">
+                <p class="text-child">
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. 
+                    Ratione, quidem fugiat? A doloremque nihil quaerat deserunt praesentium 
+                    commodi corrupti temporibus pariatur explicabo? Repudiandae sint dolorem 
+                    libero laudantium esse quasi tempore!
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+<style>
+    body{
+        background-color: #F7F1E1;
+        font-size: 16px;
+        font-family: 'Geneva';
+    }
+
+    h2.text-main{
+        color: #8D9240;
+        font-weight: 700;
+        letter-spacing: 0.15em;
+        text-align: center;
+    }
+    div.box1 {
+        min-width: 300px;
+        width: 300px;
+        height: 400px;
+        background-color: #EDD1D6;
+        margin: 2em;
+
+    }
+
+
+    .box12 {
+        min-width: 300px;
+        width: 300px;
+        height: max-height - 100px;
+        background-color:  #E97865;
+        user-select: none;
+    }
+
+    div.box12 > div>  p {
+        color: #fff;
+    }
+
+    div.padding-div{
+        padding: 2em;
+        padding-top: 1em;
+
+    }
+</style>
+</html>

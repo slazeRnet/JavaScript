@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="box1">
+        <p>THIS IS SAMPLE TEXT</p>
+    </div>
+    <p><i>The first border is the outline the space between is defined by the property outline-offset. The secound border is the border itself</i></p>
+    
+</body>
+<style>
+    body{
+        background: rgb(54, 32, 14);
+        font-size: 16px;
+    }
+
+    div.box1 {
+        width: 130px;
+        height:50px;
+        border-style: solid;
+        border-width: 0.2rem;
+        border-color: rgb(165, 136, 42);
+        /* Outline rules in this section */
+        outline-style: solid;
+        outline-width: 0.2rem;
+        outline-color: rgb(134, 88, 36);
+        outline-offset: 0.2em;
+        /* end of outline rules */
+        padding-top: 1em;
+        padding-bottom: 2em;
+        padding-left: 2em;
+        padding-right: 2em;
+    }
+
+    .box2 {
+        width: 130px;
+        height: 80px;
+        overflow: auto;  /* THis is necessery in order for the resize property to take effect */
+        border: 2px solid rgb(134, 88, 36);
+        resize: both;
+    }
+    p{
+        font-family: 'Courier New';
+        color: white;
+        font-weight: 600;
+        text-align: center;
+        letter-spacing:0.2em;
+    }
+</style>
+</html>
